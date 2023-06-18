@@ -47,13 +47,14 @@ const Dashboard = () => {
         gap="20px"
       >
         {/* ROW 1 */}
+        {/* Emails Sent */}
         <Box
           gridColumn="span 3"
           backgroundColor={colors.primary[400]}
           display="flex"
           alignItems="center"
           justifyContent="center"
-        >
+         >
           <StatBox
             title="12,361"
             subtitle="Emails Sent"
@@ -66,6 +67,7 @@ const Dashboard = () => {
             }
           />
         </Box>
+        {/* Sales Obtained */}
         <Box
           gridColumn="span 3"
           backgroundColor={colors.primary[400]}
@@ -85,6 +87,7 @@ const Dashboard = () => {
             }
           />
         </Box>
+        {/* New Clients */}
         <Box
           gridColumn="span 3"
           backgroundColor={colors.primary[400]}
@@ -104,6 +107,7 @@ const Dashboard = () => {
             }
           />
         </Box>
+        {/* Traffic Received */}
         <Box
           gridColumn="span 3"
           backgroundColor={colors.primary[400]}
@@ -125,8 +129,29 @@ const Dashboard = () => {
         </Box>
 
         {/* ROW 2 */}
+
+        {/* Geography based traffic */}
         <Box
-          gridColumn="span 8"
+          gridColumn="span 7"
+          gridRow="span 2"
+          backgroundColor={colors.primary[400]}
+          padding="30px"
+        >
+          <Typography
+            variant="h5"
+            fontWeight="600"
+            sx={{ marginBottom: "15px" }}
+          >
+            Geography Based Traffic
+          </Typography>
+          <Box height="200px">
+            <GeographyChart isDashboard={true} />
+          </Box>
+        </Box>
+
+        {/* Revenue Generated */}
+        <Box
+          gridColumn="span 5"
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
         >
@@ -165,12 +190,14 @@ const Dashboard = () => {
             <LineChart isDashboard={true} />
           </Box>
         </Box>
+
+        {/* Recent Transactions */}
         <Box
           gridColumn="span 4"
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
           overflow="auto"
-        >
+         >
           <Box
             display="flex"
             justifyContent="space-between"
@@ -217,6 +244,7 @@ const Dashboard = () => {
         </Box>
 
         {/* ROW 3 */}
+        {/* Campaign */}
         <Box
           gridColumn="span 4"
           gridRow="span 2"
@@ -243,11 +271,13 @@ const Dashboard = () => {
             <Typography>Includes extra misc expenditures and costs</Typography>
           </Box>
         </Box>
+
+        {/* Sales Quantity */}
         <Box
           gridColumn="span 4"
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
-        >
+         >
           <Typography
             variant="h5"
             fontWeight="600"
@@ -259,23 +289,8 @@ const Dashboard = () => {
             <BarChart isDashboard={true} />
           </Box>
         </Box>
-        <Box
-          gridColumn="span 4"
-          gridRow="span 2"
-          backgroundColor={colors.primary[400]}
-          padding="30px"
-        >
-          <Typography
-            variant="h5"
-            fontWeight="600"
-            sx={{ marginBottom: "15px" }}
-          >
-            Geography Based Traffic
-          </Typography>
-          <Box height="200px">
-            <GeographyChart isDashboard={true} />
-          </Box>
-        </Box>
+
+        
       </Box>
     </Box>
   );
