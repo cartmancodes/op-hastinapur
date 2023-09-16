@@ -128,26 +128,24 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
 # dependencies
-/node_modules
-/.pnp
-.pnp.js
+/client2/nueralcity/node_modules
+/client2/nueralcity/.pnp
+/client2/nueralcity/.pnp.js
 
 # testing
-/coverage
+/client2/nueralcity/coverage
 
 # production
-/build
+/client2/nueralcity/build
 
 # misc
-.DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+/client2/nueralcity/.DS_Store
+/client2/nueralcity/.env.local
+/client2/nueralcity/.env.development.local
+/client2/nueralcity/.env.test.local
+/client2/nueralcity/.env.production.local
 
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+/client2/nueralcity/npm-debug.log*
+/client2/nueralcity/yarn-debug.log*
+/client2/nueralcity/yarn-error.log*
