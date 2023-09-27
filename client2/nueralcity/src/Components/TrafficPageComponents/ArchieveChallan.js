@@ -8,9 +8,9 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import ArchievedChallanRow from './ArchievedChallanRow';
-import { DownloadTableExcel } from 'react-export-table-to-excel';
-import { useRef,useState } from 'react';
-import { Button,InputLabel,Select,FormControl,MenuItem } from '@mui/material';
+import { exportToExcel } from 'react-json-to-excel'
+import { useRef, useState } from 'react';
+import { Button, InputLabel, Select, FormControl, MenuItem } from '@mui/material';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 
 const columns = [
@@ -66,9 +66,13 @@ export default function UnverifiedChallans() {
         setRowsPerPage(+event.target.value);
         setPage(0);
     };
-    const [type,setType] = useState("any");
-    const [speedViolation,setSpeedViolation] = useState("any");
-    const [rlv,setRlv] = useState("any")
+
+    const handleDownloadButtonClick = () => {
+        exportToExcel(mockData, 'Challans');
+    }
+    const [type, setType] = useState("any");
+    const [speedViolation, setSpeedViolation] = useState("any");
+    const [rlv, setRlv] = useState("any")
     const tableRef = useRef(null);
     return (
         <div>
@@ -115,19 +119,19 @@ export default function UnverifiedChallans() {
                         </Select>
                     </FormControl>
                 </div>
-                <DownloadTableExcel
-                    filename="Challan Table"
-                    sheet="challans"
-                    currentTableRef={tableRef.current}
-                >
-                    <Button variant='outlined'>
-                        <FileDownloadIcon />
-                    </Button>
-                </DownloadTableExcel>
+
+                <Button variant='outlined' onClick={
+                    handleDownloadButtonClick
+                }>
+                    <FileDownloadIcon />
+
+                </Button>
+                
+
             </div>
             <Paper className='mt-5' sx={{ width: '100%', overflow: 'hidden' }}>
                 <TableContainer sx={{ maxHeight: 600 }}>
-                    <Table stickyHeader aria-label="sticky table" ref={tableRef}>
+                    <table className='w-full' ref={tableRef}>
                         <TableHead>
                             <TableRow>
                                 {columns.map((column) => (
@@ -153,7 +157,7 @@ export default function UnverifiedChallans() {
                                 })
                             }
                         </TableBody>
-                    </Table>
+                    </table>
                 </TableContainer>
                 <TablePagination
                     rowsPerPageOptions={[10, 25, 100]}
