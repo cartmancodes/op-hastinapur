@@ -5,5 +5,11 @@ module.exports = {
     extend: {},
   },
   plugins: [],
+  safelist:[
+    {
+      pattern: /bg-./,
+      variants: ['hover']
+    },
+  ]
 }
 

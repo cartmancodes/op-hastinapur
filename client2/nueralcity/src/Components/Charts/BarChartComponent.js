@@ -16,14 +16,6 @@ function BarChartComponent(props) {
       domainPadding={12}
       width={props.width}
       height={400}
-      containerComponent={
-        <VictoryZoomContainer
-          allowPan={true}
-          allowZoom={true}
-          zoomDimension='x'
-          minimumZoom={{x: 1, y: 0.01}}
-        />
-      }
     >
       <VictoryBar
       barRatio={2.4}

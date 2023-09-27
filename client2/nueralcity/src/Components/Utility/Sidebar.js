@@ -7,13 +7,14 @@ import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import { Link } from 'react-router-dom';
 import SidebarOption from './SidebarOption';
+import { Traffic } from '@mui/icons-material';
 function Sidebar() {
     const [sidebarHidden, setSideBarHidden] = useState((Boolean)(false));
     console.log(sidebarHidden);
     return (
-        sidebarHidden === true ? <div className='p-2  bg-gray-100 rounded-lg h-[100vh]'>
+        sidebarHidden === true ? <div className='sticky top-0 left-0 p-2 w-[full]  bg-gray-100 rounded-lg h-[100vh]'>
             <div className='flex justify-between items-center'>
-                <h1 className='text-3xl font-bold text-gray-800'>Dashboard</h1>
+                <Link to='/'><h1 className='text-3xl font-bold font-[Bowlby One SC] text-gray-800'>Dashboard</h1></Link>
                 <IconButton onClick={() => setSideBarHidden(!sidebarHidden)}>
                     <KeyboardDoubleArrowLeftIcon color='primary' />
                 </IconButton>
@@ -31,39 +32,55 @@ function Sidebar() {
                 </div>
             </div>
             <div className='space-y-2 mt-4'>
-                <SidebarOption name="Sustainability Index" icon="Home"
+                <SidebarOption name="Home " icon="Home"
+                    link={"/monitering"}
+                    optionList={[]}
+                />
+                <SidebarOption name="Sustainability Index"
+                    icon="Apartment"
                     optionList=
                     {["Potholes", "Garbage", "Traffic Congestion", "Air Quality", "Road Qulity",
-                        "Public Toilet", "Open Spaces"]} />
-                <SidebarOption name="Tourist Index" icon="Apartment" optionList={["Quality"]}/>
-                <SidebarOption name="Treval Index" icon="Car" optionList={["Quality"]}/>
+                        "Public Toilet", "Open Spaces"]} link={"monitering/sustainability"} />
+                <SidebarOption name="Tourism Index"
+                    icon="Car"
+                    optionList={["Quality"]}
+                    link={"monitering/tourism"} />
+                <SidebarOption name="Traffic Management"
+                    icon="Traffic"
+                    optionList={["Quality"]}
+                    link={"monitering/traffic"} />
             </div>
         </div> :
-        <div className='p-2 bg-gray-100 rounded-lg h-[100vh] space-y-10'>
-            <div>
-                <IconButton onClick={() => setSideBarHidden(!sidebarHidden)}>
-                    <KeyboardDoubleArrowLeftIcon color='primary' />
-                </IconButton>
+            <div className='p-2 w-[full] bg-gray-100 rounded-lg h-[100vh] space-y-10 sticky top-0 left-0'>
+                <div>
+                    <IconButton onClick={() => setSideBarHidden(!sidebarHidden)}>
+                        <KeyboardDoubleArrowLeftIcon color='primary' />
+                    </IconButton>
+                </div>
+                <Link to="/monitering">
+                    <IconButton color='primary'>
+                        <HomeIcon />
+                    </IconButton>
+                </Link>
+                <br />
+                <Link to="/monitering/sustainability">
+                    <IconButton color='primary'>
+                        <ApartmentIcon />
+                    </IconButton>
+                </Link>
+                <br />
+                <Link to="/monitering/tourism">
+                    <IconButton color='primary'>
+                        <DirectionsCarIcon />
+                    </IconButton>
+                </Link>
+                <br/>
+                <Link to="/monitering/traffic">
+                    <IconButton color='primary'>
+                        <Traffic/>
+                    </IconButton>
+                </Link>
             </div>
-            <Link>
-                <IconButton color='primary'>
-                    <HomeIcon />
-                </IconButton>
-            </Link>
-            <br />
-            <Link>
-                <IconButton color = 'primary'>
-                    <ApartmentIcon />
-                </IconButton>
-            </Link>
-            <br />
-            <Link>
-                <IconButton color = 'primary'>
-                    <DirectionsCarIcon />
-                </IconButton>
-            </Link>
-
-        </div>
     )
 }
 
