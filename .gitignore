@@ -127,3 +127,25 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# dependencies
+/client2/nueralcity/node_modules
+/client2/nueralcity/.pnp
+/client2/nueralcity/.pnp.js
+
+# testing
+/client2/nueralcity/coverage
+
+# production
+/client2/nueralcity/build
+
+# misc
+/client2/nueralcity/.DS_Store
+/client2/nueralcity/.env.local
+/client2/nueralcity/.env.development.local
+/client2/nueralcity/.env.test.local
+/client2/nueralcity/.env.production.local
+
+/client2/nueralcity/npm-debug.log*
+/client2/nueralcity/yarn-debug.log*
+/client2/nueralcity/yarn-error.log*
