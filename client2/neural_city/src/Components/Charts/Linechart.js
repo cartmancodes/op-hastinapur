@@ -12,17 +12,17 @@ function Linechart() {
         dat2.push({ x: xAxis[i], y: nationalData[i] });
     }
     return (
-        <div className='shadow-md rounded-lg h-[350px] w-[50vw]'>
+        <div className='shadow-md rounded-lg h-[350px] w-[40vw]'>
             <div className='flex items-center justify-between pt-4 pl-2'>
-                <p className='text-xl font-semibold'>Lucknow Vs National Score</p>
+                <p className='text-xl font-semibold'>Jhansi Vs National Score</p>
                 <div className='flex items-center justify-between space-x-2 p-2'>
-                    <div className='bg-purple-800 w-4 h-4'></div><span>Lucknow</span>
+                    <div className='bg-purple-800 w-4 h-4'></div><span>Jhansi</span>
                     <div className='bg-black w-4 h-4'></div><span>National</span>
                 </div>
             </div>
             <VictoryChart
-             className='my-2'
-             height={200} width={500}>
+             width={500}
+             height={200}>
                 <VictoryLine
                     name='lko'
                     animate={{

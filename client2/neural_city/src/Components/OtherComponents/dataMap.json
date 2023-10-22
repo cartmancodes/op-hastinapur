@@ -1,0 +1,23 @@
+{ "type": "Feature", "properties": { "id": "1", "Road Name": "", "Score": "", "Income": "" }, "geometry": null }
+{ "type": "Feature", "properties": { "id": "1", "Road Name": "Sayar gate", "Score": "2", "Income": "1" }, "geometry": null }
+{ "type": "Feature", "properties": { "id": "1", "Road Name": "rani mahal", "Score": "3", "Income": "2" }, "geometry": null }
+{ "type": "Feature", "properties": { "id": "1", "Road Name": "Subhash Ganj- Khoa Mandi", "Score": "3", "Income": "2" }, "geometry": null }
+{ "type": "Feature", "properties": { "id": "1", "Road Name": "Medical College", "Score": "3", "Income": "2" }, "geometry": null }
+{ "type": "Feature", "properties": { "id": "1", "Road Name": "Buss Stand", "Score": "3", "Income": "1" }, "geometry": null }
+{ "type": "Feature", "properties": { "id": "1", "Road Name": "Buss stand to Mandi Road", "Score": "2", "Income": "1" }, "geometry": null }
+{ "type": "Feature", "properties": { "id": "1", "Road Name": "Kotawali Manik Chawk", "Score": "2", "Income": "2" }, "geometry": null }
+{ "type": "Feature", "properties": { "id": "1", "Road Name": "Mobile market kotwali", "Score": "3", "Income": "2" }, "geometry": null }
+{ "type": "Feature", "properties": { "id": "1", "Road Name": "Bada Bazar", "Score": "3", "Income": "1" }, "geometry": null }
+{ "type": "Feature", "properties": { "id": "1", "Road Name": "manisk Chawk Khatriayana", "Score": "2", "Income": "2" }, "geometry": null }
+{ "type": "Feature", "properties": { "id": "1", "Road Name": "hadfc bank elite", "Score": "2", "Income": "3" }, "geometry": null }
+{ "type": "Feature", "properties": { "id": "1", "Road Name": "Vandana", "Score": "2", "Income": "3" }, "geometry": null }
+{ "type": "Feature", "properties": { "id": "1", "Road Name": "Yatrik", "Score": "2", "Income": "3" }, "geometry": null }
+{ "type": "Feature", "properties": { "id": "1", "Road Name": "Jail Chauraha", "Score": "2", "Income": "1" }, "geometry": null }
+{ "type": "Feature", "properties": { "id": "1", "Road Name": "Jail chauraha- Opp", "Score": "2", "Income": "1" }, "geometry": null }
+{ "type": "Feature", "properties": { "id": "1", "Road Name": "jail-kacheri chauraha", "Score": "2", "Income": "3" }, "geometry": null }
+{ "type": "Feature", "properties": { "id": "1", "Road Name": "Jhokan bagh", "Score": "2", "Income": "3" }, "geometry": null }
+{ "type": "Feature", "properties": { "id": "1", "Road Name": "Govind Chauraha- Jhokan Bagh", "Score": "2", "Income": "3" }, "geometry": null }
+{ "type": "Feature", "properties": { "id": "1", "Road Name": "Govind - Elite", "Score": "2", "Income": "2" }, "geometry": null }
+{ "type": "Feature", "properties": { "id": "1", "Road Name": "Elite Jeevan Shah", "Score": "3", "Income": "1" }, "geometry": null }
+{ "type": "Feature", "properties": { "id": "1", "Road Name": "Jeevan-RLB", "Score": "2", "Income": "1" }, "geometry": null }
+{ "type": "Feature", "properties": { "id": "", "Road Name": "", "Score": "", "Income": "" }, "geometry": null }

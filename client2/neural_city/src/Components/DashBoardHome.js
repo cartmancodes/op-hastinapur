@@ -15,6 +15,8 @@ import MapComponent from './MapComponents/MapComponent';
 import YojanaTable from './OtherComponents/YojanaTable';
 import BarChartComponent from './Charts/BarChartComponent';
 import { useState } from 'react';
+import AirQualityIndex from './OtherComponents/AirQualityIndex';
+import AQIChart from './Charts/AQIChart';
 
 function DashBoardHome() {
     const [rangeDate, setRangeDate] = useState([
@@ -37,7 +39,7 @@ function DashBoardHome() {
         <div className='space-y-4'>
             <div className='flex justify-between items-center'>
                 <div className='flex-start'>
-                    <h1 className='text-4xl font-bold text-gray-800'>Lucknow</h1>
+                    <h1 className='text-4xl font-bold text-gray-800'>Jhansi</h1>
                     <p className='text-gray-500 text-xl'>Dashboard <KeyboardArrowRightIcon color='primary' /> </p>
                 </div>
                 <div className='flex-end'>
@@ -70,10 +72,12 @@ function DashBoardHome() {
                     ]
                 }
             />
-            <div className='flex items-center justify-between'>
+            <div className='flex items-center space-x-2 justify-between'>
                 <Linechart />
-                <div className='space-y-4'>
-                    <Alert severity="error" className='rounded-lg p-2 w-[20vw] border-1 border-gray-800'>
+                <div className='p-2 shadow-md rounded-lg h-[350px]'>
+                    <h1 className='text-xl font-bold'>Air Quality Index Tehsil Wise</h1>
+                    <AQIChart/>
+                    {/* <Alert severity="error" className='rounded-lg p-2 w-[20vw] border-1 border-gray-800'>
                         <AlertTitle><h1>Critical Alert</h1></AlertTitle>
                         <p>Eg: Dangerous Pitholes,Open Drain or manholes,Big Garbage Dump.
                             Location,Date</p>
@@ -87,7 +91,7 @@ function DashBoardHome() {
                             Location,Date.
                         </p>
                         <u>Learn More</u>
-                    </Alert>
+                    </Alert> */}
                 </div>
             </div>
             <MapComponent />
@@ -107,6 +111,7 @@ function DashBoardHome() {
                 <h1 className='text-4xl'>Progress of Intiatives</h1>
                 <YojanaTable />
             </div>
+            <AirQualityIndex/>
         </div>
     )
 }
