@@ -1,7 +1,7 @@
 import React from 'react'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
+// import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
 import { SingleInputDateRangeField } from '@mui/x-date-pickers-pro/SingleInputDateRangeField';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import dayjs from 'dayjs';
@@ -15,6 +15,10 @@ import MapComponent from './MapComponents/MapComponent';
 import YojanaTable from './OtherComponents/YojanaTable';
 import BarChartComponent from './Charts/BarChartComponent';
 import { useState } from 'react';
+
+import 'react-dates/initialize'; // This is required to initialize the library
+import { DateRangePicker } from 'react-dates';
+import 'react-dates/lib/css/_datepicker.css'; 
 
 function DashBoardHome() {
     const [rangeDate, setRangeDate] = useState([
@@ -33,6 +37,17 @@ function DashBoardHome() {
     const [nationalScore,setNationalScore] = useState(8);
     const [sustainabilityScore,setSustainabilityScore] = useState(8);
     const [touristScore,setTouristScore] = useState(8);
+
+    const [dateRange, setDateRange] = useState({
+        startDate: null,
+        endDate: null,
+      });
+      const [focusedInput, setFocusedInput] = useState(null);
+    
+      const handleDateChange = ({ startDate, endDate }) => {
+        setDateRange({ startDate, endDate });
+      };
+
     return (
         <div className='space-y-4'>
             <div className='flex justify-between items-center'>
@@ -41,22 +56,15 @@ function DashBoardHome() {
                     <p className='text-gray-500 text-xl'>Dashboard <KeyboardArrowRightIcon color='primary' /> </p>
                 </div>
                 <div className='flex-end'>
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DemoContainer components={['SingleInputDateRangeField']}>
-                            <DateRangePicker
-                                slotProps={{
-                                    textField: {
-                                        InputProps: { endAdornment: <CalendarTodayIcon /> },
-                                    },
-                                }}
-                                format='MMM DD YYYY'
-                                autoComplete='off'
-                                value={rangeDate}
-                                onChange={(newValue) => setRangeDate(newValue)}
-                                slots={{ field: SingleInputDateRangeField }}
-                            />
-                        </DemoContainer>
-                    </LocalizationProvider>
+                <DateRangePicker
+                    startDate={dateRange.startDate}
+                    startDateId="your_unique_start_date_id"
+                    endDate={dateRange.endDate}
+                    endDateId="your_unique_end_date_id"
+                    onDatesChange={handleDateChange}
+                    focusedInput={focusedInput}
+                    onFocusChange={focusedInput => setFocusedInput(focusedInput)}
+                />
                 </div>
             </div>
             <Scores
