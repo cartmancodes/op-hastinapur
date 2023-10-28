@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -17,8 +17,15 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { PanoramaRounded } from '@mui/icons-material';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { exportToExcel } from 'react-json-to-excel';
+import Loader from 'react-js-loader'
+import axios from 'axios'
+
 
 export default function MapTable() {
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
+    const [data, setData] = useState([]);
+
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -29,10 +36,25 @@ export default function MapTable() {
     const [city, setCity] = useState("Jhansi");
     const [ward, setWard] = useState("Ward-1");
     const [parameter, setParameter] = useState("Potholes");
-    
-    
 
-    let filteredOutput = geojson;
+    useEffect(() => {
+        async function fetchData() {
+            let res = await axios.get("http://localhost:5000/potholes/");
+            if (res) {
+                console.log("Data Fetched ");
+                console.log(res);
+                if (res.status === 200) {
+                    setData(res.data.data);
+                } else if (res.status === 400) {
+                    console.log("Error");
+                    setError("Data Not Found")
+                }
+                setLoading(false);
+            }
+        }
+        fetchData();
+    }, [])
+    let filteredOutput = data;
     if (sortScore == "asc") {
         filteredOutput = filteredOutput.sort((a, b) => a.score - b.score);
     } else if (sortScore == "desc") {
@@ -123,85 +145,88 @@ export default function MapTable() {
                     </Button>
                 </div>
             </div>
-            <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+            {loading ?<Loader type="spinner-default" bgColor={"red"} color={"black"} title={""} size={100} /> :
+                error ? <div className='bg-red-200 rounded-lg w-full'>{error}</div> :
+                    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
 
-                <TableContainer sx={{ maxHeight: 600 }}>
-                    <Table stickyHeader aria-label="sticky table">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell sx={{ fontWeight: 'bold' }}>S.No.</TableCell>
-                                <TableCell sx={{ fontWeight: 'bold' }}>Locality</TableCell>
-                                <TableCell sx={{ fontWeight: 'bold' }}>
-                                    <div className='flex items-center'>
-                                        <p>Score</p>
-                                        <div className='p-0 rounded-xl hover:bg-gray-100' onClick={() => {
-                                            setSortScore("asc");
-                                            setSortDate("none");
-                                        }}>
-                                            <ArrowUpwardIcon />
-                                        </div>
-                                        <div onClick={() => {
-                                            setSortScore("desc");
-                                            setSortDate("none");
-                                        }} className='p-0 rounded-xl hover:bg-gray-100'>
-                                            <ArrowDownwardIcon />
-                                        </div>
-                                    </div>
-                                </TableCell>
-                                <TableCell sx={{ fontWeight: 'bold' }}>
-                                    <div className='flex items-center'>
-                                        <p>Date</p>
-                                        <div className='p-0 hover:bg-gray-100 rounded-xl' onClick={() => {
-                                            setSortDate("asc");
-                                            setSortScore("none");
-                                        }}>
-                                            <ArrowUpwardIcon />
-                                        </div>
+                        <TableContainer sx={{ maxHeight: 600 }}>
+                            <Table stickyHeader aria-label="sticky table">
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell sx={{ fontWeight: 'bold' }}>S.No.</TableCell>
+                                        <TableCell sx={{ fontWeight: 'bold' }}>Locality</TableCell>
+                                        <TableCell sx={{ fontWeight: 'bold' }}>
+                                            <div className='flex items-center'>
+                                                <p>Score</p>
+                                                <div className='p-0 rounded-xl hover:bg-gray-100' onClick={() => {
+                                                    setSortScore("asc");
+                                                    setSortDate("none");
+                                                }}>
+                                                    <ArrowUpwardIcon />
+                                                </div>
+                                                <div onClick={() => {
+                                                    setSortScore("desc");
+                                                    setSortDate("none");
+                                                }} className='p-0 rounded-xl hover:bg-gray-100'>
+                                                    <ArrowDownwardIcon />
+                                                </div>
+                                            </div>
+                                        </TableCell>
+                                        <TableCell sx={{ fontWeight: 'bold' }}>
+                                            <div className='flex items-center'>
+                                                <p>Date</p>
+                                                <div className='p-0 hover:bg-gray-100 rounded-xl' onClick={() => {
+                                                    setSortDate("asc");
+                                                    setSortScore("none");
+                                                }}>
+                                                    <ArrowUpwardIcon />
+                                                </div>
 
-                                        <div onClick={() => {
-                                            setSortDate("desc");
-                                            setSortScore("none");
-                                        }} className='hover:bg-gray-100 p-0 rounded-xl'>
-                                            <ArrowDownwardIcon />
-                                        </div>
-                                    </div>
-                                </TableCell>
-                                <TableCell sx={{ fontWeight: 'bold' }}>Picture</TableCell>
-                                <TableCell sx={{ fontWeight: 'bold' }} className='flex items-center space-x-2'>
-                                    Status
-                                    <Select value={status}
-                                        onChange={(e) => setStatus(e.target.value)}
-                                        size='small'
-                                        label='Status'>
-                                        <MenuItem value={`any`}>Any</MenuItem>
-                                        <MenuItem value={`pending`}>Pending</MenuItem>
-                                        <MenuItem value={`completed`}>Completed</MenuItem>
-                                    </Select>
-                                </TableCell>
-                                <TableCell sx={{ fontWeight: 'bold' }}>Inform Authority</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {filteredOutput
-                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                .map((row, idx) => {
-                                    return (
-                                        <DataGridRow row={row} idx={idx} />
-                                    );
-                                })}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-                <TablePagination
-                    rowsPerPageOptions={[10, 25, 100]}
-                    component="div"
-                    count={geojson.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onPageChange={handleChangePage}
-                    onRowsPerPageChange={handleChangeRowsPerPage}
-                />
-            </Paper>
+                                                <div onClick={() => {
+                                                    setSortDate("desc");
+                                                    setSortScore("none");
+                                                }} className='hover:bg-gray-100 p-0 rounded-xl'>
+                                                    <ArrowDownwardIcon />
+                                                </div>
+                                            </div>
+                                        </TableCell>
+                                        <TableCell sx={{ fontWeight: 'bold' }}>Picture</TableCell>
+                                        <TableCell sx={{ fontWeight: 'bold' }} className='flex items-center space-x-2'>
+                                            Status
+                                            <Select value={status}
+                                                onChange={(e) => setStatus(e.target.value)}
+                                                size='small'
+                                                label='Status'>
+                                                <MenuItem value={`any`}>Any</MenuItem>
+                                                <MenuItem value={`pending`}>Pending</MenuItem>
+                                                <MenuItem value={`completed`}>Completed</MenuItem>
+                                            </Select>
+                                        </TableCell>
+                                        <TableCell sx={{ fontWeight: 'bold' }}>Inform Authority</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {filteredOutput
+                                        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                        .map((row, idx) => {
+                                            return (
+                                                <DataGridRow row={row} idx={idx} />
+                                            );
+                                        })}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                        <TablePagination
+                            rowsPerPageOptions={[10, 25, 100]}
+                            component="div"
+                            count={geojson.length}
+                            rowsPerPage={rowsPerPage}
+                            page={page}
+                            onPageChange={handleChangePage}
+                            onRowsPerPageChange={handleChangeRowsPerPage}
+                        />
+                    </Paper>
+            }
         </div>
     );
 }

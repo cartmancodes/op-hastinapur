@@ -1,9 +1,11 @@
 from asyncio.log import logger
+from typing import List
 import uvicorn
 import logging
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
+from app.services.potholesServices import get_all_potholes,write_bulk_potholes,write_one_pothole
+from app.model.potholesModel import PotholesImages
 # Import services and DB connections here 
 from app.db.connections import db
 
@@ -22,7 +24,7 @@ async def shut_down():
 """Enable CORS"""
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5000"],
+    allow_origins=["http://localhost:5000","http://localhost:3000"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -30,7 +32,28 @@ app.add_middleware(
 """Root Page"""
 @app.get("/")
 def home():
-    return "Home Page"
+    return "Hey! Welcome to Home Page"
+
+@app.get("/potholes/")
+async def getPotholes():
+    data = await get_all_potholes()
+    return {
+        "data" : data
+    }
+
+@app.post("/potholes/bulk")
+async def bulk_write_potholes(data:List[PotholesImages]):
+    await write_bulk_potholes(data)
+    return {
+        "message" : "Data Written SuccessFully"
+    }
+
+@app.post("/potholes/")
+async def insert_potholes_data(data:PotholesImages):
+    await write_one_pothole(data)
+    return {
+        "message" : "Data Inserted SuccessFully"
+    }
 
 """Main method call"""
 if __name__ == "__main__":

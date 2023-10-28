@@ -48,13 +48,13 @@ function DataGridRow(props) {
                 <TableCell>{props.idx + 1}</TableCell>
                 <TableCell>{`Elite Chauraha`}</TableCell>
                 <TableCell>{row.score.toFixed(2)}</TableCell>
-                <TableCell>{Date.now().toString()}</TableCell>
+                <TableCell>{row.date.substring(0,row.date.indexOf('T'))}</TableCell>
                 <TableCell>
                     <IconButton onClick={() => setOpenVideoModal(true)}>
                         <RemoveRedEyeIcon />
                     </IconButton>
                 </TableCell>
-                <TableCell>{`Pending`}</TableCell>
+                <TableCell>{row.action_status}</TableCell>
                 <TableCell>
                     <Button variant='contained' onClick={() => setOpenFormModal(true)}>Inform Authority</Button>
                 </TableCell>
@@ -109,7 +109,7 @@ function DataGridRow(props) {
                         </IconButton>
                     </div>
 
-                    <ReactImageZoom zoomWidth={800} img={`/images/${row.filename}`} height={400} width={500} className='w-100 h-100 cursor-pointer' />
+                    <ReactImageZoom zoomWidth={800} img={`/images/${row.file_name}`} height={400} width={500} className='w-100 h-100 cursor-pointer' />
                 </Box>
             </Modal>
         </>

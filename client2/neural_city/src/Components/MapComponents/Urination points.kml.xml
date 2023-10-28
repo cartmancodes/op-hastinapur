@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>Urination points</name>
+    <Style id="icon-1899-9C27B0-labelson">
+      <IconStyle>
+        <color>ffb0279c</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
+      </IconStyle>
+    </Style>
+    <Placemark>
+      <name>T1 P1</name>
+      <description><![CDATA[<img src="https://doc-0c-0s-mymaps.googleusercontent.com/untrusted/hostedimage/ltbtr56dsv8l0lhgq4hd7gmrfk/s4mohsoqlt0mltvptkidk6i9h0/1697983475500/8AE0li_iM5vtQQwsLcDqdp-kpBjOzk1B/03630732761502837539/5AJ9UNGqTyKcwrvtQ5Q7Faz449vwYaZpEFJTZZ4p9fTnMpNGRRDSG_GDtBzZN5DjZllpvDjyqXtguJnHfz5td9bYQWLS7iwnjlhZfTgKFRT8W005ky4EEEBuWHGFbTEANv0vzZ6IlF8xMKIWx2zReKd3Bc_7hn5x2MJ8le5IrmtPx3w8D43S2cnkOd0MUC5uXJyhAnMUgZSIs9pFcYqo6ByHKJux7jh85HWPboipQZ4kXQ_nt5WM?session=0&fife" height="200" width="auto" /><br><br>]]></description>
+      <styleUrl>#icon-1899-9C27B0-labelson</styleUrl>
+      <ExtendedData>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-0c-0s-mymaps.googleusercontent.com/untrusted/hostedimage/ltbtr56dsv8l0lhgq4hd7gmrfk/s4mohsoqlt0mltvptkidk6i9h0/1697983475500/8AE0li_iM5vtQQwsLcDqdp-kpBjOzk1B/03630732761502837539/5AJ9UNGqTyKcwrvtQ5Q7Faz449vwYaZpEFJTZZ4p9fTnMpNGRRDSG_GDtBzZN5DjZllpvDjyqXtguJnHfz5td9bYQWLS7iwnjlhZfTgKFRT8W005ky4EEEBuWHGFbTEANv0vzZ6IlF8xMKIWx2zReKd3Bc_7hn5x2MJ8le5IrmtPx3w8D43S2cnkOd0MUC5uXJyhAnMUgZSIs9pFcYqo6ByHKJux7jh85HWPboipQZ4kXQ_nt5WM?session=0&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          78.5786283,25.4543344,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>T1 Point 2</name>
+      <description><![CDATA[<img src="https://doc-0s-0s-mymaps.googleusercontent.com/untrusted/hostedimage/ltbtr56dsv8l0lhgq4hd7gmrfk/f8k1at7ok6n3nbiepfuve79dko/1697983475500/8AE0li_iM5vtQQwsLcDqdp-kpBjOzk1B/03630732761502837539/5AJ9UNGqZOerSwx5mxyxm6TpMhxaIJip86cjqxa44Wt9Sj5V9NUdv8RQUfkU5u2Tdhh1Msnqp0YHsdGkb17JaO8p_3GrT6U31bPBYGXYOW6wMitTxPJeLJgzICC9K2sTGFKS9x2GsWGYyF6L1eG53Qy_FVhxUkpAQ8lZ2qt8yq3xEgFbAeBU2BYw78SYyA6cyWzCTFhbdKflIaMePs723Ti8keRzO8zzrCyTl_L4PzMO4MrWiUns?session=0&fife" height="200" width="auto" /><br><br>]]></description>
+      <styleUrl>#icon-1899-9C27B0-labelson</styleUrl>
+      <ExtendedData>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-0s-0s-mymaps.googleusercontent.com/untrusted/hostedimage/ltbtr56dsv8l0lhgq4hd7gmrfk/f8k1at7ok6n3nbiepfuve79dko/1697983475500/8AE0li_iM5vtQQwsLcDqdp-kpBjOzk1B/03630732761502837539/5AJ9UNGqZOerSwx5mxyxm6TpMhxaIJip86cjqxa44Wt9Sj5V9NUdv8RQUfkU5u2Tdhh1Msnqp0YHsdGkb17JaO8p_3GrT6U31bPBYGXYOW6wMitTxPJeLJgzICC9K2sTGFKS9x2GsWGYyF6L1eG53Qy_FVhxUkpAQ8lZ2qt8yq3xEgFbAeBU2BYw78SYyA6cyWzCTFhbdKflIaMePs723Ti8keRzO8zzrCyTl_L4PzMO4MrWiUns?session=0&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          78.5766296,25.4740888,0
+        </coordinates>
+      </Point>
+    </Placemark>
+  </Document>
+</kml>
