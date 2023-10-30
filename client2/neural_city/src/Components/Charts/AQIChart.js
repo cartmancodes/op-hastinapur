@@ -10,12 +10,14 @@ function AQIChart() {
         });
     })
     return (
-        <div className=''>
+        <div className='shadow-md rounded-lg sm:w-[40vw]'>
+            <div className='flex items-center justify-between pt-4 pl-2'>
+                <h1 className='md:text-xl text-sm md:font-bold'>Air Quality Index Tehsil Wise</h1>
+            </div>
             <VictoryChart
-                width={600}
-                height={300}
+                width={500}
+                height={200}
                 theme={VictoryTheme.material}
-                domainPadding={{ x: 15 }}
             >
                 <VictoryLine
                     style={{

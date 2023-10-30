@@ -12,22 +12,23 @@ function Linechart() {
         dat2.push({ x: xAxis[i], y: nationalData[i] });
     }
     return (
-        <div className='shadow-md rounded-lg h-[350px] w-[40vw]'>
+        <div className='shadow-md rounded-lg sm:w-[40vw]'>
             <div className='flex items-center justify-between pt-4 pl-2'>
-                <p className='text-xl font-semibold'>Jhansi Vs National Score</p>
-                <div className='flex items-center justify-between space-x-2 p-2'>
-                    <div className='bg-purple-800 w-4 h-4'></div><span>Jhansi</span>
-                    <div className='bg-black w-4 h-4'></div><span>National</span>
+                <p className='md:text-xl text-sm md:font-semibold'>Jhansi Vs National Score</p>
+                <div className='flex items-center justify-between space-x-2 mx-2'>
+                    <div className='bg-purple-800 w-[10px] h-[10px] text-sm'></div><span>Jhansi</span>
+                    <div className='bg-black w-[10px] h-[10px] text-sm'></div><span>National</span>
                 </div>
             </div>
             <VictoryChart
              width={500}
-             height={200}>
+             height={200}
+            >
                 <VictoryLine
                     name='lko'
                     animate={{
                         duration: 2000,
-                        onEnter: { duration: 1000,margin:"5px" }
+                        onEnter: { duration: 1000}
                     }}
                     style={{
                         data: { stroke: "purple" }
@@ -41,7 +42,7 @@ function Linechart() {
                         onEnter: { duration: 1000 }
                     }}
                     style={{
-                        data: { stroke: "black",margin:"5px"}
+                        data: { stroke: "black"}
                     }}
                     data={dat2}
                 />

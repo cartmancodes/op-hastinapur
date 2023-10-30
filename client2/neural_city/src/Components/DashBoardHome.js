@@ -31,13 +31,13 @@ function DashBoardHome() {
         "Traffic Congestion"];
     const cityParamsValue = [9, 5, 4, 3, 5, 6, 3];
 
-    const [overallScore,setOverAllScore] = useState(8);
-    const [nationalScore,setNationalScore] = useState(8);
-    const [sustainabilityScore,setSustainabilityScore] = useState(8);
-    const [touristScore,setTouristScore] = useState(8);
+    const [overallScore, setOverAllScore] = useState(8);
+    const [nationalScore, setNationalScore] = useState(8);
+    const [sustainabilityScore, setSustainabilityScore] = useState(8);
+    const [touristScore, setTouristScore] = useState(8);
     return (
         <div className='space-y-4'>
-            <div className='flex justify-between items-center'>
+            <div className='sm:flex justify-between items-center'>
                 <div className='flex-start'>
                     <h1 className='text-4xl font-bold text-gray-800'>Jhansi</h1>
                     <p className='text-gray-500 text-xl'>Dashboard <KeyboardArrowRightIcon color='primary' /> </p>
@@ -72,12 +72,10 @@ function DashBoardHome() {
                     ]
                 }
             />
-            <div className='flex items-center space-x-2 justify-between'>
+            <div className='sm:flex items-center space-y-2 sm:space-y-0 justify-between'>
                 <Linechart />
-                <div className='p-2 shadow-md rounded-lg h-[350px]'>
-                    <h1 className='text-xl font-bold'>Air Quality Index Tehsil Wise</h1>
-                    <AQIChart/>
-                    {/* <Alert severity="error" className='rounded-lg p-2 w-[20vw] border-1 border-gray-800'>
+                <AQIChart />
+                {/* <Alert severity="error" className='rounded-lg p-2 w-[20vw] border-1 border-gray-800'>
                         <AlertTitle><h1>Critical Alert</h1></AlertTitle>
                         <p>Eg: Dangerous Pitholes,Open Drain or manholes,Big Garbage Dump.
                             Location,Date</p>
@@ -92,12 +90,14 @@ function DashBoardHome() {
                         </p>
                         <u>Learn More</u>
                     </Alert> */}
-                </div>
             </div>
             <MapComponent />
-            <div className='flex items-center 
-                justify-between mb-2 
-                rounded-lg'>
+            <div className='sm:flex sm:items-center 
+                sm:justify-between mb-2 
+                rounded-lg
+                space-y-2
+                sm:space-y-0
+            '>
                 <div className='shadow-md p-2 rounded-lg bg-cyan-50'>
                     <h1 className='text-2xl'>City Parameters</h1>
                     <BarChartComponent width={575} XLabels={cityParams} values={cityParamsValue} />
@@ -111,7 +111,7 @@ function DashBoardHome() {
                 <h1 className='text-4xl'>Progress of Intiatives</h1>
                 <YojanaTable />
             </div>
-            <AirQualityIndex/>
+            <AirQualityIndex />
         </div>
     )
 }

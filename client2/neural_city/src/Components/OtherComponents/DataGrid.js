@@ -86,54 +86,58 @@ export default function MapTable() {
 
     return (
         <div className='space-y-4'>
-            <div className='flex p-2 shadow-md w-full h-[60px] rounded-lg space-x-2 justify-between items-center'>
-                <div className='space-x-2'>
-                    <FormControl>
-                        <InputLabel>City</InputLabel>
-                        <Select
-                            value={city}
-                            onChange={(e) => setCity(e.target.value)}
-                            size='small'
-                            label='City'
-                        >
+            <div className='space-y-2 sm:space-y-0 sm:flex p-2 shadow-md w-full sm:h-[60px] rounded-lg space-x-2 justify-between items-center'>
+                <div className='sm:space-x-2 space-y-2 sm:space-y-0 sm:flex'>
+                    <div>
+                        <FormControl>
+                            <InputLabel>City</InputLabel>
+                            <Select
+                                value={city}
+                                onChange={(e) => setCity(e.target.value)}
+                                size='small'
+                                label='City'
+                            >
 
-                            <MenuItem value="Jhansi">Jhansi</MenuItem>
-                            <MenuItem value="Lucknow">Lucknow</MenuItem>
-                            <MenuItem value="Kanpur">Kanpur</MenuItem>
-                            <MenuItem value="Varanasi">Varanasi</MenuItem>
-                        </Select>
-                    </FormControl>
-
-                    <FormControl>
-                        <InputLabel>Ward</InputLabel>
-                        <Select
-                            value={ward}
-                            size='small'
-                            onChange={(e) => setWard(e.target.value)}
-                            label='Ward'
-                        >
-                            <MenuItem value="Ward-1">Ward-1</MenuItem>
-                            <MenuItem value="Ward-2">Ward-2</MenuItem>
-                            <MenuItem value="Ward-3">Ward-3</MenuItem>
-                            <MenuItem value="Ward-4">Ward-4</MenuItem>
-                            <MenuItem value="Ward-5">Ward-5</MenuItem>
-                        </Select>
-                    </FormControl>
-
-                    <FormControl>
-                        <InputLabel>Parameter</InputLabel>
-                        <Select
-                            value={parameter}
-                            onChange={(e) => setParameter(e.target.value)}
-                            label='Parameter'
-                            size='small'
-                        >
-                            <MenuItem value="Potholes">Potholes</MenuItem>
-                            <MenuItem value="Garbage">Garbage</MenuItem>
-                            <MenuItem value="Air Quality">Air Quality</MenuItem>
-                            <MenuItem value="Road Quality">Road Quality</MenuItem>
-                        </Select>
-                    </FormControl>
+                                <MenuItem value="Jhansi">Jhansi</MenuItem>
+                                <MenuItem value="Lucknow">Lucknow</MenuItem>
+                                <MenuItem value="Kanpur">Kanpur</MenuItem>
+                                <MenuItem value="Varanasi">Varanasi</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </div>
+                    <div>
+                        <FormControl>
+                            <InputLabel>Ward</InputLabel>
+                            <Select
+                                value={ward}
+                                size='small'
+                                onChange={(e) => setWard(e.target.value)}
+                                label='Ward'
+                            >
+                                <MenuItem value="Ward-1">Ward-1</MenuItem>
+                                <MenuItem value="Ward-2">Ward-2</MenuItem>
+                                <MenuItem value="Ward-3">Ward-3</MenuItem>
+                                <MenuItem value="Ward-4">Ward-4</MenuItem>
+                                <MenuItem value="Ward-5">Ward-5</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </div>
+                    <div>
+                        <FormControl>
+                            <InputLabel>Parameter</InputLabel>
+                            <Select
+                                value={parameter}
+                                onChange={(e) => setParameter(e.target.value)}
+                                label='Parameter'
+                                size='small'
+                            >
+                                <MenuItem value="Potholes">Potholes</MenuItem>
+                                <MenuItem value="Garbage">Garbage</MenuItem>
+                                <MenuItem value="Air Quality">Air Quality</MenuItem>
+                                <MenuItem value="Road Quality">Road Quality</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </div>
                 </div>
 
                 <div>
@@ -145,7 +149,7 @@ export default function MapTable() {
                     </Button>
                 </div>
             </div>
-            {loading ?<Loader type="spinner-default" bgColor={"red"} color={"black"} title={""} size={100} /> :
+            {loading ? <Loader type="spinner-default" bgColor={"red"} color={"black"} title={""} size={100} /> :
                 error ? <div className='bg-red-200 rounded-lg w-full'>{error}</div> :
                     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
 

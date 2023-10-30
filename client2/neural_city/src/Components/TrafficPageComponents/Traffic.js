@@ -6,7 +6,7 @@ import ArchieveChallan from './ArchieveChallan';
 function Traffic() {
     const [alignment, setAlignment] = useState("streaming");
     return (
-        <div className='flex flex-col p-2 w-full h-[100vh]'>
+        <div className='flex flex-col sm:p-2 w-full h-[100vh] space-y-2 sm:space-y-0'>
             <div className='flex items-center'>
                 <ToggleButtonGroup
                     color="primary"

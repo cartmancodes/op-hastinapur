@@ -643,7 +643,7 @@ wardDivision.features.map((ward) => {
 // 		{
 // 			"type": "Feature", "properties": {
 // 				"Name": "E L1",
-// 				"description": "<img src=\"https://doc-00-0s-mymaps.googleusercontent.com/untrusted/hostedimage/ltbtr56dsv8l0lhgq4hd7gmrfk/m6t8qadn34r07vunck8bd59m2c/1697984447250/8AE0li_iM5vtQQwsLcDqdp-kpBjOzk1B/03630732761502837539/5AJ9UNGoaldcLj0SVVtV215awH09VjxU16NUn1mnpdJLuFtm8sFWbsQsDHMjA5MGRye-kDCY3D1RTIf_5oX3YWGLSjHJG3u1uorNJ4hYYHWhZQLcMUFr-WiRZlaHuxGA-e0WE-LafVJu1CeFJUF6HOWfxbFuEVsiJqc1nBUf0IkYj1tKN5YseSmtRFNNzfeBCcL2SCljcFdylA3qPG__E2TQd_z2kPcJutT5eOExPjTKSR03MwHA?session=0&fife\" height=\"200\" width=\"auto\" /><br><br><br><br><img src=\"https://doc-0c-0s-mymaps.googleusercontent.com/untrusted/hostedimage/ltbtr56dsv8l0lhgq4hd7gmrfk/81hh02lfdf7ba0os2rr0hgsq5o/1697984447250/8AE0li_iM5vtQQwsLcDqdp-kpBjOzk1B/03630732761502837539/5AJ9UNGoPyAb5Oi5unni_SYoxvdswKcaOV_G--if-hMZJ3yxJJKhXc9TvgTnZVfKbsd2265J-HPBNb3sIxSg2wLuSnCUG1GEJ1HE2L6qKClkdlwL8k7H_4f3HDlAuiJSSBRC8FuL1JSxhk4leVLixDsQZa2JLFao9DJOTB0JA9J01wjw0BvJ6q2ABTgUk5pD0I6C68pUTVt-7kNPOUEZ0_ef-c_Riks4nOSTuPUN7EnXGVi9haEI?session=0&fife\" height=\"200\" width=\"auto\" />", "timestamp": null, "begin": null, "end": null, "altitudeMode": null, "tessellate": 1, "extrude": 0, "visibility": -1, "drawOrder": null, "icon": null,
+				// "description": "<img src=\"https://doc-00-0s-mymaps.googleusercontent.com/untrusted/hostedimage/ltbtr56dsv8l0lhgq4hd7gmrfk/m6t8qadn34r07vunck8bd59m2c/1697984447250/8AE0li_iM5vtQQwsLcDqdp-kpBjOzk1B/03630732761502837539/5AJ9UNGoaldcLj0SVVtV215awH09VjxU16NUn1mnpdJLuFtm8sFWbsQsDHMjA5MGRye-kDCY3D1RTIf_5oX3YWGLSjHJG3u1uorNJ4hYYHWhZQLcMUFr-WiRZlaHuxGA-e0WE-LafVJu1CeFJUF6HOWfxbFuEVsiJqc1nBUf0IkYj1tKN5YseSmtRFNNzfeBCcL2SCljcFdylA3qPG__E2TQd_z2kPcJutT5eOExPjTKSR03MwHA?session=0&fife\" height=\"200\" width=\"auto\" /><br><br><br><br><img src=\"https://doc-0c-0s-mymaps.googleusercontent.com/untrusted/hostedimage/ltbtr56dsv8l0lhgq4hd7gmrfk/81hh02lfdf7ba0os2rr0hgsq5o/1697984447250/8AE0li_iM5vtQQwsLcDqdp-kpBjOzk1B/03630732761502837539/5AJ9UNGoPyAb5Oi5unni_SYoxvdswKcaOV_G--if-hMZJ3yxJJKhXc9TvgTnZVfKbsd2265J-HPBNb3sIxSg2wLuSnCUG1GEJ1HE2L6qKClkdlwL8k7H_4f3HDlAuiJSSBRC8FuL1JSxhk4leVLixDsQZa2JLFao9DJOTB0JA9J01wjw0BvJ6q2ABTgUk5pD0I6C68pUTVt-7kNPOUEZ0_ef-c_Riks4nOSTuPUN7EnXGVi9haEI?session=0&fife\" height=\"200\" width=\"auto\" />", "timestamp": null, "begin": null, "end": null, "altitudeMode": null, "tessellate": 1, "extrude": 0, "visibility": -1, "drawOrder": null, "icon": null,
 // 				"gx_media_links": "https://doc-00-0s-mymaps.googleusercontent.com/untrusted/hostedimage/ltbtr56dsv8l0lhgq4hd7gmrfk/m6t8qadn34r07vunck8bd59m2c/1697984447250/8AE0li_iM5vtQQwsLcDqdp-kpBjOzk1B/03630732761502837539/5AJ9UNGoaldcLj0SVVtV215awH09VjxU16NUn1mnpdJLuFtm8sFWbsQsDHMjA5MGRye-kDCY3D1RTIf_5oX3YWGLSjHJG3u1uorNJ4hYYHWhZQLcMUFr-WiRZlaHuxGA-e0WE-LafVJu1CeFJUF6HOWfxbFuEVsiJqc1nBUf0IkYj1tKN5YseSmtRFNNzfeBCcL2SCljcFdylA3qPG__E2TQd_z2kPcJutT5eOExPjTKSR03MwHA?session=0&fife https://doc-0c-0s-mymaps.googleusercontent.com/untrusted/hostedimage/ltbtr56dsv8l0lhgq4hd7gmrfk/81hh02lfdf7ba0os2rr0hgsq5o/1697984447250/8AE0li_iM5vtQQwsLcDqdp-kpBjOzk1B/03630732761502837539/5AJ9UNGoPyAb5Oi5unni_SYoxvdswKcaOV_G--if-hMZJ3yxJJKhXc9TvgTnZVfKbsd2265J-HPBNb3sIxSg2wLuSnCUG1GEJ1HE2L6qKClkdlwL8k7H_4f3HDlAuiJSSBRC8FuL1JSxhk4leVLixDsQZa2JLFao9DJOTB0JA9J01wjw0BvJ6q2ABTgUk5pD0I6C68pUTVt-7kNPOUEZ0_ef-c_Riks4nOSTuPUN7EnXGVi9haEI?session=0&fife"
 // 			},
 // 			"geometry":
@@ -660,10 +660,10 @@ wardDivision.features.map((ward) => {
 // 		}
 // 	]
 // }
-// const parser = new DOMParser();
-// const kml = parser.parseFromString(kmlData, 'text/xml');
-// const enchrochmentKml = parser.parseFromString(enchrochmentData, 'text/xml');
-// const enchrochmentKmlWithMedia = parser.parseFromString(enchrochmentDataWithMedia, 'text/xml');
+const parser = new DOMParser();
+const kml = parser.parseFromString(kmlData, 'text/xml');
+const enchrochmentKml = parser.parseFromString(enchrochmentData, 'text/xml');
+const enchrochmentKmlWithMedia = parser.parseFromString(enchrochmentDataWithMedia, 'text/xml');
 // let placemarks = enchrochmentKml.querySelectorAll("Placemark");
 // for (let i = 0; i < placemarks.length; i++) {
 // 	let score = placemarks[i].querySelector('SimpleData[name="Score"]');
@@ -752,7 +752,7 @@ function MapComponent() {
 	return (
 		<div className='mb-2 p-2 flex flex-col shadow-md rounded-lg'>
 			<div className='flex p-2 items-center justify-between'>
-				<div className='flex space-x-4'>
+				<div className='sm:flex sm:space-x-4 space-y-2 sm:space-y-0'>
 					<Box sx={{ minWidth: 120 }}>
 						<FormControl fullWidth>
 							<InputLabel id="demo-simple-select-label">Ward</InputLabel>
@@ -800,9 +800,9 @@ function MapComponent() {
 						</FormControl>
 					</Box>
 				</div>
-				<div>
+				{/* <div>
 					<Button variant='contained' onClick={handleApplyClick} disableElevation>Apply</Button>
-				</div>
+				</div> */}
 			</div>
 			<div>
 				<MapContainer
@@ -828,8 +828,8 @@ function MapComponent() {
 
 					<Polygon positions={selectedWardBoundary[0][0].map((cord) => [cord[1], cord[0]])} color={'blue'} />
 					{/* <ReactLeafletKml kml={kml} /> */}
-					{/* <ReactLeafletKml kml={enchrochmentKml} />
-					<ReactLeafletKml kml={enchrochmentKmlWithMedia} /> */}
+					<ReactLeafletKml kml={enchrochmentKml} />
+					<ReactLeafletKml kml={enchrochmentKmlWithMedia} />
 					{
 						markerjson.map((pos) => {
 							return (

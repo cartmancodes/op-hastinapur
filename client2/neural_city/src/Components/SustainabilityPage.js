@@ -51,7 +51,7 @@ function SustainabilityPage() {
                     />
                 </div>
                 <div className='flex items-center justify-between p-2'>
-                    <div className='flex space-x-2'>
+                    <div className='sm:flex space-y-2 sm:space-y-0 sm:space-x-2'>
                         <Box sx={{ minWidth: 120 }}>
                             <FormControl fullWidth>
                                 <InputLabel id="demo-simple-select-label">Ward</InputLabel>
@@ -81,10 +81,6 @@ function SustainabilityPage() {
                             </FormControl>
                         </Box>
                     </div>
-                    <div>
-                        <Button onClick={handleApplyClick} variant='contained' size='large' disableElevation>Apply</Button>
-                    </div>
-
                 </div>
                 <div className='shadow-md p-2 rounded-lg'>
                     <SpecificPageMapComponent

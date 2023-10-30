@@ -8,7 +8,6 @@ function VehicleInfoCard() {
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: 600,
         bgcolor: 'background.paper',
         border: '2px solid #000',
         boxShadow: 24,
@@ -25,11 +24,11 @@ function VehicleInfoCard() {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     return (
-        <div className='w-full h-[280px] bg-gray-300 space-y-2 px-2 pt-2'>
+        <div className='w-full sm:h-[300px] h-[280px] bg-gray-300 space-y-2 px-2 pt-2'>
             <div>
                 <img className='w-full h-[60px]' src="https://cpimg.tistatic.com/06564048/b/4/Car-Number-Plate.jpg" />
             </div>
-            <div className='flex text-left w-full h-[150px] bg-gray-400 p-1 rounded-lg'>
+            <div className='flex text-left w-full sm:h-[170px] h-[150px] bg-gray-400 p-1 rounded-lg overflow-y-scroll'>
                 <div className='w-[50%]'>
                     <p className='font-bold text-slate-600'>Registration Number</p>
                     <p className='text-white font-bold'>{vehicleinfo.rno}</p>
@@ -59,7 +58,7 @@ function VehicleInfoCard() {
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <Box sx={style} className='space-y-6'>
+                <Box sx={style} className='space-y-6 sm:w-[50%] w-[100%]'>
                     <div className='flex items-center justify-between'>
                         <h1 className='text-2xl font-bold'>Update Vehicle Details</h1>
                         <IconButton onClick={handleClose}>
