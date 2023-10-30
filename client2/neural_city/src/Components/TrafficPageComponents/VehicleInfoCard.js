@@ -24,6 +24,7 @@ function VehicleInfoCard() {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     return (
+        // Here is a comment
         <div className='w-full sm:h-[300px] h-[280px] bg-gray-300 space-y-2 px-2 pt-2'>
             <div>
                 <img className='w-full h-[60px]' src="https://cpimg.tistatic.com/06564048/b/4/Car-Number-Plate.jpg" />
