@@ -4,11 +4,10 @@ import { Button, Select, FormControl, Box, MenuItem, InputLabel, } from '@mui/ma
 import { useState } from 'react'
 import Scores from './OtherComponents/Scores'
 import { geojson } from './MapComponents/heatmap'
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
 function SustainabilityPage() {
-    let intialgeojson = geojson.filter(geo => (parseFloat(geo.lat) >= 12.95) && parseFloat(geo.lon) >= 77.56 && parseFloat(geo.lat) <= 13.10 && parseFloat(geo.lon) <= 77.7);
-    console.log(intialgeojson);
-    const [geojsonData, setGeojsondata] = useState(intialgeojson);
+    const [geojsonData, setGeojsondata] = useState(geojson);
     const [wardValue, setwardValue] = useState("Ward1");
     const handleWardChange = (e) => {
         setwardValue(e.target.value);
@@ -33,6 +32,10 @@ function SustainabilityPage() {
     return (
         <div className='w-full space-y-4'>
             <div>
+                <div className='flex-start'>
+                    <h1 className='text-4xl font-bold text-gray-800'>Jhansi</h1>
+                    <p className='text-gray-500 text-xl'>Dashboard <KeyboardArrowRightIcon color='primary' /> </p>
+                </div>
                 <Scores
                     mainScoreName="Tourism Score"
                     mainScoreValue={8}
@@ -46,7 +49,7 @@ function SustainabilityPage() {
                 />
             </div>
             <div className='flex items-center justify-between p-2'>
-                <div className='flex space-x-2'>
+                <div className='sm:flex sm:space-x-2 space-y-2 sm:space-y-0'>
                     <Box sx={{ minWidth: 120 }}>
                         <FormControl fullWidth>
                             <InputLabel id="demo-simple-select-label">Ward</InputLabel>
@@ -69,15 +72,12 @@ function SustainabilityPage() {
                                 label="Parameter"
                                 onChange={handleParameterChange}
                             >
-                                <MenuItem value={"Cleaniness"}>Parameter-1</MenuItem>
-                                <MenuItem value={"Tourism"}>Parameter-2</MenuItem>
-                                <MenuItem value={"Health"}>Parameter-3</MenuItem>
+                                <MenuItem value={"Parameter-1"}>Parameter-1</MenuItem>
+                                <MenuItem value={"Parameter-2"}>Parameter-2</MenuItem>
+                                <MenuItem value={"Parameter-3"}>Parameter-3</MenuItem>
                             </Select>
                         </FormControl>
                     </Box>
-                </div>
-                <div>
-                    <Button onClick={handleApplyClick} variant='contained' size='large' disableElevation>Apply</Button>
                 </div>
             </div>
             <div className='shadow-md p-2 rounded-lg'>

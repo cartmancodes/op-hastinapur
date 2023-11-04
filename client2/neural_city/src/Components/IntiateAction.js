@@ -1,8 +1,11 @@
 import React from 'react'
+import MapTable from './OtherComponents/DataGrid';
 
 function IntiateAction() {
   return (
-    <div>IntiateAction</div>
+    <div>
+      <MapTable />
+    </div>
   )
 }
 

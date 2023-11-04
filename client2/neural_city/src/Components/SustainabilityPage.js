@@ -4,10 +4,10 @@ import { Button, Select, FormControl, Box, MenuItem, InputLabel, } from '@mui/ma
 import { useState } from 'react'
 import Scores from './OtherComponents/Scores'
 import { geojson } from './MapComponents/heatmap'
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
 function SustainabilityPage() {
-    let intialgeojson = geojson.filter(geo => (parseFloat(geo.lat) >= 12.95) && parseFloat(geo.lon) >= 77.56 && parseFloat(geo.lat) <= 13.10 && parseFloat(geo.lon) <= 77.7);
-    console.log(intialgeojson);
+    let intialgeojson = geojson;
     const [geojsonData, setGeojsondata] = useState(intialgeojson);
     const [wardValue, setwardValue] = useState("Ward1");
     const handleWardChange = (e) => {
@@ -33,6 +33,10 @@ function SustainabilityPage() {
     return (
         <div className='flex justify-between items-center w-full space-y-4 space-x-4'>
             <div className='w-full space-y-4'>
+                <div className='flex-start'>
+                    <h1 className='text-4xl font-bold text-gray-800'>Jhansi</h1>
+                    <p className='text-gray-500 text-xl'>Dashboard <KeyboardArrowRightIcon color='primary' /> </p>
+                </div>
                 <div>
                     <Scores
                         mainScoreName="Sustainability Score"
@@ -47,7 +51,7 @@ function SustainabilityPage() {
                     />
                 </div>
                 <div className='flex items-center justify-between p-2'>
-                    <div className='flex space-x-2'>
+                    <div className='sm:flex space-y-2 sm:space-y-0 sm:space-x-2'>
                         <Box sx={{ minWidth: 120 }}>
                             <FormControl fullWidth>
                                 <InputLabel id="demo-simple-select-label">Ward</InputLabel>
@@ -77,10 +81,6 @@ function SustainabilityPage() {
                             </FormControl>
                         </Box>
                     </div>
-                    <div>
-                        <Button onClick={handleApplyClick} variant='contained' size='large' disableElevation>Apply</Button>
-                    </div>
-
                 </div>
                 <div className='shadow-md p-2 rounded-lg'>
                     <SpecificPageMapComponent
@@ -88,7 +88,7 @@ function SustainabilityPage() {
                         position={position} />
                 </div>
             </div>
-            
+
         </div>
     )
 }

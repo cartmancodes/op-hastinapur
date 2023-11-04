@@ -13,7 +13,6 @@ function UnverifiedChallanRow(props) {
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: 600,
         bgcolor: 'background.paper',
         border: '2px solid #000',
         boxShadow: 24,
@@ -25,7 +24,6 @@ function UnverifiedChallanRow(props) {
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: 800,
         bgcolor: 'background.paper',
         border: '2px solid #000',
         boxShadow: 24,
@@ -79,7 +77,7 @@ function UnverifiedChallanRow(props) {
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <Box sx={formModalStyle} className='space-y-6'>
+                <Box sx={formModalStyle} className='space-y-6 sm:w-[50%] w-[100%]'>
                     <div className='flex items-center justify-between'>
                         <h1 className='text-2xl font-bold'>Update Vehicle Details</h1>
                         <IconButton onClick={() => setOpenFormModal(false)}>
@@ -132,7 +130,7 @@ function UnverifiedChallanRow(props) {
                 onClose={() => { setOpenVideoModal(false) }}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description">
-                <Box sx={VideoModalStyle} className='space-y-6'>
+                <Box sx={VideoModalStyle} className='space-y-6 sm:w-[50%] w-[100%]'>
 
                     <div className='flex items-center justify-between'>
                         <h1 className='text-2xl font-bold'>Footage</h1>

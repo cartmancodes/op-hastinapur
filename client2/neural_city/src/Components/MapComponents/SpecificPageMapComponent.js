@@ -25,9 +25,9 @@ function SpecificPageMapComponent(props) {
                     zoom={15}
                     maxZoom={18}
                     points={props.geojson}
-                    longitudeExtractor={m => parseFloat(m.lon)}
-                    latitudeExtractor={m => parseFloat(m.lat)}
-                    intensityExtractor={m => parseFloat(m.avg_rating)}
+                    longitudeExtractor={m => parseFloat(m.longitude)}
+                    latitudeExtractor={m => parseFloat(m.latitude)}
+                    intensityExtractor={m => parseFloat(m.score)}
                 />
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

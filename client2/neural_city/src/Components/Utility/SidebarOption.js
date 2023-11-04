@@ -13,8 +13,8 @@ function SidebarOption(props) {
             <div className='w-[17vw] flex items-center justify-between'>
                 <div className='flex'>
                     {props.icon === 'Home' ? <HomeIcon color='primary'></HomeIcon> :
-                        props.icon === 'Apartment' ? <ApartmentIcon color='primary' />
-                            : <DirectionsCarIcon color='primary' />}
+                        props.icon === 'Apartment' ? <ApartmentIcon color='primary' /> :
+                           props.icon === 'Traffic' ? <Traffic color = "primary"/> : <DirectionsCarIcon color='primary' />}
                     <Link to={props.link}><p className='text-[15px] font-bold'>{props.name}</p></Link>
                 </div>
                 <IconButton onClick={() => sethiddenOptions(!hiddenOptions)}>

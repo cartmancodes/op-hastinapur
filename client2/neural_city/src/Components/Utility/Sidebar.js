@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
+import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import { IconButton } from '@mui/material';
 import { Avatar } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
@@ -10,7 +11,6 @@ import SidebarOption from './SidebarOption';
 import { Traffic } from '@mui/icons-material';
 function Sidebar() {
     const [sidebarHidden, setSideBarHidden] = useState((Boolean)(false));
-    console.log(sidebarHidden);
     return (
         sidebarHidden === true ? <div className='sticky top-0 left-0 p-2 w-[full]  bg-gray-100 rounded-lg h-[100vh]'>
             <div className='flex justify-between items-center'>
@@ -51,10 +51,10 @@ function Sidebar() {
                     link={"monitering/traffic"} />
             </div>
         </div> :
-            <div className='p-2 w-[full] bg-gray-100 rounded-lg h-[100vh] space-y-10 sticky top-0 left-0'>
-                <div>
+            <div className='p-2 w-fit bg-gray-100 rounded-lg h-[100vh] space-y-10 sticky top-0 left-0'>
+                <div className='hidden sm:block'>
                     <IconButton onClick={() => setSideBarHidden(!sidebarHidden)}>
-                        <KeyboardDoubleArrowLeftIcon color='primary' />
+                        <KeyboardDoubleArrowRightIcon color='primary' />
                     </IconButton>
                 </div>
                 <Link to="/monitering">
@@ -74,10 +74,10 @@ function Sidebar() {
                         <DirectionsCarIcon />
                     </IconButton>
                 </Link>
-                <br/>
+                <br />
                 <Link to="/monitering/traffic">
                     <IconButton color='primary'>
-                        <Traffic/>
+                        <Traffic />
                     </IconButton>
                 </Link>
             </div>

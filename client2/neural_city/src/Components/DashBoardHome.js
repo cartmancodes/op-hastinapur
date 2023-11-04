@@ -1,5 +1,11 @@
 import React from 'react'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
+import { SingleInputDateRangeField } from '@mui/x-date-pickers-pro/SingleInputDateRangeField';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import dayjs from 'dayjs';
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import Scores from './OtherComponents/Scores';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import Linechart from './Charts/Linechart';
@@ -9,10 +15,8 @@ import MapComponent from './MapComponents/MapComponent';
 import YojanaTable from './OtherComponents/YojanaTable';
 import BarChartComponent from './Charts/BarChartComponent';
 import { useState } from 'react';
-
-import 'react-dates/initialize'; // This is required to initialize the library
-import { DateRangePicker } from 'react-dates';
-import 'react-dates/lib/css/_datepicker.css'; 
+import AirQualityIndex from './OtherComponents/AirQualityIndex';
+import AQIChart from './Charts/AQIChart';
 
 function DashBoardHome() {
     const [rangeDate, setRangeDate] = useState([
@@ -27,38 +31,34 @@ function DashBoardHome() {
         "Traffic Congestion"];
     const cityParamsValue = [9, 5, 4, 3, 5, 6, 3];
 
-    const [overallScore,setOverAllScore] = useState(8);
-    const [nationalScore,setNationalScore] = useState(8);
-    const [sustainabilityScore,setSustainabilityScore] = useState(8);
-    const [touristScore,setTouristScore] = useState(8);
-
-    const [dateRange, setDateRange] = useState({
-        startDate: null,
-        endDate: null,
-      });
-      const [focusedInput, setFocusedInput] = useState(null);
-    
-      const handleDateChange = ({ startDate, endDate }) => {
-        setDateRange({ startDate, endDate });
-      };
-
+    const [overallScore, setOverAllScore] = useState(8);
+    const [nationalScore, setNationalScore] = useState(8);
+    const [sustainabilityScore, setSustainabilityScore] = useState(8);
+    const [touristScore, setTouristScore] = useState(8);
     return (
         <div className='space-y-4'>
-            <div className='flex justify-between items-center'>
+            <div className='sm:flex justify-between items-center'>
                 <div className='flex-start'>
-                    <h1 className='text-4xl font-bold text-gray-800'>Lucknow</h1>
+                    <h1 className='text-4xl font-bold text-gray-800'>Jhansi</h1>
                     <p className='text-gray-500 text-xl'>Dashboard <KeyboardArrowRightIcon color='primary' /> </p>
                 </div>
                 <div className='flex-end'>
-                <DateRangePicker
-                    startDate={dateRange.startDate}
-                    startDateId="your_unique_start_date_id"
-                    endDate={dateRange.endDate}
-                    endDateId="your_unique_end_date_id"
-                    onDatesChange={handleDateChange}
-                    focusedInput={focusedInput}
-                    onFocusChange={focusedInput => setFocusedInput(focusedInput)}
-                />
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DemoContainer components={['SingleInputDateRangeField']}>
+                            <DateRangePicker
+                                slotProps={{
+                                    textField: {
+                                        InputProps: { endAdornment: <CalendarTodayIcon /> },
+                                    },
+                                }}
+                                format='MMM DD YYYY'
+                                autoComplete='off'
+                                value={rangeDate}
+                                onChange={(newValue) => setRangeDate(newValue)}
+                                slots={{ field: SingleInputDateRangeField }}
+                            />
+                        </DemoContainer>
+                    </LocalizationProvider>
                 </div>
             </div>
             <Scores
@@ -72,10 +72,10 @@ function DashBoardHome() {
                     ]
                 }
             />
-            <div className='flex items-center justify-between'>
+            <div className='sm:flex items-center space-y-2 sm:space-y-0 justify-between'>
                 <Linechart />
-                <div className='space-y-4'>
-                    <Alert severity="error" className='rounded-lg p-2 w-[20vw] border-1 border-gray-800'>
+                <AQIChart />
+                {/* <Alert severity="error" className='rounded-lg p-2 w-[20vw] border-1 border-gray-800'>
                         <AlertTitle><h1>Critical Alert</h1></AlertTitle>
                         <p>Eg: Dangerous Pitholes,Open Drain or manholes,Big Garbage Dump.
                             Location,Date</p>
@@ -89,13 +89,15 @@ function DashBoardHome() {
                             Location,Date.
                         </p>
                         <u>Learn More</u>
-                    </Alert>
-                </div>
+                    </Alert> */}
             </div>
             <MapComponent />
-            <div className='flex items-center 
-                justify-between mb-2 
-                rounded-lg'>
+            <div className='sm:flex sm:items-center 
+                sm:justify-between mb-2 
+                rounded-lg
+                space-y-2
+                sm:space-y-0
+            '>
                 <div className='shadow-md p-2 rounded-lg bg-cyan-50'>
                     <h1 className='text-2xl'>City Parameters</h1>
                     <BarChartComponent width={575} XLabels={cityParams} values={cityParamsValue} />
@@ -109,6 +111,7 @@ function DashBoardHome() {
                 <h1 className='text-4xl'>Progress of Intiatives</h1>
                 <YojanaTable />
             </div>
+            <AirQualityIndex />
         </div>
     )
 }
