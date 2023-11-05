@@ -24,7 +24,7 @@ import axios from 'axios'
 export default function MapTable() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
-    const [data, setData] = useState([]);
+    const [data, setData] = useState(geojson);
 
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -37,23 +37,24 @@ export default function MapTable() {
     const [ward, setWard] = useState("Ward-1");
     const [parameter, setParameter] = useState("Potholes");
 
-    useEffect(() => {
-        async function fetchData() {
-            let res = await axios.get("http://localhost:5000/potholes/");
-            if (res) {
-                console.log("Data Fetched ");
-                console.log(res);
-                if (res.status === 200) {
-                    setData(res.data.data);
-                } else if (res.status === 400) {
-                    console.log("Error");
-                    setError("Data Not Found")
-                }
-                setLoading(false);
-            }
-        }
-        fetchData();
-    }, [])
+    // useEffect(() => {
+    //     async function fetchData() {
+    //         let res = await axios.get("http://localhost:5000/potholes/");
+    //         if (res) {
+    //             console.log("Data Fetched ");
+    //             console.log(res);
+    //             if (res.status === 200) {
+    //                 setData(res.data.data);
+    //             } else if (res.status === 400) {
+    //                 console.log("Error");
+    //                 setError("Data Not Found")
+    //             }
+    //             setLoading(false);
+    //         }
+    //     }
+    //     fetchData();
+    // }, [])
+    console.log("data" + data);
     let filteredOutput = data;
     if (sortScore == "asc") {
         filteredOutput = filteredOutput.sort((a, b) => a.score - b.score);
@@ -149,10 +150,9 @@ export default function MapTable() {
                     </Button>
                 </div>
             </div>
-            {loading ? <Loader type="spinner-default" bgColor={"red"} color={"black"} title={""} size={100} /> :
-                error ? <div className='bg-red-200 rounded-lg w-full'>{error}</div> :
+            {/* {loading ? <Loader type="spinner-default" bgColor={"red"} color={"black"} title={""} size={100} /> :
+                error ? <div className='bg-red-200 rounded-lg w-full'>{error}</div> : */}
                     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-
                         <TableContainer sx={{ maxHeight: 600 }}>
                             <Table stickyHeader aria-label="sticky table">
                                 <TableHead>
@@ -230,7 +230,7 @@ export default function MapTable() {
                             onRowsPerPageChange={handleChangeRowsPerPage}
                         />
                     </Paper>
-            }
+            {/* } */}
         </div>
     );
 }

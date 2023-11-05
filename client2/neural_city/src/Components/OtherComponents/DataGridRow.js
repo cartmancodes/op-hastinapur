@@ -48,13 +48,13 @@ function DataGridRow(props) {
                 <TableCell>{props.idx + 1}</TableCell>
                 <TableCell>{`Elite Chauraha`}</TableCell>
                 <TableCell>{row.score.toFixed(2)}</TableCell>
-                <TableCell>{row.date.substring(0,row.date.indexOf('T'))}</TableCell>
+                <TableCell>{row.timestamp.split(" ")[0]}</TableCell>
                 <TableCell>
                     <IconButton onClick={() => setOpenVideoModal(true)}>
                         <RemoveRedEyeIcon />
                     </IconButton>
                 </TableCell>
-                <TableCell>{row.action_status}</TableCell>
+                <TableCell>{"Pending"}</TableCell>
                 <TableCell>
                     <Button variant='contained' onClick={() => setOpenFormModal(true)}>Inform Authority</Button>
                 </TableCell>
