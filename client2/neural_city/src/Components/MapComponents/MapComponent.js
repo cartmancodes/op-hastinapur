@@ -806,7 +806,7 @@ function MapComponent() {
 			</div>
 			<div>
 				<MapContainer
-					className='w-[100%] h-[400px]'
+					className='w-[100%] h-[600px]'
 					center={position}
 					zoom={14}
 					scrollWheelZoom={false}

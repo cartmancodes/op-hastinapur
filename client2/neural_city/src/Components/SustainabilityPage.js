@@ -5,9 +5,12 @@ import { useState } from 'react'
 import Scores from './OtherComponents/Scores'
 import { geojson } from './MapComponents/heatmap'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import RightSideBar from './Utility/RightSideBar'
+import MapTable from './OtherComponents/DataGrid'
 
 function SustainabilityPage() {
     let intialgeojson = geojson;
+    const [scoreValue, setScoreValue] = useState("Any");
     const [geojsonData, setGeojsondata] = useState(intialgeojson);
     const [wardValue, setwardValue] = useState("Ward1");
     const handleWardChange = (e) => {
@@ -31,15 +34,15 @@ function SustainabilityPage() {
         }
     }
     return (
-        <div className='flex justify-between items-center w-full space-y-4 space-x-4'>
-            <div className='w-full space-y-4'>
+        <div className='flex relative justify-between items-center w-[full] space-x-4'>
+            <div className='w-[79%] space-y-4'>
                 <div className='flex-start'>
                     <h1 className='text-4xl font-bold text-gray-800'>Jhansi</h1>
                     <p className='text-gray-500 text-xl'>Dashboard <KeyboardArrowRightIcon color='primary' /> </p>
                 </div>
                 <div>
                     <Scores
-                        mainScoreName="Sustainability Score"
+                        mainScoreName="Walkability Score"
                         mainScoreValue={8}
                         scores={
                             [
@@ -80,6 +83,24 @@ function SustainabilityPage() {
                                 </Select>
                             </FormControl>
                         </Box>
+
+                        <Box sx={{ minWidth: 120 }}>
+						<FormControl fullWidth>
+							<InputLabel id="demo-simple-select-label">Score</InputLabel>
+							<Select
+								value={scoreValue}
+								label="Score"
+								onChange={(e) => setScoreValue(e.target.value)}
+							>
+								<MenuItem value={"Any"}>Any</MenuItem>
+								<MenuItem value={1}>1</MenuItem>
+								<MenuItem value={2}>2</MenuItem>
+								<MenuItem value={3}>3</MenuItem>
+								<MenuItem value={4}>4</MenuItem>
+								<MenuItem value={5}>5</MenuItem>
+							</Select>
+						</FormControl>
+					</Box>
                     </div>
                 </div>
                 <div className='shadow-md p-2 rounded-lg'>
@@ -87,8 +108,9 @@ function SustainabilityPage() {
                         geojson={geojsonData}
                         position={position} />
                 </div>
+                <MapTable />
             </div>
-
+            <RightSideBar/>
         </div>
     )
 }

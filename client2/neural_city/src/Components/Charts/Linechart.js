@@ -14,18 +14,18 @@ function Linechart() {
     return (
         <div className='shadow-md rounded-lg sm:w-[40vw]'>
             <div className='flex items-center justify-between pt-4 pl-2'>
-                <p className='md:text-xl text-sm md:font-semibold'>Jhansi Vs National Score</p>
-                <div className='flex items-center justify-between space-x-2 mx-2'>
+                <p className='md:text-xl text-sm md:font-semibold'>Jhansi Score Trend</p>
+                {/* <div className='flex items-center justify-between space-x-2 mx-2'>
                     <div className='bg-purple-800 w-[10px] h-[10px] text-sm'></div><span>Jhansi</span>
                     <div className='bg-black w-[10px] h-[10px] text-sm'></div><span>National</span>
-                </div>
+                </div> */}
             </div>
             <VictoryChart
              width={500}
              height={200}
             >
                 <VictoryLine
-                    name='lko'
+                    name='jhansi'
                     animate={{
                         duration: 2000,
                         onEnter: { duration: 1000}
@@ -35,7 +35,7 @@ function Linechart() {
                     }}
                     data={dat1}
                 />
-                <VictoryLine
+                {/* <VictoryLine
                     name='national'
                     animate={{
                         duration: 2000,
@@ -45,7 +45,7 @@ function Linechart() {
                         data: { stroke: "black"}
                     }}
                     data={dat2}
-                />
+                /> */}
             </VictoryChart>
         </div>
     )

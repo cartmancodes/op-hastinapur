@@ -32,7 +32,7 @@ export default function MapTable() {
     const [sortScore, setSortScore] = useState("none");
     const [sortDate, setSortDate] = useState(false);
     const [status, setStatus] = useState("any");
-
+    const [scoreValue,setScoreValue] = useState("any");
     const [city, setCity] = useState("Jhansi");
     const [ward, setWard] = useState("Ward-1");
     const [parameter, setParameter] = useState("Potholes");
@@ -139,6 +139,24 @@ export default function MapTable() {
                             </Select>
                         </FormControl>
                     </div>
+                    <div>
+						<FormControl>
+							<InputLabel>Score</InputLabel>
+							<Select
+								value={scoreValue}
+								label="Score"
+								onChange={(e) => setScoreValue(e.target.value)}
+                                size='small'
+							>
+								<MenuItem value={"any"}>Any</MenuItem>
+								<MenuItem value={1}>1</MenuItem>
+								<MenuItem value={2}>2</MenuItem>
+								<MenuItem value={3}>3</MenuItem>
+								<MenuItem value={4}>4</MenuItem>
+								<MenuItem value={5}>5</MenuItem>
+							</Select>
+						</FormControl>
+					</div>
                 </div>
 
                 <div>

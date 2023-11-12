@@ -14,7 +14,7 @@ function Navbar() {
     const paths = pathname.split("/");
     const [navhidden, setNavHidden] = useState("hidden");
     return (
-        <div className='border-b-2'>
+        <div className='border-b-2 sticky top-0 z-[10000] bg-white'>
             <div className='sm:hidden p-2 flex items-center justify-between'>
                 <div>
                     <img src='logo.png' className='h-[30px] w-[30px]'/>

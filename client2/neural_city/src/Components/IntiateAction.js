@@ -4,7 +4,7 @@ import MapTable from './OtherComponents/DataGrid';
 function IntiateAction() {
   return (
     <div>
-      <MapTable />
+      <MapTable/>
     </div>
   )
 }

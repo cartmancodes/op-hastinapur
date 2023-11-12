@@ -33,7 +33,7 @@ function DashBoardHome() {
 
     const [overallScore, setOverAllScore] = useState(8);
     const [nationalScore, setNationalScore] = useState(8);
-    const [sustainabilityScore, setSustainabilityScore] = useState(8);
+    const [walkabilityScore, setwalkabilityScore] = useState(8);
     const [touristScore, setTouristScore] = useState(8);
     return (
         <div className='space-y-4'>
@@ -66,22 +66,22 @@ function DashBoardHome() {
                 mainScoreValue={overallScore}
                 scores={
                     [
-                        { scoreName: "National Average", scoreValue: nationalScore, scoreColor: "red" },
+                        { scoreName: "National Average", scoreValue: nationalScore, scoreColor: "gray",disabled:true },
                         { scoreName: "Tourism Score", scoreValue: touristScore, scoreColor: "purple" },
-                        { scoreName: "Sustainability Score", scoreValue: sustainabilityScore, scoreColor: "blue" }
+                        { scoreName: "Walkability Score", scoreValue: walkabilityScore, scoreColor: "blue" }
                     ]
                 }
             />
             <div className='sm:flex items-center space-y-2 sm:space-y-0 justify-between'>
                 <Linechart />
-                <AQIChart />
-                {/* <Alert severity="error" className='rounded-lg p-2 w-[20vw] border-1 border-gray-800'>
+                {/* <AQIChart /> */}
+                <Alert severity="error" className='rounded-lg p-2 sm:w-[20vw] w-[100%]  border-1 border-gray-800'>
                         <AlertTitle><h1>Critical Alert</h1></AlertTitle>
                         <p>Eg: Dangerous Pitholes,Open Drain or manholes,Big Garbage Dump.
                             Location,Date</p>
                         <p><u>Learn More</u></p>
                     </Alert>
-                    <Alert severity="warning" className='rounded-lg p-2 w-[20vw] border-1 border-gray-800'>
+                    <Alert severity="warning" className='rounded-lg p-2 sm:w-[20vw] w-[100%] border-1 border-gray-800'>
                         <AlertTitle>Attention Required</AlertTitle>
                         <p>
                             Eg: Street light,overflowing drain,severe traffic congestion,
@@ -89,7 +89,7 @@ function DashBoardHome() {
                             Location,Date.
                         </p>
                         <u>Learn More</u>
-                    </Alert> */}
+                    </Alert>
             </div>
             <MapComponent />
             <div className='sm:flex sm:items-center 
@@ -107,10 +107,10 @@ function DashBoardHome() {
                     <BarChartComponent width={500} XLabels={wards} values={wardValue} />
                 </div>
             </div>
-            <div className='w-full p-4 shadow-md rounded-lg mb-2'>
+            {/* <div className='w-full p-4 shadow-md rounded-lg mb-2'>
                 <h1 className='text-4xl'>Progress of Intiatives</h1>
                 <YojanaTable />
-            </div>
+            </div> */}
             <AirQualityIndex />
         </div>
     )

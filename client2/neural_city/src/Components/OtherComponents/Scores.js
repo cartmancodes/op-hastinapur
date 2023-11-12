@@ -14,11 +14,19 @@ function Scores(props) {
             </div>
             {
                 props.scores.map((score) => {
-                    console.log(score);
                     return (
-                        <div className={`shadow-md text-${score.scoreColor}-500 md:px-4 md:py-8 sm:px-2 sm:py-2 flex flex-col items-center justify-between rounded-xl bg-${score.scoreColor}-100 hover:bg-${score.scoreColor}-200 md:w-[180px] md:h-[120px]`}>
-                            <h1 className='text-xl'>{score.scoreValue}/10</h1>
-                            <p className='text-[1em]'>{score.scoreName}</p>
+                        <div>
+                        {
+                            score.disabled ?
+                            <div className={`shadow-md text-${score.scoreColor}-500 md:px-4 md:py-8 sm:px-2 sm:py-2 flex flex-col items-center justify-between rounded-xl bg-${score.scoreColor}-50 hover:bg-${score.scoreColor}-100 md:w-[180px] md:h-[120px]`}>
+                                <h1 className='text-xl'></h1>
+                                <p className='text-[1em]'>{score.scoreName}</p>
+                            </div> :
+                                <div className={`shadow-md text-${score.scoreColor}-500 md:px-4 md:py-8 sm:px-2 sm:py-2 flex flex-col items-center justify-between rounded-xl bg-${score.scoreColor}-100 hover:bg-${score.scoreColor}-200 md:w-[180px] md:h-[120px]`}>
+                                    <h1 className='text-xl'>{score.scoreValue}/10</h1>
+                                    <p className='text-[1em]'>{score.scoreName}</p>
+                                </div>
+                        }
                         </div>
                     )
                 })

@@ -45,6 +45,10 @@ function UnverifiedChallanRow(props) {
 
     }
 
+    const takeAction = () => {
+        
+    }
+
     const editDetails = () => {
         setOpenFormModal(true);
     }
@@ -67,6 +71,11 @@ function UnverifiedChallanRow(props) {
                 <TableCell>
                     <Button onClick={verifyDetails} variant='contained' color='success'>Verify</Button>
                 </TableCell>
+
+                <TableCell>
+                    <Button onClick={takeAction} variant='contained' color='success'>Take Action</Button>
+                </TableCell>
+
                 <TableCell>
                     <Button onClick={editDetails} variant='contained' color='error'>Edit</Button>
                 </TableCell>

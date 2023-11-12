@@ -15,9 +15,6 @@ function Dashboard() {
                 <Outlet />
                 <Footer />
             </div>
-            {pathname === '/monitering/sustainability' || pathname === '/monitering/tourism'
-                ? <RightSideBar/> : <></>
-            }
         </div>
     )
 }
