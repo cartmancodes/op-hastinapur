@@ -10,14 +10,11 @@ function Dashboard() {
     return (
         <div className='flex'>
             <Sidebar></Sidebar>
-            <div className='w-full mx-6 space-y-4'>
+            <div className='w-[80%] sm:w-[95%] ml-2 space-y-4'>
                 <Navbar />
                 <Outlet />
                 <Footer />
             </div>
-            {pathname === '/monitering/sustainability' || pathname === '/monitering/tourism'
-                ? <RightSideBar/> : <></>
-            }
         </div>
     )
 }

@@ -4,10 +4,13 @@ import { Button, Select, FormControl, Box, MenuItem, InputLabel, } from '@mui/ma
 import { useState } from 'react'
 import Scores from './OtherComponents/Scores'
 import { geojson } from './MapComponents/heatmap'
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import RightSideBar from './Utility/RightSideBar'
+import MapTable from './OtherComponents/DataGrid'
 
 function SustainabilityPage() {
-    let intialgeojson = geojson.filter(geo => (parseFloat(geo.lat) >= 12.95) && parseFloat(geo.lon) >= 77.56 && parseFloat(geo.lat) <= 13.10 && parseFloat(geo.lon) <= 77.7);
-    console.log(intialgeojson);
+    let intialgeojson = geojson;
+    const [scoreValue, setScoreValue] = useState("Any");
     const [geojsonData, setGeojsondata] = useState(intialgeojson);
     const [wardValue, setwardValue] = useState("Ward1");
     const handleWardChange = (e) => {
@@ -31,11 +34,15 @@ function SustainabilityPage() {
         }
     }
     return (
-        <div className='flex justify-between items-center w-full space-y-4 space-x-4'>
-            <div className='w-full space-y-4'>
+        <div className='flex relative justify-between items-center w-[full] space-x-4'>
+            <div className='w-[79%] space-y-4'>
+                <div className='flex-start'>
+                    <h1 className='text-4xl font-bold text-gray-800'>Jhansi</h1>
+                    <p className='text-gray-500 text-xl'>Dashboard <KeyboardArrowRightIcon color='primary' /> </p>
+                </div>
                 <div>
                     <Scores
-                        mainScoreName="Sustainability Score"
+                        mainScoreName="Walkability Score"
                         mainScoreValue={8}
                         scores={
                             [
@@ -47,7 +54,7 @@ function SustainabilityPage() {
                     />
                 </div>
                 <div className='flex items-center justify-between p-2'>
-                    <div className='flex space-x-2'>
+                    <div className='sm:flex space-y-2 sm:space-y-0 sm:space-x-2'>
                         <Box sx={{ minWidth: 120 }}>
                             <FormControl fullWidth>
                                 <InputLabel id="demo-simple-select-label">Ward</InputLabel>
@@ -76,19 +83,34 @@ function SustainabilityPage() {
                                 </Select>
                             </FormControl>
                         </Box>
-                    </div>
-                    <div>
-                        <Button onClick={handleApplyClick} variant='contained' size='large' disableElevation>Apply</Button>
-                    </div>
 
+                        <Box sx={{ minWidth: 120 }}>
+						<FormControl fullWidth>
+							<InputLabel id="demo-simple-select-label">Score</InputLabel>
+							<Select
+								value={scoreValue}
+								label="Score"
+								onChange={(e) => setScoreValue(e.target.value)}
+							>
+								<MenuItem value={"Any"}>Any</MenuItem>
+								<MenuItem value={1}>1</MenuItem>
+								<MenuItem value={2}>2</MenuItem>
+								<MenuItem value={3}>3</MenuItem>
+								<MenuItem value={4}>4</MenuItem>
+								<MenuItem value={5}>5</MenuItem>
+							</Select>
+						</FormControl>
+					</Box>
+                    </div>
                 </div>
                 <div className='shadow-md p-2 rounded-lg'>
                     <SpecificPageMapComponent
                         geojson={geojsonData}
                         position={position} />
                 </div>
+                <MapTable />
             </div>
-            
+            <RightSideBar/>
         </div>
     )
 }
