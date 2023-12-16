@@ -3,38 +3,129 @@ import SpecificPageMapComponent from './MapComponents/SpecificPageMapComponent'
 import { Button, Select, FormControl, Box, MenuItem, InputLabel, } from '@mui/material'
 import { useState } from 'react'
 import Scores from './OtherComponents/Scores'
-import { geojson } from './MapComponents/heatmap'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import RightSideBar from './Utility/RightSideBar'
-import MapTable from './OtherComponents/DataGrid'
+import MapTableSpecific from './OtherComponents/MapTableSpecific'
+import { wardDivision } from './MapComponents/wardDivisionData'
+import axios from 'axios'
+import { isMarkerInsidePolygon } from './MapComponents/UtilityFunctions'
+import { useEffect } from 'react'
+import { exportToExcel } from 'react-json-to-excel'
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import { mockData } from './MapComponents/MockData'
+
+function caseChange(str) {
+    let sepe = str.split("_");
+    let ans = sepe.map((s) => {
+        return s[0].toUpperCase() + s.substring(1);
+    }).join(" ");
+    return ans;
+}
+
+function wardSelection(newData, currWard,param,sub_param) {
+    let selectedWardBoundary = [];
+
+    wardDivision.features.map((ward) => {
+        if (currWard === ward.properties["Ward Numbe"]) {
+            selectedWardBoundary = ward.geometry.coordinates;
+        }
+    });
+    let dataToReturn = newData.filter((dat) => {
+        let isTrue = isMarkerInsidePolygon([dat.longitude, dat.latitude], selectedWardBoundary);
+        return isTrue;
+    });
+
+    let dataToShow = [];
+    let curr_ward_name = "";
+    wardDivision.features.map(ward => {
+        if (ward.properties["Ward Numbe"] == currWard) {
+            curr_ward_name = ward.properties["Ward Name"]
+        }
+    })
+
+    dataToReturn.map((dat) => {
+        let score = dat.score[param][sub_param];
+        console.log(score);
+        
+        let preparedData = {
+            "ward": curr_ward_name,
+            "score": (Number)(score),
+            "date": dat.date,
+            "file_name": dat.image_name,
+            "status": dat.scoring_completed,
+            "latitude" : dat.latitude,
+            "longitude" : dat.longitude
+        };
+        dataToShow.push(preparedData);
+    });
+
+    let dataCleaned = dataToShow.filter((dat) => !Number.isNaN(dat.score) && dat.score != -10);
+    return dataCleaned;
+}
 
 function SustainabilityPage() {
-    let intialgeojson = geojson;
-    const [scoreValue, setScoreValue] = useState("Any");
-    const [geojsonData, setGeojsondata] = useState(intialgeojson);
-    const [wardValue, setwardValue] = useState("Ward1");
-    const handleWardChange = (e) => {
-        setwardValue(e.target.value);
-    }
-    const [parameter, setparameter] = useState("Parameter-1");
-    const handleParameterChange = (e) => {
-        setparameter(e.target.value);
-    }
-    const [position, setPosition] = useState([12.9516, 76.5946])
+    let wards = [];
+    const parameter_names = [
+        "cleaniness_score",
+        "sidewalk_score",
+        "road_score",
+        "encroachment_score",
+        "traffic_calming"
+    ]
+    const sub_parameters = [
+        ["overall_cleaniness_score", "general_cleanliness", "littering", "dustbin", "drain"],
+        ["overall_sidewalk_score", "maintenance_quality", "cleanliness_and_hygiene", "effective_use_vs_occupation", "markets", "wrong_parking"],
+        ["overall_road_score", "surface_quality", "blacktop_quality", "lane_markings", "right_rules", "lane_discipline", "wrong_parking"],
+        ["overall_encroachment_score", "general_encroachment", "encroachment_by_whom"],
+        ["overall_traffic_calming", "toilet"]
+    ]
+    wardDivision.features.map((ward) => {
+        wards.push({ "ward_name": ward.properties["Ward Name"], "ward_number": ward.properties["Ward Numbe"] })
+    });
+    const [scoreValue, setScoreValue] = useState("any");
+    const [city, setCity] = useState("Jhansi");
+    const [currWard, setcurrWard] = useState(1);
+    const [parameter, setParameter] = useState(0);
+    const [sub_parameter,setSubParameter] = useState(0);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
+    const [data, setData] = useState(mockData.data);
 
-    const handleApplyClick = () => {
-        if (wardValue === "Ward1" && parameter === "Parameter-1") {
-            const newgeojson = geojson.filter(geo => (parseFloat(geo.lat) >= 12.95) && parseFloat(geo.lon) >= 77.56 && parseFloat(geo.lat) <= 13.10 && parseFloat(geo.lon) <= 77.7);
-            setGeojsondata([...newgeojson]);
-            setPosition([12.9516, 76.5946]);
-        } if (wardValue === "Ward2" && parameter === "Parameter-1") {
-            const newgeojson = geojson.filter(geo => (parseFloat(geo.lat) >= 11.85) && parseFloat(geo.lon) >= 76.46 && parseFloat(geo.lat) <= 12.20 && parseFloat(geo.lon) <= 76.8);
-            setGeojsondata([...newgeojson]);
-            setPosition([0, 0]);
-        }
+    
+    const [position, setPosition] = useState([12.9516, 76.5946])
+    const [filteredOutput,setFilteredOutput] = useState([]);
+    // useEffect(() => {
+    //     async function fetchData() {
+    //         setLoading(true);
+    //         let res = await axios.get("http://localhost:5000/data/");
+    //         if (res) {
+    //             if (res.status === 200) {
+    //                 let newData = res.data.data;
+    //                 let dataAfterSelected = wardSelection(newData, currWard,parameter_names[parameter],sub_parameters[parameter][sub_parameter]);
+    //                 setFilteredOutput(dataAfterSelected);
+    //                 setData(res.data.data);
+    //             } else if (res.status === 400) {
+    //                 setError("Data Not Found")
+    //             }
+    //             setLoading(false);
+    //         }
+    //     }
+    //     fetchData();
+    // }, []);
+    // console.log("data" + data);
+
+    useEffect(() => {
+        const filteredOutput = wardSelection(data,currWard,parameter_names[parameter],sub_parameters[parameter][sub_parameter]);
+        setFilteredOutput(filteredOutput);
+        console.log(filteredOutput)
+    },[loading,currWard, parameter,sub_parameter])
+
+    const handleDownloadButtonClick = () => {
+        exportToExcel(filteredOutput, 'Sustainability');
     }
+
     return (
-        <div className='flex relative justify-between items-center w-[full] space-x-4'>
+        loading ? <div>Loading...</div> : <div className='flex relative justify-between items-center w-[full] space-x-4'>
             <div className='w-[79%] space-y-4'>
                 <div className='flex-start'>
                     <h1 className='text-4xl font-bold text-gray-800'>Jhansi</h1>
@@ -53,64 +144,116 @@ function SustainabilityPage() {
                         }
                     />
                 </div>
-                <div className='flex items-center justify-between p-2'>
-                    <div className='sm:flex space-y-2 sm:space-y-0 sm:space-x-2'>
-                        <Box sx={{ minWidth: 120 }}>
-                            <FormControl fullWidth>
-                                <InputLabel id="demo-simple-select-label">Ward</InputLabel>
+                <div className='space-y-2 sm:space-y-0 sm:flex p-2 shadow-sm w-full sm:h-[60px] rounded-lg space-x-2 justify-between items-center'>
+                    <div className='sm:space-x-2 space-y-2 sm:space-y-0 sm:flex'>
+                        <div>
+                            <FormControl>
+                                <InputLabel>City</InputLabel>
                                 <Select
-                                    value={wardValue}
-                                    label="Ward"
-                                    onChange={handleWardChange}
+                                    value={city}
+                                    onChange={(e) => setCity(e.target.value)}
+                                    size='small'
+                                    label='City'
                                 >
-                                    <MenuItem value={"Ward1"}>Ward1</MenuItem>
-                                    <MenuItem value={"Ward2"}>Ward2</MenuItem>
-                                    <MenuItem value={"Ward3"}>Ward3</MenuItem>
+
+                                    <MenuItem value="Jhansi">Jhansi</MenuItem>
+                                    <MenuItem value="Lucknow">Lucknow</MenuItem>
+                                    <MenuItem value="Kanpur">Kanpur</MenuItem>
+                                    <MenuItem value="Varanasi">Varanasi</MenuItem>
                                 </Select>
                             </FormControl>
-                        </Box>
-                        <Box sx={{ minWidth: 120 }}>
-                            <FormControl fullWidth>
-                                <InputLabel id="demo-simple-select-label">Parameter</InputLabel>
+                        </div>
+                        <div>
+                            <FormControl>
+                                <InputLabel>Ward</InputLabel>
+                                <Select
+                                    value={currWard}
+                                    size='small'
+                                    onChange={(e) => setcurrWard(e.target.value)}
+                                    label='Ward'
+                                >
+                                    {
+                                        wards.map(ward => {
+                                            return <MenuItem value={ward.ward_number}>{ward.ward_name}</MenuItem>
+                                        })
+                                    }
+                                </Select>
+                            </FormControl>
+                        </div>
+                        <div>
+                            <FormControl>
+                                <InputLabel>Parameter</InputLabel>
                                 <Select
                                     value={parameter}
-                                    label="Parameter"
-                                    onChange={handleParameterChange}
+                                    onChange={(e) => {
+                                        setParameter(e.target.value);
+                                        setSubParameter(0);
+                                    }}
+                                    label='Parameter'
+                                    size='small'
                                 >
-                                    <MenuItem value={"Parameter-1"}>Parameter-1</MenuItem>
-                                    <MenuItem value={"Parameter-2"}>Parameter-2</MenuItem>
-                                    <MenuItem value={"Parameter-3"}>Parameter-3</MenuItem>
+                                    {
+                                        parameter_names.map((para, idx) => {
+                                            return <MenuItem value={idx}>{caseChange(para)}</MenuItem>
+                                        })
+                                    }
                                 </Select>
                             </FormControl>
-                        </Box>
 
-                        <Box sx={{ minWidth: 120 }}>
-						<FormControl fullWidth>
-							<InputLabel id="demo-simple-select-label">Score</InputLabel>
-							<Select
-								value={scoreValue}
-								label="Score"
-								onChange={(e) => setScoreValue(e.target.value)}
-							>
-								<MenuItem value={"Any"}>Any</MenuItem>
-								<MenuItem value={1}>1</MenuItem>
-								<MenuItem value={2}>2</MenuItem>
-								<MenuItem value={3}>3</MenuItem>
-								<MenuItem value={4}>4</MenuItem>
-								<MenuItem value={5}>5</MenuItem>
-							</Select>
-						</FormControl>
-					</Box>
+                        </div>
+
+                        <div>
+                            <FormControl>
+                                <InputLabel>Sub Parameter</InputLabel>
+                                <Select
+                                    value={sub_parameter}
+                                    onChange={(e) => setSubParameter(e.target.value)}
+                                    label='Sub Parameter'
+                                    size='small'
+                                >
+                                    {
+                                        sub_parameters[parameter].map((sub_para, idx) => {
+                                            return <MenuItem value={idx}>{caseChange(sub_para)}</MenuItem>
+                                        })
+                                    }
+                                </Select>
+                            </FormControl>
+
+                        </div>
+                        <div>
+                            <FormControl>
+                                <InputLabel>Score</InputLabel>
+                                <Select
+                                    value={scoreValue}
+                                    label="Score"
+                                    onChange={(e) => setScoreValue(e.target.value)}
+                                    size='small'
+                                >
+                                    <MenuItem value={"any"}>Any</MenuItem>
+
+                                </Select>
+                            </FormControl>
+                        </div>
+                    </div>
+
+                    <div>
+                        <Button variant='outlined' onClick={
+                            handleDownloadButtonClick
+                        }>
+                            <FileDownloadIcon />
+                        </Button>
                     </div>
                 </div>
                 <div className='shadow-md p-2 rounded-lg'>
                     <SpecificPageMapComponent
-                        geojson={geojsonData}
-                        position={position} />
+                        currWard = {currWard}
+                        position = {position}
+                        geojson={filteredOutput}
+                        pos={currWard + "@" + parameter + "@" + sub_parameter} />
                 </div>
-                <MapTable />
+                <MapTableSpecific filteredOutput={filteredOutput} loading={loading} currWard={currWard} city={city} scoreValue={scoreValue} parameter={parameter} sub_parameter = {sub_parameter}/>
             </div>
-            <RightSideBar/>
+            <RightSideBar />
         </div>
     )
 }

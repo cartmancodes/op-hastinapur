@@ -4,7 +4,7 @@ function Footer() {
   return (
     <footer className='
     rounded-lg shadow-lg 
-    justify-center items-center space-x-6 
+    justify-center items-center space-x-2 
     flex p-4
     text-blue-600'>
       <Link>About Us</Link>

@@ -7,7 +7,7 @@ import {
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import CloseIcon from '@mui/icons-material/Close';
 import ReactImageZoom from 'react-image-zoom'
-function DataGridRow(props) {
+function TableRowSpecific(props) {
     const formModalStyle = {
         position: 'absolute',
         top: '50%',
@@ -117,4 +117,4 @@ function DataGridRow(props) {
     )
 }
 
-export default DataGridRow
+export default TableRowSpecific

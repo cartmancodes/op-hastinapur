@@ -29,8 +29,10 @@ class Database:
         Returns:
             record: Return input record for confirming successful insertion.
         """
-        db_record = await self.database[collection].insert_one(record.dict(exclude={'id'})) 
+        db_record = await self.database[collection].insert_one(record) 
         return db_record
+    
+    # .dict(exclude={'id'})
 
     async def bulk_insert(self, records, collection: str):
         return await self.database[collection].insert_many(records)

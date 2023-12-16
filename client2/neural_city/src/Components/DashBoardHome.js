@@ -12,11 +12,9 @@ import Linechart from './Charts/Linechart';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import MapComponent from './MapComponents/MapComponent';
-import YojanaTable from './OtherComponents/YojanaTable';
 import BarChartComponent from './Charts/BarChartComponent';
 import { useState } from 'react';
 import AirQualityIndex from './OtherComponents/AirQualityIndex';
-import AQIChart from './Charts/AQIChart';
 
 function DashBoardHome() {
     const [rangeDate, setRangeDate] = useState([
