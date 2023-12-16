@@ -43,15 +43,12 @@ const columns = [
         minWidth: 80,
     },
     {
-        id: 'verify',
-        label: 'Verify',
         minWidth: 100,
     },
     {
-        id: 'Edit',
-        label: 'Edit',
         minWidth: 100,
-    }
+    },
+    {minWidth:100}
 ];
 
 const mockData = [

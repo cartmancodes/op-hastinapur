@@ -28,7 +28,7 @@ function SimpleTable() {
     const failed = 'w-fit p-2 bg-red-100 text-red-500 rounded-lg';
     return (
         <Paper className='max-h-[400px] overflow-y-scroll'>
-            <Table>
+            <Table stickyHeader>
                 <TableHead>
                     <TableRow>
                         <TableCell>Name of the Intiatives</TableCell>

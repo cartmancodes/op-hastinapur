@@ -1,7 +1,6 @@
 """
 Primary Database module for the application
 """
-
 from typing import List, Optional
 from bson import ObjectId
 from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorDatabase
@@ -30,8 +29,10 @@ class Database:
         Returns:
             record: Return input record for confirming successful insertion.
         """
-        db_record = await self.database[collection].insert_one(record.dict(exclude={'id'})) 
-        return record
+        db_record = await self.database[collection].insert_one(record) 
+        return db_record
+    
+    # .dict(exclude={'id'})
 
     async def bulk_insert(self, records, collection: str):
         return await self.database[collection].insert_many(records)
@@ -46,7 +47,7 @@ class Database:
 
         query = {key: value}
         db_records = self.database[collection].find(query)
-        output_records = []
+        # output_records = []
         # async for record in db_records:
         #     output_records.append(ModelInDB(**record, id=record["_id"]))
         return output_records
@@ -63,7 +64,7 @@ class Database:
         output_records = []
         # async for record in db_records:
         #     output_records.append(ModelInDB(**record, id=record["_id"]))
-        return output_records
+        return db_records
         
     async def close_dbi(self) -> None:
         self.connection.close()
