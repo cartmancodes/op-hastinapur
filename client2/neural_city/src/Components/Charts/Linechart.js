@@ -3,7 +3,7 @@ import { VictoryLine, VictoryChart, VictoryLegend } from 'victory';
 
 function Linechart() {
     let xAxis = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"];
-    let lkoData = [0, 5, 2, 6, 3, 9.3];
+    let lkoData = [1, 2, 3, 4, 2, 5];
     let nationalData = [6, 3, 7, 9.5, 4, 2];
     let dat1 = [];
     let dat2 = [];
@@ -12,7 +12,7 @@ function Linechart() {
         dat2.push({ x: xAxis[i], y: nationalData[i] });
     }
     return (
-        <div className='shadow-md rounded-lg sm:w-[40vw]'>
+        <div className='shadow-md rounded-lg sm:w-[40vw] w-[100%] h-[300px]'>
             <div className='flex items-center justify-between pt-4 pl-2'>
                 <p className='md:text-xl text-sm md:font-semibold'>Jhansi Score Trend</p>
                 {/* <div className='flex items-center justify-between space-x-2 mx-2'>

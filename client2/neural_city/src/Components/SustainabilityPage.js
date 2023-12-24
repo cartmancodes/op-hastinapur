@@ -22,18 +22,21 @@ function caseChange(str) {
     return ans;
 }
 
-function wardSelection(newData, currWard,param,sub_param) {
+function wardSelection(newData, currWard,param,sub_param,scoreValue) {
     let selectedWardBoundary = [];
-
-    wardDivision.features.map((ward) => {
-        if (currWard === ward.properties["Ward Numbe"]) {
-            selectedWardBoundary = ward.geometry.coordinates;
-        }
-    });
-    let dataToReturn = newData.filter((dat) => {
-        let isTrue = isMarkerInsidePolygon([dat.longitude, dat.latitude], selectedWardBoundary);
-        return isTrue;
-    });
+    let dataToReturn = newData;
+    if(currWard !== "any") {
+        wardDivision.features.map((ward) => {
+            if (currWard === ward.properties["Ward Numbe"]) {
+                selectedWardBoundary = ward.geometry.coordinates;
+            }
+        });
+        dataToReturn = dataToReturn.filter((dat) => {
+            let isTrue = isMarkerInsidePolygon([dat.longitude, dat.latitude], selectedWardBoundary);
+            return isTrue;
+        });
+    }
+    
 
     let dataToShow = [];
     let curr_ward_name = "";
@@ -44,11 +47,20 @@ function wardSelection(newData, currWard,param,sub_param) {
     })
 
     dataToReturn.map((dat) => {
+        let ward_name_curr = undefined;
+        for(let i=0;i<wardDivision.features.length;i++) {
+            let ward = wardDivision.features[i];
+            let isInside = isMarkerInsidePolygon([dat.longitude,dat.latitude],ward.geometry.coordinates);
+            if(isInside) {
+                console.log(isInside);
+                ward_name_curr = ward.properties["Ward Name"];
+                console.log(ward_name_curr);
+                break;
+            }
+        }
         let score = dat.score[param][sub_param];
-        console.log(score);
-        
         let preparedData = {
-            "ward": curr_ward_name,
+            "ward": ward_name_curr,
             "score": (Number)(score),
             "date": dat.date,
             "file_name": dat.image_name,
@@ -60,6 +72,9 @@ function wardSelection(newData, currWard,param,sub_param) {
     });
 
     let dataCleaned = dataToShow.filter((dat) => !Number.isNaN(dat.score) && dat.score != -10);
+    if(scoreValue !== "any") {
+        dataCleaned = dataCleaned.filter((dat) => dat.score === scoreValue);
+    }
     return dataCleaned;
 }
 
@@ -84,14 +99,12 @@ function SustainabilityPage() {
     });
     const [scoreValue, setScoreValue] = useState("any");
     const [city, setCity] = useState("Jhansi");
-    const [currWard, setcurrWard] = useState(1);
+    const [currWard, setcurrWard] = useState("any");
     const [parameter, setParameter] = useState(0);
     const [sub_parameter,setSubParameter] = useState(0);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [data, setData] = useState(mockData.data);
-
-    
     const [position, setPosition] = useState([12.9516, 76.5946])
     const [filteredOutput,setFilteredOutput] = useState([]);
     // useEffect(() => {
@@ -115,10 +128,10 @@ function SustainabilityPage() {
     // console.log("data" + data);
 
     useEffect(() => {
-        const filteredOutput = wardSelection(data,currWard,parameter_names[parameter],sub_parameters[parameter][sub_parameter]);
+        const filteredOutput = wardSelection(data,currWard,parameter_names[parameter],sub_parameters[parameter][sub_parameter],scoreValue);
         setFilteredOutput(filteredOutput);
         console.log(filteredOutput)
-    },[loading,currWard, parameter,sub_parameter])
+    },[loading,currWard, parameter,sub_parameter,scoreValue])
 
     const handleDownloadButtonClick = () => {
         exportToExcel(filteredOutput, 'Sustainability');
@@ -134,12 +147,12 @@ function SustainabilityPage() {
                 <div>
                     <Scores
                         mainScoreName="Walkability Score"
-                        mainScoreValue={8}
+                        mainScoreValue={2.5}
                         scores={
                             [
-                                { scoreName: "Score-1", scoreValue: 8, scoreColor: 'red' },
-                                { scoreName: "Score-2", scoreValue: 8, scoreColor: 'purple' },
-                                { scoreName: "Score-3", scoreValue: 8, scoreColor: 'blue' }
+                                { scoreName: "Score-1", scoreValue: 4, scoreColor: 'red' },
+                                { scoreName: "Score-2", scoreValue: 4, scoreColor: 'purple' },
+                                { scoreName: "Score-3", scoreValue: 4, scoreColor: 'blue' }
                             ]
                         }
                     />
@@ -172,6 +185,7 @@ function SustainabilityPage() {
                                     onChange={(e) => setcurrWard(e.target.value)}
                                     label='Ward'
                                 >
+                                    <MenuItem value={"any"}>All Wards</MenuItem>
                                     {
                                         wards.map(ward => {
                                             return <MenuItem value={ward.ward_number}>{ward.ward_name}</MenuItem>
@@ -224,13 +238,18 @@ function SustainabilityPage() {
                             <FormControl>
                                 <InputLabel>Score</InputLabel>
                                 <Select
+                                    sx={{width:'100px'}}
                                     value={scoreValue}
                                     label="Score"
                                     onChange={(e) => setScoreValue(e.target.value)}
                                     size='small'
                                 >
                                     <MenuItem value={"any"}>Any</MenuItem>
-
+                                    <MenuItem value={1}>1</MenuItem>
+                                    <MenuItem value={2}>2</MenuItem>
+                                    <MenuItem value={3}>3</MenuItem>
+                                    <MenuItem value={4}>4</MenuItem>
+                                    <MenuItem value={5}>5</MenuItem>
                                 </Select>
                             </FormControl>
                         </div>

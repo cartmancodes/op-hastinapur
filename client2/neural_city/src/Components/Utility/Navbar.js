@@ -49,13 +49,13 @@ function Navbar() {
                     <div className='border-b-2 sm:p-0 p-2 sm:border-b-0  w-full sm:w-fit'>
                         <Link className={!(paths.length > 1 && paths[1] === "planning") ?
                             'hover:bg-purple-200 hover:text-purple-600 text-gray-500 p-2 rounded-lg'
-                            : "bg-purple-300 text-purple-900 p-2 rounded-lg"} to='/planning'>Planning</Link>
+                            : "bg-purple-300 text-purple-900 p-2 rounded-lg"} to={`planning?id=${0}`}>Planning</Link>
                     </div>
-                    <div className='border-b-2 sm:p-0 p-2 sm:border-b-0  w-full sm:w-fit'>
+                    {/* <div className='border-b-2 sm:p-0 p-2 sm:border-b-0  w-full sm:w-fit'>
                         <Link className={!(paths.length > 1 && paths[1] === "others") ?
                             'hover:bg-purple-200 hover:text-purple-600 text-gray-500 p-2 rounded-lg'
                             : "bg-purple-300 text-purple-900 p-2 rounded-lg"} to='/others'>Other Modules</Link>
-                    </div>
+                    </div> */}
                     <div className='border-b-2 sm:p-0 p-2 sm:border-b-0 w-full sm:w-fit'>
                         <Link className={!(paths.length > 1 && paths[1] === "help") ?
                             'hover:bg-purple-200 hover:text-purple-600 text-gray-500 p-2 rounded-lg'

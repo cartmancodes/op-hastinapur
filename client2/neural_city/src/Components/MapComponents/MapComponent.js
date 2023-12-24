@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import ReactImageZoom from 'react-image-zoom';
-import { MapContainer, Marker, Polygon, Polyline, Popup, TileLayer} from 'react-leaflet'
+import { MapContainer, Marker, Polygon, Polyline, Popup, TileLayer } from 'react-leaflet'
 import './Map.css'
 import 'leaflet/dist/leaflet.css';
 import { geojson } from './heatmap';
-import { IconButton} from '@mui/material';
+import { IconButton } from '@mui/material';
 import { Box, FormControl, InputLabel, Select, MenuItem, Modal } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close';
 import { data } from './latlongPoints'
@@ -25,7 +25,7 @@ const customMarkerIcon = (name) =>
 	divIcon({
 		html: name,
 		className: "icon"
-});
+	});
 
 const setIcon = ({ properties }, latlng) => {
 	return L.marker(latlng, { icon: customMarkerIcon("") });
@@ -42,7 +42,7 @@ wardDivision.features.map((ward) => {
 })
 
 function MapComponent() {
-	const [wardValue, setwardValue] = useState(1);
+	const [wardValue, setwardValue] = useState("any");
 	const [scoreValue, setScoreValue] = useState("Any");
 	const handleWardChange = (e) => {
 		setwardValue(e.target.value);
@@ -57,7 +57,7 @@ function MapComponent() {
 
 	}
 
-	
+
 	let max = -1;
 	let min = 1;
 	let filteredgeoJson = geojson.filter((json) => json.score > 0);
@@ -70,7 +70,8 @@ function MapComponent() {
 		newgeojson.push(json);
 	}
 
-	let markerjson = newgeojson.filter((json) => json.score > 0.2);
+	// let markerjson = newgeojson.filter((json) => json.score > 0.2);
+	let markerjson = newgeojson;
 	let middle = (min + max) / 2.0;
 
 	const style = {
@@ -89,28 +90,41 @@ function MapComponent() {
 		setOpen(true);
 	}
 	const handleClose = () => setOpen(false);
-	let position = [];
-	wardDivision.features.map((feature) => {
-		if (wardValue === feature.properties["Ward Numbe"]) {
-			position = [feature.geometry.coordinates[0][0][0][1], feature.geometry.coordinates[0][0][0][0]];
-		}
-	})
-	let selectedWardBoundary = [];
-
-	wardDivision.features.map((ward) => {
-		if (wardValue === ward.properties["Ward Numbe"]) {
-			selectedWardBoundary = ward.geometry.coordinates;
-		}
-	});
+	let position = [25.4484,78.5685];
+	if(wardValue !== "any") {
+		wardDivision.features.map((feature) => {
+			if (wardValue === feature.properties["Ward Numbe"]) {
+				position = [feature.geometry.coordinates[0][0][0][1], feature.geometry.coordinates[0][0][0][0]];
+			}
+		})
+	}
 	
+	let selectedWardBoundary = [];
+	if (wardValue === "any") {
+		wardDivision.features.map((ward) => {
+			selectedWardBoundary.push(ward.geometry.coordinates);
+		});
+	} else {
+		wardDivision.features.map((ward) => {
+			if (wardValue === ward.properties["Ward Numbe"]) {
+				selectedWardBoundary.push(ward.geometry.coordinates);
+			}
+		});
+	}
 
-	markerjson = markerjson.filter((dat) => {
-		console.log(dat);
-		let isTrue = isMarkerInsidePolygon([dat.longitude,dat.latitude],selectedWardBoundary);
-		console.log(isTrue);
-		return isTrue;
-	});
-	console.log(filteredgeoJson);
+	if(wardValue !== "any") {
+		markerjson = markerjson.filter((dat) => {
+			console.log(selectedWardBoundary);
+			let isTrue = isMarkerInsidePolygon([dat.longitude, dat.latitude], selectedWardBoundary[0]);
+			console.log(isTrue);
+			return isTrue;
+		});
+	}
+
+	console.log(wardValue);
+
+	console.log(markerjson); 
+	
 	return (
 		<div className='mb-2 p-2 flex flex-col shadow-md rounded-lg'>
 			<div className='flex p-2 items-center justify-between'>
@@ -123,7 +137,7 @@ function MapComponent() {
 								label="Ward"
 								onChange={handleWardChange}
 							>
-								<MenuItem value = {"any"}>Any</MenuItem>
+								<MenuItem value={"any"}>All Wards</MenuItem>
 								{wards.map((ward) => {
 									return (<MenuItem value={ward.ward_number}>{ward.ward_name}</MenuItem>)
 								})}
@@ -181,7 +195,7 @@ function MapComponent() {
 						}
 					})}
 
-					<Polygon positions={selectedWardBoundary[0][0].map((cord) => [cord[1], cord[0]])} color={'blue'} />
+					{selectedWardBoundary.map((wardBoundary) => <Polygon positions={wardBoundary[0][0].map((cord) => [cord[1], cord[0]])} color={'blue'} />)}
 					{
 						markerjson.map((pos) => {
 							return (

@@ -11,6 +11,7 @@ import { Help } from "@mui/icons-material";
 import OtherModule from './Components/OtherModule'
 import Planning from "./Components/Planning";
 import Traffic from "./Components/TrafficPageComponents/Traffic";
+
 function App() {
   return (
     <React.Fragment>
@@ -26,7 +27,7 @@ function App() {
           <Route path="intiateaction" element={<IntiateAction></IntiateAction>}/>
           <Route path="help" element={<Help/>}/>
           <Route path="others" element={<OtherModule/>}/>
-          <Route path="planning" element = {<Planning/>}/>
+          <Route path={`planning`} element = {<Planning/>}/>
         </Route>
       </Routes>
 

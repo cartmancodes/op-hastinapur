@@ -41,7 +41,6 @@ function DataGridRow(props) {
     const [openFormModal, setOpenFormModal] = useState(false);
     const [openVideoModal, setOpenVideoModal] = useState(false);
     let row = props.row;
-    console.log(row);
     return (
         <>
             <TableRow hover role="checkbox" tabIndex={-1}>
