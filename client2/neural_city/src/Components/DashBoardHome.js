@@ -26,8 +26,7 @@ let cityParams = [
     "cleaniness_score",
     "sidewalk_score",
     "road_score",
-    "encroachment_score",
-    "traffic_calming"
+    "encroachment_score"
 ]
 const sub_parameters = [
     ["overall_cleaniness_score", "general_cleanliness", "littering", "dustbin", "drain"],
@@ -51,9 +50,9 @@ function DashBoardHome() {
         dayjs('2022-04-21'),
     ]);
 
-    const [overallScore, setOverAllScore] = useState(2);
-    const [nationalScore, setNationalScore] = useState(4);
-    const [walkabilityScore, setwalkabilityScore] = useState(2.5);
+    const [overallScore, setOverAllScore] = useState(2.5);
+    const [nationalScore, setNationalScore] = useState(2.5);
+    const [walkabilityScore, setwalkabilityScore] = useState(2);
     const [touristScore, setTouristScore] = useState(4);
     const [wardRange, setwardRange] = useState(5);
     const handleWardRangeChange = (e) => {
@@ -131,7 +130,7 @@ function DashBoardHome() {
         <div className='space-y-4'>
             <div className='sm:flex justify-between items-center'>
                 <div className='flex-start'>
-                    <h1 className='text-4xl font-bold text-gray-800'>Jhansi</h1>
+                    <h1 className='text-4xl font-bold text-gray-800'>CityX</h1>
                     <p className='text-gray-500 text-xl'>Dashboard <KeyboardArrowRightIcon color='primary' /> </p>
                 </div>
                 <div className='flex-end'>
@@ -158,9 +157,9 @@ function DashBoardHome() {
                 mainScoreValue={overallScore}
                 scores={
                     [
-                        { scoreName: "National Average", scoreValue: nationalScore, scoreColor: "gray", disabled: true },
+                        { scoreName: "National Average", scoreValue: nationalScore, scoreColor: "purple"},
                         { scoreName: "Walkability Score", scoreValue: walkabilityScore, scoreColor: "blue" },
-                        { scoreName: "Tourism Score", scoreValue: touristScore, scoreColor: "purple" }
+                        { scoreName: "Tourism Score", scoreValue: touristScore, scoreColor: "gray",disabled:true }
                     ]
                 }
             />

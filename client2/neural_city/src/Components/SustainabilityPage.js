@@ -141,13 +141,13 @@ function SustainabilityPage() {
         loading ? <div>Loading...</div> : <div className='flex relative justify-between items-center w-[full] space-x-4'>
             <div className='w-[79%] space-y-4'>
                 <div className='flex-start'>
-                    <h1 className='text-4xl font-bold text-gray-800'>Jhansi</h1>
+                    <h1 className='text-4xl font-bold text-gray-800'>CityX</h1>
                     <p className='text-gray-500 text-xl'>Dashboard <KeyboardArrowRightIcon color='primary' /> </p>
                 </div>
                 <div>
                     <Scores
                         mainScoreName="Walkability Score"
-                        mainScoreValue={2.5}
+                        mainScoreValue={2}
                         scores={
                             [
                                 { scoreName: "Score-1", scoreValue: 4, scoreColor: 'red' },
