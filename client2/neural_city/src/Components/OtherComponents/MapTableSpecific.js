@@ -40,7 +40,7 @@ export default function MapTableSpecific({filteredOutput,loading}) {
     });
 
     const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(10);
+    const [rowsPerPage, setRowsPerPage] = useState(6);
 
     const [sortScore, setSortScore] = useState("none");
     const [sortDate, setSortDate] = useState(false);

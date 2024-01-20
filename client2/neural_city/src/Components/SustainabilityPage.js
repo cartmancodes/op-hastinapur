@@ -13,6 +13,7 @@ import { useEffect } from 'react'
 import { exportToExcel } from 'react-json-to-excel'
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { mockData } from './MapComponents/MockData'
+import L from 'leaflet'
 
 function caseChange(str) {
     let sepe = str.split("_");
@@ -22,21 +23,25 @@ function caseChange(str) {
     return ans;
 }
 
-function wardSelection(newData, currWard,param,sub_param,scoreValue) {
+function wardSelection(newData, currWard, param, sub_param, scoreValue) {
     let selectedWardBoundary = [];
     let dataToReturn = newData;
-    if(currWard !== "any") {
+    if (currWard !== "any") {
         wardDivision.features.map((ward) => {
             if (currWard === ward.properties["Ward Numbe"]) {
                 selectedWardBoundary = ward.geometry.coordinates;
             }
         });
         dataToReturn = dataToReturn.filter((dat) => {
+            var polygonFormed = L.polygon(selectedWardBoundary[0][0]);
+            var marker = L.marker([dat.longitude, dat.latitude])
+            console.log(marker);
+            let isContains = polygonFormed.contains(marker.getLatLng());
             let isTrue = isMarkerInsidePolygon([dat.longitude, dat.latitude], selectedWardBoundary);
-            return isTrue;
+            return isContains;
         });
     }
-    
+
 
     let dataToShow = [];
     let curr_ward_name = "";
@@ -48,10 +53,10 @@ function wardSelection(newData, currWard,param,sub_param,scoreValue) {
 
     dataToReturn.map((dat) => {
         let ward_name_curr = undefined;
-        for(let i=0;i<wardDivision.features.length;i++) {
+        for (let i = 0; i < wardDivision.features.length; i++) {
             let ward = wardDivision.features[i];
-            let isInside = isMarkerInsidePolygon([dat.longitude,dat.latitude],ward.geometry.coordinates);
-            if(isInside) {
+            let isInside = isMarkerInsidePolygon([dat.longitude, dat.latitude], ward.geometry.coordinates);
+            if (isInside) {
                 console.log(isInside);
                 ward_name_curr = ward.properties["Ward Name"];
                 console.log(ward_name_curr);
@@ -65,14 +70,14 @@ function wardSelection(newData, currWard,param,sub_param,scoreValue) {
             "date": dat.date,
             "file_name": dat.image_name,
             "status": dat.scoring_completed,
-            "latitude" : dat.latitude,
-            "longitude" : dat.longitude
+            "latitude": dat.latitude,
+            "longitude": dat.longitude
         };
         dataToShow.push(preparedData);
     });
 
     let dataCleaned = dataToShow.filter((dat) => !Number.isNaN(dat.score) && dat.score != -10);
-    if(scoreValue !== "any") {
+    if (scoreValue !== "any") {
         dataCleaned = dataCleaned.filter((dat) => dat.score === scoreValue);
     }
     return dataCleaned;
@@ -101,12 +106,12 @@ function SustainabilityPage() {
     const [city, setCity] = useState("Jhansi");
     const [currWard, setcurrWard] = useState("any");
     const [parameter, setParameter] = useState(0);
-    const [sub_parameter,setSubParameter] = useState(0);
+    const [sub_parameter, setSubParameter] = useState(0);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [data, setData] = useState(mockData.data);
     const [position, setPosition] = useState([12.9516, 76.5946])
-    const [filteredOutput,setFilteredOutput] = useState([]);
+    const [filteredOutput, setFilteredOutput] = useState([]);
     // useEffect(() => {
     //     async function fetchData() {
     //         setLoading(true);
@@ -128,152 +133,157 @@ function SustainabilityPage() {
     // console.log("data" + data);
 
     useEffect(() => {
-        const filteredOutput = wardSelection(data,currWard,parameter_names[parameter],sub_parameters[parameter][sub_parameter],scoreValue);
+        const filteredOutput = wardSelection(data, currWard, parameter_names[parameter], sub_parameters[parameter][sub_parameter], scoreValue);
         setFilteredOutput(filteredOutput);
         console.log(filteredOutput)
-    },[loading,currWard, parameter,sub_parameter,scoreValue])
+    }, [loading, currWard, parameter, sub_parameter, scoreValue])
 
     const handleDownloadButtonClick = () => {
         exportToExcel(filteredOutput, 'Sustainability');
     }
 
     return (
-        loading ? <div>Loading...</div> : <div className='flex relative justify-between items-center w-[full] space-x-4'>
-            <div className='w-[79%] space-y-4'>
-                <div className='flex-start'>
-                    <h1 className='text-4xl font-bold text-gray-800'>CityX</h1>
-                    <p className='text-gray-500 text-xl'>Dashboard <KeyboardArrowRightIcon color='primary' /> </p>
-                </div>
-                <div>
-                    <Scores
-                        mainScoreName="Walkability Score"
-                        mainScoreValue={2}
-                        scores={
-                            [
-                                { scoreName: "Score-1", scoreValue: 4, scoreColor: 'red' },
-                                { scoreName: "Score-2", scoreValue: 4, scoreColor: 'purple' },
-                                { scoreName: "Score-3", scoreValue: 4, scoreColor: 'blue' }
-                            ]
-                        }
-                    />
-                </div>
-                <div className='space-y-2 sm:space-y-0 sm:flex p-2 shadow-sm w-full sm:h-[60px] rounded-lg space-x-2 justify-between items-center'>
-                    <div className='sm:space-x-2 space-y-2 sm:space-y-0 sm:flex'>
+        loading ? <div>Loading...</div> :
+            <div className='flex relative justify-between items-center w-[full] space-x-[60px]'>
+                <div className='w-[77%] space-y-[60px]'>
+                    <div className='flex-start space-y-[20px]'>
                         <div>
-                            <FormControl>
-                                <InputLabel>City</InputLabel>
-                                <Select
-                                    value={city}
-                                    onChange={(e) => setCity(e.target.value)}
-                                    size='small'
-                                    label='City'
-                                >
-
-                                    <MenuItem value="Jhansi">Jhansi</MenuItem>
-                                    <MenuItem value="Lucknow">Lucknow</MenuItem>
-                                    <MenuItem value="Kanpur">Kanpur</MenuItem>
-                                    <MenuItem value="Varanasi">Varanasi</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </div>
-                        <div>
-                            <FormControl>
-                                <InputLabel>Ward</InputLabel>
-                                <Select
-                                    value={currWard}
-                                    size='small'
-                                    onChange={(e) => setcurrWard(e.target.value)}
-                                    label='Ward'
-                                >
-                                    <MenuItem value={"any"}>All Wards</MenuItem>
-                                    {
-                                        wards.map(ward => {
-                                            return <MenuItem value={ward.ward_number}>{ward.ward_name}</MenuItem>
-                                        })
-                                    }
-                                </Select>
-                            </FormControl>
-                        </div>
-                        <div>
-                            <FormControl>
-                                <InputLabel>Parameter</InputLabel>
-                                <Select
-                                    value={parameter}
-                                    onChange={(e) => {
-                                        setParameter(e.target.value);
-                                        setSubParameter(0);
-                                    }}
-                                    label='Parameter'
-                                    size='small'
-                                >
-                                    {
-                                        parameter_names.map((para, idx) => {
-                                            return <MenuItem value={idx}>{caseChange(para)}</MenuItem>
-                                        })
-                                    }
-                                </Select>
-                            </FormControl>
-
+                            <h1 className='text-4xl font-bold text-gray-800'>CityX</h1>
+                            <p className='text-gray-500 text-xl'>Dashboard <KeyboardArrowRightIcon color='primary' /> </p>
                         </div>
 
                         <div>
-                            <FormControl>
-                                <InputLabel>Sub Parameter</InputLabel>
-                                <Select
-                                    value={sub_parameter}
-                                    onChange={(e) => setSubParameter(e.target.value)}
-                                    label='Sub Parameter'
-                                    size='small'
-                                >
-                                    {
-                                        sub_parameters[parameter].map((sub_para, idx) => {
-                                            return <MenuItem value={idx}>{caseChange(sub_para)}</MenuItem>
-                                        })
-                                    }
-                                </Select>
-                            </FormControl>
-
-                        </div>
-                        <div>
-                            <FormControl>
-                                <InputLabel>Score</InputLabel>
-                                <Select
-                                    sx={{width:'100px'}}
-                                    value={scoreValue}
-                                    label="Score"
-                                    onChange={(e) => setScoreValue(e.target.value)}
-                                    size='small'
-                                >
-                                    <MenuItem value={"any"}>Any</MenuItem>
-                                    <MenuItem value={1}>1</MenuItem>
-                                    <MenuItem value={2}>2</MenuItem>
-                                    <MenuItem value={3}>3</MenuItem>
-                                    <MenuItem value={4}>4</MenuItem>
-                                    <MenuItem value={5}>5</MenuItem>
-                                </Select>
-                            </FormControl>
+                            <Scores
+                                mainScoreName="Walkability Score"
+                                mainScoreValue={2}
+                                scores={
+                                    [
+                                        { scoreName: "Score-1", scoreValue: 4, scoreColor: 'red' },
+                                        { scoreName: "Score-2", scoreValue: 4, scoreColor: 'purple' },
+                                        { scoreName: "Score-3", scoreValue: 4, scoreColor: 'blue' }
+                                    ]
+                                }
+                            />
                         </div>
                     </div>
 
-                    <div>
-                        <Button variant='outlined' onClick={
-                            handleDownloadButtonClick
-                        }>
-                            <FileDownloadIcon />
-                        </Button>
+                    <div className='shadow-md p-2 rounded-lg'>
+                        <div className='space-y-2 sm:space-y-0 sm:flex p-2 shadow-sm w-full sm:h-[60px] rounded-lg space-x-2 justify-between items-center'>
+                            <div className='sm:space-x-2 space-y-2 sm:space-y-0 sm:flex'>
+                                <div>
+                                    <FormControl>
+                                        <InputLabel>City</InputLabel>
+                                        <Select
+                                            value={city}
+                                            onChange={(e) => setCity(e.target.value)}
+                                            size='small'
+                                            label='City'
+                                        >
+
+                                            <MenuItem value="Jhansi">Jhansi</MenuItem>
+                                            <MenuItem value="Lucknow">Lucknow</MenuItem>
+                                            <MenuItem value="Kanpur">Kanpur</MenuItem>
+                                            <MenuItem value="Varanasi">Varanasi</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                </div>
+                                <div>
+                                    <FormControl>
+                                        <InputLabel>Ward</InputLabel>
+                                        <Select
+                                            value={currWard}
+                                            size='small'
+                                            onChange={(e) => setcurrWard(e.target.value)}
+                                            label='Ward'
+                                        >
+                                            <MenuItem value={"any"}>All Wards</MenuItem>
+                                            {
+                                                wards.map(ward => {
+                                                    return <MenuItem value={ward.ward_number}>{ward.ward_name}</MenuItem>
+                                                })
+                                            }
+                                        </Select>
+                                    </FormControl>
+                                </div>
+                                <div>
+                                    <FormControl>
+                                        <InputLabel>Parameter</InputLabel>
+                                        <Select
+                                            value={parameter}
+                                            onChange={(e) => {
+                                                setParameter(e.target.value);
+                                                setSubParameter(0);
+                                            }}
+                                            label='Parameter'
+                                            size='small'
+                                        >
+                                            {
+                                                parameter_names.map((para, idx) => {
+                                                    return <MenuItem value={idx}>{caseChange(para)}</MenuItem>
+                                                })
+                                            }
+                                        </Select>
+                                    </FormControl>
+
+                                </div>
+
+                                <div>
+                                    <FormControl>
+                                        <InputLabel>Sub Parameter</InputLabel>
+                                        <Select
+                                            value={sub_parameter}
+                                            onChange={(e) => setSubParameter(e.target.value)}
+                                            label='Sub Parameter'
+                                            size='small'
+                                        >
+                                            {
+                                                sub_parameters[parameter].map((sub_para, idx) => {
+                                                    return <MenuItem value={idx}>{caseChange(sub_para)}</MenuItem>
+                                                })
+                                            }
+                                        </Select>
+                                    </FormControl>
+
+                                </div>
+                                <div>
+                                    <FormControl>
+                                        <InputLabel>Score</InputLabel>
+                                        <Select
+                                            sx={{ width: '100px' }}
+                                            value={scoreValue}
+                                            label="Score"
+                                            onChange={(e) => setScoreValue(e.target.value)}
+                                            size='small'
+                                        >
+                                            <MenuItem value={"any"}>Any</MenuItem>
+                                            <MenuItem value={1}>1</MenuItem>
+                                            <MenuItem value={2}>2</MenuItem>
+                                            <MenuItem value={3}>3</MenuItem>
+                                            <MenuItem value={4}>4</MenuItem>
+                                            <MenuItem value={5}>5</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                </div>
+                            </div>
+
+                            <div>
+                                <Button variant='outlined' onClick={
+                                    handleDownloadButtonClick
+                                }>
+                                    <FileDownloadIcon />
+                                </Button>
+                            </div>
+                        </div>
+                        <SpecificPageMapComponent
+                            currWard={currWard}
+                            position={position}
+                            geojson={filteredOutput}
+                            pos={currWard + "@" + parameter + "@" + sub_parameter} />
                     </div>
+                    <MapTableSpecific filteredOutput={filteredOutput} loading={loading} currWard={currWard} city={city} scoreValue={scoreValue} parameter={parameter} sub_parameter={sub_parameter} />
                 </div>
-                <div className='shadow-md p-2 rounded-lg'>
-                    <SpecificPageMapComponent
-                        currWard = {currWard}
-                        position = {position}
-                        geojson={filteredOutput}
-                        pos={currWard + "@" + parameter + "@" + sub_parameter} />
-                </div>
-                <MapTableSpecific filteredOutput={filteredOutput} loading={loading} currWard={currWard} city={city} scoreValue={scoreValue} parameter={parameter} sub_parameter = {sub_parameter}/>
+                <RightSideBar />
             </div>
-            <RightSideBar />
-        </div>
     )
 }
 

@@ -4,7 +4,7 @@ import CorouselComponent from './OtherComponents/CorouselCompent';
 
 function IntiateAction() {
   return (
-    <div>
+    <div className='space-y-[60px]'>
       <CorouselComponent/>
       <MapTable/>
     </div>

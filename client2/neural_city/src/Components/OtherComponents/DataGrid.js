@@ -99,7 +99,7 @@ export default function MapTable() {
     const [error, setError] = useState("");
     const [data, setData] = useState(mockData.data);
     const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(10);
+    const [rowsPerPage, setRowsPerPage] = useState(6);
 
     const [sortScore, setSortScore] = useState("none");
     const [sortDate, setSortDate] = useState(false);
@@ -158,8 +158,8 @@ export default function MapTable() {
 
 
     return (
-        <div className='space-y-4'>
-            <div className='space-y-2 sm:space-y-0 sm:flex p-2 shadow-md w-full sm:h-[60px] rounded-lg space-x-2 justify-between items-center'>
+        <div className='px-4'>
+            <div className='space-y-2 sm:space-y-0 sm:flex p-2 shadow-md w-full sm:h-[60px] rounded-t-lg space-x-2 justify-between items-center'>
                 <div className='sm:space-x-2 space-y-2 sm:space-y-0 sm:flex'>
                     <div>
                         <FormControl>

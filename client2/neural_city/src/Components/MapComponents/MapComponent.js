@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import ReactImageZoom from 'react-image-zoom';
 import { MapContainer, Marker, Polygon, Polyline, Popup, TileLayer } from 'react-leaflet'
 import './Map.css'
@@ -12,6 +12,7 @@ import L, { divIcon } from "leaflet";
 import "./mapstyle.css";
 import { wardDivision } from './wardDivisionData';
 import { isMarkerInsidePolygon } from './UtilityFunctions';
+
 const LeafIcon = L.Icon.extend({
 	options: {}
 });
@@ -44,6 +45,26 @@ wardDivision.features.map((ward) => {
 function MapComponent() {
 	const [wardValue, setwardValue] = useState("any");
 	const [scoreValue, setScoreValue] = useState("Any");
+	const [loading, setLoading] = useState(true);
+	useEffect(() => {
+		setTimeout(() => {
+			setLoading(false);
+		}, 100)
+	}, [loading]);
+
+	useEffect(() => {
+		const script = document.createElement('script');
+
+		script.src = "https://cdn.rawgit.com/hayeswise/Leaflet.PointInPolygon/v1.0.0/wise-leaflet-pip.js";
+		script.async = true;
+
+		document.body.appendChild(script);
+
+		return () => {
+			document.body.removeChild(script);
+		}
+	}, []);
+
 	const handleWardChange = (e) => {
 		setwardValue(e.target.value);
 	}
@@ -90,15 +111,15 @@ function MapComponent() {
 		setOpen(true);
 	}
 	const handleClose = () => setOpen(false);
-	let position = [25.4484,78.5685];
-	if(wardValue !== "any") {
+	let position = [25.4484, 78.5685];
+	if (wardValue !== "any") {
 		wardDivision.features.map((feature) => {
 			if (wardValue === feature.properties["Ward Numbe"]) {
 				position = [feature.geometry.coordinates[0][0][0][1], feature.geometry.coordinates[0][0][0][0]];
 			}
 		})
 	}
-	
+
 	let selectedWardBoundary = [];
 	if (wardValue === "any") {
 		wardDivision.features.map((ward) => {
@@ -112,21 +133,25 @@ function MapComponent() {
 		});
 	}
 
-	if(wardValue !== "any") {
+	if (wardValue !== "any") {
 		markerjson = markerjson.filter((dat) => {
-			console.log(selectedWardBoundary);
+			var polygonFormed = L.polygon(selectedWardBoundary[0][0][0]);
+			console.log(polygonFormed);
+			console.log(selectedWardBoundary[0][0]);
+			var marker = L.marker([dat.longitude, dat.latitude])
+			console.log(marker);
+			let isContains = polygonFormed.contains(marker.getLatLng());
 			let isTrue = isMarkerInsidePolygon([dat.longitude, dat.latitude], selectedWardBoundary[0]);
-			console.log(isTrue);
-			return isTrue;
+			return isContains;
 		});
 	}
 
 	console.log(wardValue);
 
-	console.log(markerjson); 
-	
+	console.log(markerjson);
+
 	return (
-		<div className='mb-2 p-2 flex flex-col shadow-md rounded-lg'>
+		loading ? <div>Loading...</div> : <div className='mb-2 p-2 flex flex-col shadow-md rounded-lg'>
 			<div className='flex p-2 items-center justify-between'>
 				<div className='sm:flex sm:space-x-4 space-y-2 sm:space-y-0'>
 					<Box sx={{ minWidth: 120 }}>

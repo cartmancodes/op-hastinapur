@@ -39,7 +39,7 @@ function Planning() {
           </Select>
         </FormControl>
       </div>
-      <div className="bg-gray-100 h-[85vh] overflow-y-scroll p-6 rounded-md shadow-md">
+      <div className="bg-gray-100 h-[80vh] overflow-y-scroll p-6 rounded-md shadow-md">
         <h2 className="text-2xl font-bold mb-4">{mockRecommendation[currIdx].main_topic}</h2>
         <div>
           {
