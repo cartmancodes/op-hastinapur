@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { VictoryChart, VictoryBar, VictoryBrushContainer, VictoryZoomContainer } from "victory";
-function BarChartComponent(props) {
+function BarChartWard(props) {
   const uData = props.values;
   const xLabels = props.XLabels;
   let data = [];
@@ -39,4 +39,4 @@ function BarChartComponent(props) {
     </VictoryChart>
   );
 }
-export default BarChartComponent
+export default BarChartWard

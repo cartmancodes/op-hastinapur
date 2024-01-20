@@ -13,9 +13,8 @@ function Dashboard() {
             <div className='w-full space-y-4'>
                 <Navbar />
                 <div className='px-4'>
-                <Outlet />
+                    <Outlet />
                 </div>
-                
                 <Footer />
             </div>
         </div>
