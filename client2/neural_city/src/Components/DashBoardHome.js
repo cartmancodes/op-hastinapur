@@ -126,7 +126,7 @@ function DashBoardHome() {
         wardValue.push(wardAvg[i - 1][2]);
     }
     return (
-        <div className='space-y-4'>
+        <div className='space-y-[60px]'>
             <div className='sm:flex justify-between items-center'>
                 <div className='flex-start'>
                     <h1 className='text-4xl font-bold text-gray-800'>CityX</h1>
@@ -174,11 +174,11 @@ function DashBoardHome() {
                 space-y-2
                 sm:space-y-0
             '>
-                <div className='shadow-md p-2 rounded-lg bg-cyan-50'>
+                <div className='shadow-md p-4 rounded-lg bg-cyan-50'>
                     <h1 className='text-2xl'>City Parameters</h1>
                     <BarChartComponent width={575} XLabels={capitilizecityParams} values={cityParamsValue} />
                 </div>
-                <div className='shadow-md p-2 rounded-lg bg-yellow-50'>
+                <div className='shadow-md p-4 rounded-lg bg-yellow-50'>
                     <div className='w-[full] flex item-center justify-between'>
                         <h1 className='text-2xl'>Ward/Area Score</h1>
                         <Select
