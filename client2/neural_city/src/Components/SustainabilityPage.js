@@ -104,14 +104,19 @@ function SustainabilityPage() {
     });
     const [scoreValue, setScoreValue] = useState("any");
     const [city, setCity] = useState("Jhansi");
-    const [currWard, setcurrWard] = useState("any");
+    const [mapData, setmapData] = useState({
+        currWard: "any",
+        zoom: 12,
+        position: [25.4484, 78.5685]
+    });
     const [parameter, setParameter] = useState(0);
     const [sub_parameter, setSubParameter] = useState(0);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [data, setData] = useState(mockData.data);
-    const [position, setPosition] = useState([12.9516, 76.5946])
+    const [position, setPosition] = useState([25.4484, 78.5685])
     const [filteredOutput, setFilteredOutput] = useState([]);
+    const [zoom,setZoom] = useState(12);
     // useEffect(() => {
     //     async function fetchData() {
     //         setLoading(true);
@@ -133,15 +138,38 @@ function SustainabilityPage() {
     // console.log("data" + data);
 
     useEffect(() => {
-        const filteredOutput = wardSelection(data, currWard, parameter_names[parameter], sub_parameters[parameter][sub_parameter], scoreValue);
+        const filteredOutput = wardSelection(data, mapData.currWard, parameter_names[parameter], sub_parameters[parameter][sub_parameter], scoreValue);
         setFilteredOutput(filteredOutput);
         console.log(filteredOutput)
-    }, [loading, currWard, parameter, sub_parameter, scoreValue])
+    }, [loading, mapData, parameter, sub_parameter, scoreValue])
 
     const handleDownloadButtonClick = () => {
         exportToExcel(filteredOutput, 'Sustainability');
     }
-
+    const handleWardChange = (e) => {
+        let wardValue = e.target.value;
+        let currPosition = [];
+        let currZoom = 12;
+        if(wardValue !== "any"){
+            wardDivision.features.map((feature) => {
+                if (wardValue === feature.properties["Ward Numbe"]) {
+                    currPosition = [feature.geometry.coordinates[0][0][0][1], feature.geometry.coordinates[0][0][0][0]];
+                }
+            });
+            currZoom = 15;
+        } else {
+            currPosition = [25.4484, 78.5685];
+            currZoom = 12;
+        }
+        setmapData(() => {
+            return {
+                currWard: wardValue,
+                zoom: currZoom,
+                position: currPosition
+            }
+        })
+        
+    }
     return (
         loading ? <div>Loading...</div> :
             <div className='flex relative justify-between items-center w-[full] space-x-[60px]'>
@@ -191,9 +219,9 @@ function SustainabilityPage() {
                                     <FormControl>
                                         <InputLabel>Ward</InputLabel>
                                         <Select
-                                            value={currWard}
+                                            value={mapData.currWard}
                                             size='small'
-                                            onChange={(e) => setcurrWard(e.target.value)}
+                                            onChange={handleWardChange}
                                             label='Ward'
                                         >
                                             <MenuItem value={"any"}>All Wards</MenuItem>
@@ -275,12 +303,13 @@ function SustainabilityPage() {
                             </div>
                         </div>
                         <SpecificPageMapComponent
-                            currWard={currWard}
+                            mapData = {mapData}
                             position={position}
+                            zoom = {zoom}
                             geojson={filteredOutput}
-                            pos={currWard + "@" + parameter + "@" + sub_parameter} />
+                            pos={mapData.currWard + "@" + parameter + "@" + sub_parameter} />
                     </div>
-                    <MapTableSpecific filteredOutput={filteredOutput} loading={loading} currWard={currWard} city={city} scoreValue={scoreValue} parameter={parameter} sub_parameter={sub_parameter} />
+                    <MapTableSpecific filteredOutput={filteredOutput} loading={loading} currWard={mapData.currWard} city={city} scoreValue={scoreValue} parameter={parameter} sub_parameter={sub_parameter} />
                 </div>
                 <RightSideBar />
             </div>

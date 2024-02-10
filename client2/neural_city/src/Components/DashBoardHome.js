@@ -15,6 +15,15 @@ import { Select, MenuItem } from '@mui/material'
 import { wardDivision } from './MapComponents/wardDivisionData';
 import { isMarkerInsidePolygon } from './MapComponents/UtilityFunctions';
 import AlertBar from './Utility/AlertBar';
+import HalfPieChart from './Charts/HalfPieChart';
+import OverAllScoreComponent from './OtherComponents/OverAllScoreComponent';
+import IndividualScoreCard from './OtherComponents/IndividualScoreCard';
+import IndividualScores from './OtherComponents/IndividualScores';
+import LineBarCombination from './Charts/LineBarCombination';
+import ActionCard from './OtherComponents/ActionCard';
+import WardTable from './OtherComponents/WardTable';
+import AreaChartMonthly from './Charts/AreaChartMonthly';
+import MapAnalysis from './OtherComponents/MapAnalysis';
 
 let cityParams = [
     "cleaniness_score",
@@ -144,7 +153,11 @@ function DashBoardHome() {
                     />
                 </div>
             </div>
-            <Scores
+            <div className='flex items-center justify-between space-x-2'>
+                <OverAllScoreComponent/>
+                <IndividualScores/>
+            </div>
+            {/* <Scores
                 mainScoreName="Overall Score"
                 mainScoreValue={overallScore}
                 scores={
@@ -154,27 +167,23 @@ function DashBoardHome() {
                         { scoreName: "Tourism Score", scoreValue: touristScore, scoreColor: "gray",disabled:true }
                     ]
                 }
-            />
+            /> */}
             <div className='sm:flex items-center space-y-2 sm:space-y-0 justify-between'>
-                <Linechart />
-                {/* <AQIChart /> */}
-                <div className='p-4 space-y-4 overflow-y-scroll sm:w-[40%] w-[100%] h-[300px] flex flex-col items-center justify-between rounded-lg shadow-md'>
-                    {
-                        mockRecommendation.map((reco, idx) => {
-                            return <AlertBar main_topic={reco.main_topic} heading={reco.heading} id={idx} />
-                        })
-                    }
-                </div>
-
+                <MapAnalysis/>
+                <MapComponent />
             </div>
-            <MapComponent />
+            <div className='sm:flex items-center space-y-2 sm:space-y-0 justify-between'>
+                <LineBarCombination/>
+                {/* <AQIChart /> */}
+                <ActionCard/>
+            </div>
             <div className='sm:flex sm:items-center 
                 sm:justify-between mb-2 
                 rounded-lg
                 space-y-2
                 sm:space-y-0
             '>
-                <div className='shadow-md p-4 rounded-lg bg-cyan-50'>
+                {/* <div className='shadow-md p-4 rounded-lg bg-cyan-50'>
                     <h1 className='text-2xl'>City Parameters</h1>
                     <BarChartComponent width={575} XLabels={capitilizecityParams} values={cityParamsValue} />
                 </div>
@@ -195,7 +204,8 @@ function DashBoardHome() {
                         </Select>
                     </div>
                     <BarChartWard width={600} XLabels={wards} values={wardValue} />
-                </div>
+                </div> */}
+                <WardTable/>
             </div>
             {/* <div className='w-full p-4 shadow-md rounded-lg mb-2'>
                 <h1 className='text-4xl'>Progress of Intiatives</h1>

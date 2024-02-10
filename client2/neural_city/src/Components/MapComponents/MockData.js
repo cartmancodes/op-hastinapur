@@ -525,6 +525,7 @@ export const mockRecommendation =
 		{
 			"main_topic": "Parking",
 			"heading": "Parking Audit, Technology Integration, Clear Signage, Enforcement Teams, Multi-Level Parking Facilities, Smart Payment Systems",
+			"severity": "vulnerable",
 			"points": [
 				{
 					"topic": "Parking Audit",
@@ -592,6 +593,7 @@ export const mockRecommendation =
 
 		{
 			"main_topic": "Encroached Sidewalks and roads",
+			"severity": "vulnerable",
 			"heading": "Technology Integration, Encroachment and Employment Audit, Identification of model streets and markets, Redevelopment of Municipal properties, Enforcement",
 			"points": [
 				{
@@ -643,6 +645,7 @@ export const mockRecommendation =
 		{
 			"main_topic": "Garbage and Littering",
 			"heading": "Community Clean-Up Drives, Fines for Littering, Technology Integration, Increased Bins and Signage, Sanitation Worker Outreach",
+			"severity": "critical",
 			"points": [
 				{
 					"topic": "Community Clean-Up Drives",
@@ -690,6 +693,7 @@ export const mockRecommendation =
 		{
 			"main_topic": "Dust on Roads",
 			"heading": "Street Sweeping, Technology Integration, Dust Suppressants, Enforce Construction Site Guidelines, Green Infrastructure",
+			"severity": "critical",
 			"points": [
 				{
 					"topic": "Street Sweeping",
@@ -730,6 +734,7 @@ export const mockRecommendation =
 
 		{
 			"main_topic": "Spitting",
+			"severity": "essential",
 			"heading": "Fines for Spitting, Public Facilities, Technology Integration, Behavioral Change Programs, Health and Hygiene Education",
 			"points": [
 				{
@@ -759,6 +764,7 @@ export const mockRecommendation =
 
 		{
 			"main_topic": "Emissions from Vehicles",
+			"severity": "essential",
 			"heading": "Vehicle Emission Checks, Technology Integration, Public Transportation Promotions, Vehicle Scrap Yards, Urban Planning for Walkability",
 			"points": [
 				{
@@ -798,7 +804,72 @@ export const mockRecommendation =
 				}
 			]
 		}
+	]
+
+export const mockScore = [
+	{ "ward_name": "Dadiyapura Second", "ward_number": 27, "overall_score": 65, "walkability_score": 70, "encroachment": 45, "road_basic": 60, "congestion": 70, "air_pollution": 55, "cleanliness_score": 75 },
+	{ "ward_name": "Bijauli", "ward_number": 22, "overall_score": 70, "walkability_score": 65, "encroachment": 50, "road_basic": 65, "congestion": 65, "air_pollution": 60, "cleanliness_score": 80 },
+	{ "ward_name": "Khushipura Second", "ward_number": 14, "overall_score": 75, "walkability_score": 60, "encroachment": 40, "road_basic": 70, "congestion": 60, "air_pollution": 65, "cleanliness_score": 70 },
+	{ "ward_name": "Civil Lines South Part 1", "ward_number": 55, "overall_score": 60, "walkability_score": 55, "encroachment": 70, "road_basic": 50, "congestion": 75, "air_pollution": 70, "cleanliness_score": 60 },
+	{ "ward_name": "Talaiya", "ward_number": 47, "overall_score": 55, "walkability_score": 50, "encroachment": 75, "road_basic": 45, "congestion": 80, "air_pollution": 75, "cleanliness_score": 55 },
+	{ "ward_name": "Bahar Sainyar Gate", "ward_number": 11, "overall_score": 80, "walkability_score": 75, "encroachment": 30, "road_basic": 80, "congestion": 50, "air_pollution": 45, "cleanliness_score": 85 },
+	{ "ward_name": "Bahar orcha Gate First", "ward_number": 54, "overall_score": 45, "walkability_score": 80, "encroachment": 60, "road_basic": 40, "congestion": 55, "air_pollution": 50, "cleanliness_score": 40 },
+	{ "ward_name": "Taalpura First", "ward_number": 2, "overall_score": 85, "walkability_score": 45, "encroachment": 20, "road_basic": 85, "congestion": 40, "air_pollution": 35, "cleanliness_score": 90 },
+	{ "ward_name": "Talpura Second", "ward_number": 18, "overall_score": 50, "walkability_score": 70, "encroachment": 55, "road_basic": 30, "congestion": 45, "air_pollution": 40, "cleanliness_score": 60 },
+	{ "ward_name": "Bahar Orcha Gate Second", "ward_number": 33, "overall_score": 65, "walkability_score": 40, "encroachment": 35, "road_basic": 55, "congestion": 65, "air_pollution": 60, "cleanliness_score": 75 },
+	{ "ward_name": "Daroo Bhondela", "ward_number": 59, "overall_score": 70, "walkability_score": 65, "encroachment": 45, "road_basic": 60, "congestion": 70, "air_pollution": 55, "cleanliness_score": 80 },
+	{ "ward_name": "Banglaa Ghat", "ward_number": 19, "overall_score": 75, "walkability_score": 60, "encroachment": 40, "road_basic": 70, "congestion": 60, "air_pollution": 65, "cleanliness_score": 70 },
+	{ "ward_name": "Laxmanganj", "ward_number": 60, "overall_score": 60, "walkability_score": 55, "encroachment": 70, "road_basic": 50, "congestion": 75, "air_pollution": 70, "cleanliness_score": 65 },
+	{ "ward_name": "Sagargate", "ward_number": 42, "overall_score": 55, "walkability_score": 50, "encroachment": 75, "road_basic": 45, "congestion": 80, "air_pollution": 75, "cleanliness_score": 55 },
+	{ "ward_name": "Chaniyapura", "ward_number": 45, "overall_score": 80, "walkability_score": 75, "encroachment": 30, "road_basic": 80, "congestion": 50, "air_pollution": 45, "cleanliness_score": 85 },
+	{ "ward_name": "Bahar Datiya Gate Second", "ward_number": 37, "overall_score": 45, "walkability_score": 80, "encroachment": 60, "road_basic": 40, "congestion": 55, "air_pollution": 50, "cleanliness_score": 40 },
+	{ "ward_name": "Nayi basti Second", "ward_number": 34, "overall_score": 85, "walkability_score": 45, "encroachment": 20, "road_basic": 85, "congestion": 40, "air_pollution": 35, "cleanliness_score": 90 },
+	{ "ward_name": "Toriya narsingh Rao", "ward_number": 56, "overall_score": 50, "walkability_score": 70, "encroachment": 55, "road_basic": 30, "congestion": 45, "air_pollution": 40, "cleanliness_score": 60 },
+	{ "ward_name": "Khushipura", "ward_number": 4, "overall_score": 65, "walkability_score": 40, "encroachment": 35, "road_basic": 55, "congestion": 65, "air_pollution": 60, "cleanliness_score": 75 },
+	{ "ward_name": "Nandanpura Third", "ward_number": 41, "overall_score": 70, "walkability_score": 65, "encroachment": 45, "road_basic": 60, "congestion": 70, "air_pollution": 55, "cleanliness_score": 80 },
+	{ "ward_name": "Schoolpura", "ward_number": 12, "overall_score": 75, "walkability_score": 60, "encroachment": 40, "road_basic": 70, "congestion": 60, "air_pollution": 65, "cleanliness_score": 70 },
+	{ "ward_name": "Ishaee Tola Second", "ward_number": 26, "overall_score": 60, "walkability_score": 55, "encroachment": 70, "road_basic": 50, "congestion": 75, "air_pollution": 70, "cleanliness_score": 65 },
+	{ "ward_name": "Ishaee Tola First", "ward_number": 5, "overall_score": 55, "walkability_score": 50, "encroachment": 75, "road_basic": 45, "congestion": 80, "air_pollution": 75, "cleanliness_score": 55 },
+	{ "ward_name": "Nainagargh", "ward_number": 6, "overall_score": 80, "walkability_score": 75, "encroachment": 30, "road_basic": 80, "congestion": 50, "air_pollution": 45, "cleanliness_score": 85 },
+	{ "ward_name": "Naina Ghat South First", "ward_number": 10, "overall_score": 45, "walkability_score": 80, "encroachment": 60, "road_basic": 40, "congestion": 55, "air_pollution": 50, "cleanliness_score": 40 },
+	{ "ward_name": "Gadiya Gaon", "ward_number": 15, "overall_score": 85, "walkability_score": 45, "encroachment": 20, "road_basic": 85, "congestion": 40, "air_pollution": 35, "cleanliness_score": 90 },
+	{ "ward_name": "Heerapura", "ward_number": 28, "overall_score": 50, "walkability_score": 70, "encroachment": 55, "road_basic": 30, "congestion": 45, "air_pollution": 40, "cleanliness_score": 60 },
+	{ "ward_name": "Nainagarh South Second", "ward_number": 29, "overall_score": 65, "walkability_score": 40, "encroachment": 35, "road_basic": 55, "congestion": 65, "air_pollution": 60, "cleanliness_score": 75 },
+	{ "ward_name": "kocha Bhanwar", "ward_number": 13, "overall_score": 70, "walkability_score": 65, "encroachment": 45, "road_basic": 60, "congestion": 70, "air_pollution": 55, "cleanliness_score": 80 },
+	{ "ward_name": "Civil Lines South part 2", "ward_number": 51, "overall_score": 75, "walkability_score": 60, "encroachment": 40, "road_basic": 70, "congestion": 60, "air_pollution": 65, "cleanliness_score": 70 },
+	{ "ward_name": "Pichaur", "ward_number": 32, "overall_score": 60, "walkability_score": 55, "encroachment": 70, "road_basic": 50, "congestion": 75, "air_pollution": 70, "cleanliness_score": 65 },
+	{ "ward_name": "Kachiyana Puliya No9", "ward_number": 7, "overall_score": 55, "walkability_score": 50, "encroachment": 75, "road_basic": 45, "congestion": 80, "air_pollution": 75, "cleanliness_score": 55 },
+	{ "ward_name": "Hansari Gird First", "ward_number": 1, "overall_score": 80, "walkability_score": 75, "encroachment": 30, "road_basic": 80, "congestion": 50, "air_pollution": 45, "cleanliness_score": 85 },
+	{ "ward_name": "Hansari Gird Second", "ward_number": 9, "overall_score": 45, "walkability_score": 80, "encroachment": 60, "road_basic": 40, "congestion": 55, "air_pollution": 50, "cleanliness_score": 40 },
+	{ "ward_name": "Bhatta Gaon", "ward_number": 3, "overall_score": 85, "walkability_score": 45, "encroachment": 20, "road_basic": 85, "congestion": 40, "air_pollution": 35, "cleanliness_score": 90 },
+	{ "ward_name": "Simraha", "ward_number": 24, "overall_score": 50, "walkability_score": 70, "encroachment": 55, "road_basic": 30, "congestion": 45, "air_pollution": 40, "cleanliness_score": 60 },
+	{ "ward_name": "Nandanpura First", "ward_number": 35, "overall_score": 65, "walkability_score": 40, "encroachment": 35, "road_basic": 55, "congestion": 65, "air_pollution": 60, "cleanliness_score": 75 },
+	{ "ward_name": "Nandanpura Second", "ward_number": 17, "overall_score": 70, "walkability_score": 65, "encroachment": 45, "road_basic": 60, "congestion": 70, "air_pollution": 55, "cleanliness_score": 80 },
+	{ "ward_name": "Lahargird First", "ward_number": 23, "overall_score": 75, "walkability_score": 60, "encroachment": 40, "road_basic": 70, "congestion": 60, "air_pollution": 65, "cleanliness_score": 70 },
+	{ "ward_name": "Nanakganj", "ward_number": 43, "overall_score": 60, "walkability_score": 55, "encroachment": 70, "road_basic": 50, "congestion": 75, "air_pollution": 70, "cleanliness_score": 65 },
+	{ "ward_name": "Azadganj", "ward_number": 40, "overall_score": 55, "walkability_score": 50, "encroachment": 75, "road_basic": 45, "congestion": 80, "air_pollution": 75, "cleanliness_score": 55 },
+	{ "ward_name": "Premganj First", "ward_number": 46, "overall_score": 80, "walkability_score": 75, "encroachment": 30, "road_basic": 80, "congestion": 50, "air_pollution": 45, "cleanliness_score": 85 },
+	{ "ward_name": "Masihaganj", "ward_number": 16, "overall_score": 45, "walkability_score": 80, "encroachment": 60, "road_basic": 40, "congestion": 55, "air_pollution": 50, "cleanliness_score": 40 },
+	{ "ward_name": "Civil Lines (North part)", "ward_number": 44, "overall_score": 85, "walkability_score": 45, "encroachment": 20, "road_basic": 85, "congestion": 40, "air_pollution": 35, "cleanliness_score": 90 },
+	{ "ward_name": "Civil Line (West part)", "ward_number": 49, "overall_score": 50, "walkability_score": 70, "encroachment": 55, "road_basic": 30, "congestion": 45, "air_pollution": 40, "cleanliness_score": 60 },
+	{ "ward_name": "Premganj Second", "ward_number": 36, "overall_score": 65, "walkability_score": 40, "encroachment": 35, "road_basic": 55, "congestion": 65, "air_pollution": 60, "cleanliness_score": 75 },
+	{ "ward_name": "Bagicha Puliya Mo 9", "ward_number": 25, "overall_score": 70, "walkability_score": 65, "encroachment": 45, "road_basic": 60, "congestion": 70, "air_pollution": 55, "cleanliness_score": 80 },
+	{ "ward_name": "CP Mission Compund", "ward_number": 57, "overall_score": 75, "walkability_score": 60, "encroachment": 40, "road_basic": 70, "congestion": 60, "air_pollution": 65, "cleanliness_score": 70 },
+	{ "ward_name": "Bahar Khanderao Gate", "ward_number": 53, "overall_score": 60, "walkability_score": 55, "encroachment": 70, "road_basic": 50, "congestion": 75, "air_pollution": 70, "cleanliness_score": 65 },
+	{ "ward_name": "Nayi Basti (First)", "ward_number": 8, "overall_score": 55, "walkability_score": 50, "encroachment": 75, "road_basic": 45, "congestion": 80, "air_pollution": 75, "cleanliness_score": 55 },
+	{ "ward_name": "Lahargird Second", "ward_number": 31, "overall_score": 80, "walkability_score": 75, "encroachment": 30, "road_basic": 80, "congestion": 50, "air_pollution": 45, "cleanliness_score": 85 },
+	{ "ward_name": "simardha", "ward_number": 21, "overall_score": 45, "walkability_score": 80, "encroachment": 60, "road_basic": 40, "congestion": 55, "air_pollution": 50, "cleanliness_score": 40 },
+	{ "ward_name": "gusainpura", "ward_number": 58, "overall_score": 85, "walkability_score": 45, "encroachment": 20, "road_basic": 85, "congestion": 40, "air_pollution": 35, "cleanliness_score": 90 },
+	{ "ward_name": "dadiyapura first", "ward_number": 50, "overall_score": 50, "walkability_score": 70, "encroachment": 55, "road_basic": 30, "congestion": 45, "air_pollution": 40, "cleanliness_score": 60 },
+	{ "ward_name": "bahar datiya gate first", "ward_number": 39, "overall_score": 65, "walkability_score": 40, "encroachment": 35, "road_basic": 55, "congestion": 65, "air_pollution": 60, "cleanliness_score": 75 },
+	{ "ward_name": "Gudri", "ward_number": 20, "overall_score": 70, "walkability_score": 65, "encroachment": 45, "road_basic": 60, "congestion": 70, "air_pollution": 55, "cleanliness_score": 80 },
+	{ "ward_name": "aligole first", "ward_number": 30, "overall_score": 75, "walkability_score": 60, "encroachment": 40, "road_basic": 70, "congestion": 60, "air_pollution": 65, "cleanliness_score": 70 },
+	{ "ward_name": "mukaryana", "ward_number": 52, "overall_score": 60, "walkability_score": 55, "encroachment": 70, "road_basic": 50, "congestion": 75, "air_pollution": 70, "cleanliness_score": 65 },
+	{ "ward_name": "aligole second", "ward_number": 38, "overall_score": 55, "walkability_score": 50, "encroachment": 75, "road_basic": 45, "congestion": 80, "air_pollution": 75, "cleanliness_score": 55 },
+	{ "ward_name": "mewatipura", "ward_number": 48, "overall_score": 80, "walkability_score": 75, "encroachment": 30, "road_basic": 80, "congestion": 50, "air_pollution": 45, "cleanliness_score": 85 }
 ]
+
+
 
 
 

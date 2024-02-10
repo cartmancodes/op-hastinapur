@@ -39,13 +39,10 @@ function SpecificPageMapComponent(props) {
             shadowUrl: require("leaflet/dist/images/marker-shadow.png")
         });
     }, []);
-    const wardValue = props.currWard;
-    let position = [];
-    wardDivision.features.map((feature) => {
-        if (wardValue === feature.properties["Ward Numbe"]) {
-            position = [feature.geometry.coordinates[0][0][0][1], feature.geometry.coordinates[0][0][0][0]];
-        }
-    })
+
+    const zoom = props.mapData.zoom;
+    const position = props.mapData.position;
+    const wardValue = props.mapData.currWard;
     let selectedWardBoundary = [];
     if (wardValue === "any") {
         wardDivision.features.map((ward) => {
@@ -76,7 +73,6 @@ function SpecificPageMapComponent(props) {
         setOpen(true);
     }
     const handleClose = () => setOpen(false);
-
     const [showLoading, setShowLoading] = useState(true);
     let scoreSum = 0;
     let totalCount = 0;
@@ -93,17 +89,18 @@ function SpecificPageMapComponent(props) {
             console.log("Timeout called");
             setShowLoading(false);
         }, 100);
-    }, [props.currWard]);
+    }, [props.mapData]);
+
     return (
         showLoading ? <div>Loading...</div> : <div>
             <MapContainer
                 key={props.pos}
                 className='h-[500px]
                 w-full'
-                zoom={12}
+                zoom={zoom}
                 scrollWheelZoom={true}
                 maxZoom={18}
-                center={[25.4484, 78.5685]}
+                center={position}
             >
                 {selectedWardBoundary.map((wardBoundary) => <Polygon positions={wardBoundary.map((cord) => [cord[1], cord[0]])} color={colRep} />)}
                 {

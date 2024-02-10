@@ -31,11 +31,6 @@ const customMarkerIcon = (name) =>
 const setIcon = ({ properties }, latlng) => {
 	return L.marker(latlng, { icon: customMarkerIcon("") });
 };
-
-
-
-
-
 let wards = [];
 
 wardDivision.features.map((ward) => {
@@ -43,46 +38,46 @@ wardDivision.features.map((ward) => {
 })
 
 function MapComponent() {
-	const [wardValue, setwardValue] = useState("any");
 	const [scoreValue, setScoreValue] = useState("Any");
-	const [loading, setLoading] = useState(true);
-	useEffect(() => {
-		setTimeout(() => {
-			setLoading(false);
-		}, 100)
-	}, [loading]);
+	// const [loading, setLoading] = useState(true);
+	const [mapData, setmapData] = useState({
+		currWard: "any",
+		zoom: 12.2,
+		position: [25.4484, 78.5685]
+	});
 
-	useEffect(() => {
-		const script = document.createElement('script');
-
-		script.src = "https://cdn.rawgit.com/hayeswise/Leaflet.PointInPolygon/v1.0.0/wise-leaflet-pip.js";
-		script.async = true;
-
-		document.body.appendChild(script);
-
-		return () => {
-			document.body.removeChild(script);
-		}
-	}, []);
 
 	const handleWardChange = (e) => {
-		setwardValue(e.target.value);
-	}
+		let wardValue = e.target.value;
+		let currPosition = [];
+		let currZoom = 12;
+		if (wardValue !== "any") {
+			wardDivision.features.map((feature) => {
+				if (wardValue === feature.properties["Ward Numbe"]) {
+					currPosition = [feature.geometry.coordinates[0][0][parseInt((feature.geometry.coordinates[0][0].length) / 2)][1], feature.geometry.coordinates[0][0][parseInt((feature.geometry.coordinates[0][0].length) / 2)][0]];
+				}
+			});
+			currZoom = 15;
+		} else {
+			currPosition = [25.4484, 78.5685];
+			currZoom = 12;
+		}
+		setmapData(() => {
+			return {
+				currWard: wardValue,
+				zoom: currZoom,
+				position: currPosition
+			}
+		})
 
+	}
 	const [parameter, setparameter] = useState("Cleaniness");
 	const handleParameterChange = (e) => {
 		setparameter(e.target.value);
 	}
-
-	const handleApplyClick = () => {
-
-	}
-
-
 	let max = -1;
 	let min = 1;
 	let filteredgeoJson = geojson.filter((json) => json.score > 0);
-	let filteredData = data.filter((dat) => dat.geometry !== null);
 	const newgeojson = [];
 	for (let i = 0; i < filteredgeoJson.length; i++) {
 		let json = filteredgeoJson[i];
@@ -93,7 +88,6 @@ function MapComponent() {
 
 	// let markerjson = newgeojson.filter((json) => json.score > 0.2);
 	let markerjson = newgeojson;
-	let middle = (min + max) / 2.0;
 
 	const style = {
 		position: 'absolute',
@@ -111,29 +105,33 @@ function MapComponent() {
 		setOpen(true);
 	}
 	const handleClose = () => setOpen(false);
-	let position = [25.4484, 78.5685];
-	if (wardValue !== "any") {
-		wardDivision.features.map((feature) => {
-			if (wardValue === feature.properties["Ward Numbe"]) {
-				position = [feature.geometry.coordinates[0][0][0][1], feature.geometry.coordinates[0][0][0][0]];
-			}
-		})
-	}
 
-	let selectedWardBoundary = [];
-	if (wardValue === "any") {
+	let selectedWardBoundary = [[[90, -180],
+	[90, 180],
+	[-90, 180],
+	[-90, -180]]];
+	if (mapData.currWard === "any") {
 		wardDivision.features.map((ward) => {
-			selectedWardBoundary.push(ward.geometry.coordinates);
+			let boundary = [];
+			ward.geometry.coordinates[0][0].map((point) => {
+				boundary.push([point[1], point[0]]);
+			});
+			selectedWardBoundary.push(boundary);
 		});
 	} else {
 		wardDivision.features.map((ward) => {
-			if (wardValue === ward.properties["Ward Numbe"]) {
-				selectedWardBoundary.push(ward.geometry.coordinates);
+			if (mapData.currWard === ward.properties["Ward Numbe"]) {
+				let boundary = [];
+				ward.geometry.coordinates[0][0].map((point) => {
+					boundary.push([point[1], point[0]]);
+				});
+				selectedWardBoundary.push(boundary);
 			}
 		});
 	}
+	console.log(selectedWardBoundary);
 
-	if (wardValue !== "any") {
+	if (mapData.currWard !== "any") {
 		markerjson = markerjson.filter((dat) => {
 			var polygonFormed = L.polygon(selectedWardBoundary[0][0][0]);
 			console.log(polygonFormed);
@@ -146,19 +144,17 @@ function MapComponent() {
 		});
 	}
 
-	console.log(wardValue);
-
-	console.log(markerjson);
 
 	return (
-		loading ? <div>Loading...</div> : <div className='mb-2 p-2 flex flex-col shadow-md rounded-lg'>
+		// loading ? <div>Loading...</div> : 
+		<div className='mb-2 p-2 flex flex-col shadow-md rounded-lg w-[50%]'>
 			<div className='flex p-2 items-center justify-between'>
 				<div className='sm:flex sm:space-x-4 space-y-2 sm:space-y-0'>
 					<Box sx={{ minWidth: 120 }}>
 						<FormControl fullWidth>
 							<InputLabel id="demo-simple-select-label">Ward</InputLabel>
 							<Select
-								value={wardValue}
+								value={mapData.currWard}
 								label="Ward"
 								onChange={handleWardChange}
 							>
@@ -206,21 +202,28 @@ function MapComponent() {
 			<div>
 				<MapContainer
 					className='w-[100%] h-[600px]'
-					center={position}
-					zoom={11}
-					scrollWheelZoom={false}
-					key={position[0] + "$" + position[1]}
+					center={mapData.position}
+					zoom={mapData.zoom}
+					minZoom={12.2}
+					// dragging={false}
+					scrollWheelZoom={true}
+					key={mapData.position[0] + "$" + mapData.position[1]}
 				>
-					<TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+					{/* <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 						attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
-					/>
-					{wardDivision.features.map((feature) => {
+					/> */}
+					<TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="© OpenStreetMap contributors" />
+
+					{/* {wardDivision.features.map((feature) => {
 						if (wardValue !== feature.properties["Ward Numbe"]) {
 							return (<Polyline positions={feature.geometry.coordinates[0][0].map((cord) => [cord[1], cord[0]])} color={'purple'} />)
 						}
-					})}
-
-					{selectedWardBoundary.map((wardBoundary) => <Polygon positions={wardBoundary[0][0].map((cord) => [cord[1], cord[0]])} color={'blue'} />)}
+					})} */}
+					<Polygon positions={selectedWardBoundary} pathOptions={{
+						fillColor:' #D9D9D9',
+						fillOpacity: 1,
+						
+					}} />
 					{
 						markerjson.map((pos) => {
 							return (
