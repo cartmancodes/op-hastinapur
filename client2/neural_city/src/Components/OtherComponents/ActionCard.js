@@ -107,7 +107,7 @@ function ActionCard() {
     let styleActive = 'text-sm border rounded-2xl p-1 px-2 cursor-pointer bg-sky-100 text-black'
     return (
         <div className='relative sm:w-[45%] w-[60%] h-[600px] flex flex-col items-center justify-between rounded-lg shadow-md'>
-            <div className='w-full sticky top-0 bg-white z-[1000] flex items-center justify-between border-b p-4'>
+            <div className='w-full bg-white z-[1000] flex items-center justify-between border-b p-4'>
                 <div className=''>
                     <h1 className='text-2xl font-bold'>Action Items</h1>
                     <div className='flex space-x-2'>

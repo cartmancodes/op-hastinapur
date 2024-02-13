@@ -1,29 +1,20 @@
-import React from 'react'
-import Scores from './OtherComponents/Scores';
+import React, { useRef } from 'react'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import Linechart from './Charts/Linechart';
 import MapComponent from './MapComponents/MapComponent';
-import BarChartComponent from './Charts/BarChartComponent';
 import { useState } from 'react';
-import AirQualityIndex from './OtherComponents/AirQualityIndex';
-import 'react-dates/initialize'; // This is required to initialize the library
+import 'react-dates/initialize';
 import { DateRangePicker } from 'react-dates';
-import 'react-dates/lib/css/_datepicker.css'; 
+import 'react-dates/lib/css/_datepicker.css';
 import { mockData, mockRecommendation } from './MapComponents/MockData';
-import BarChartWard from './Charts/BarCharWard';
-import { Select, MenuItem } from '@mui/material'
 import { wardDivision } from './MapComponents/wardDivisionData';
 import { isMarkerInsidePolygon } from './MapComponents/UtilityFunctions';
-import AlertBar from './Utility/AlertBar';
-import HalfPieChart from './Charts/HalfPieChart';
 import OverAllScoreComponent from './OtherComponents/OverAllScoreComponent';
-import IndividualScoreCard from './OtherComponents/IndividualScoreCard';
 import IndividualScores from './OtherComponents/IndividualScores';
 import LineBarCombination from './Charts/LineBarCombination';
 import ActionCard from './OtherComponents/ActionCard';
 import WardTable from './OtherComponents/WardTable';
-import AreaChartMonthly from './Charts/AreaChartMonthly';
 import MapAnalysis from './OtherComponents/MapAnalysis';
+import { useEffect } from 'react';
 
 let cityParams = [
     "cleaniness_score",
@@ -50,19 +41,14 @@ function DashBoardHome() {
     const [dateRange, setDateRange] = useState({
         startDate: null,
         endDate: null,
-      });
-    
+    });
     const [focusedInput, setFocusedInput] = useState(null);
 
     const handleDateChange = ({ startDate, endDate }) => {
         setDateRange({ startDate, endDate });
-      };
-
-    const [overallScore, setOverAllScore] = useState(2.5);
-    const [nationalScore, setNationalScore] = useState(2.5);
-    const [walkabilityScore, setwalkabilityScore] = useState(2);
-    const [touristScore, setTouristScore] = useState(4);
+    };
     const [wardRange, setwardRange] = useState(5);
+    const [currSection, setCurrSection] = useState('overall');
     const handleWardRangeChange = (e) => {
         setwardRange(e.target.value);
     }
@@ -134,14 +120,46 @@ function DashBoardHome() {
         wards.push("Ward" + i);
         wardValue.push(wardAvg[i - 1][2]);
     }
+
+    let sectionActive = 'py-2 px-4 bg-indigo-600 bg-opacity-100  text-white font-bold';
+    let sectionInactive = 'py-2 px-4';
+    useEffect(() => {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              setCurrSection(entry.target.id);
+            }
+          });
+        }, { threshold: 0.5 });
+    
+        if (containerRef.current) {
+          const divs = containerRef.current.querySelectorAll('.section');
+          divs.forEach(div => observer.observe(div));
+        }
+    
+        return () => {
+          if (containerRef.current) {
+            const divs = containerRef.current.querySelectorAll('.section');
+            divs.forEach(div => observer.unobserve(div));
+          }
+        };
+    }, []);
+    
+    const containerRef = useRef(null);
     return (
-        <div className='space-y-[60px]'>
-            <div className='sm:flex justify-between items-center'>
+        <div>
+            <div className='sticky top-0 p-2 bg-white z-[1001] sm:flex justify-between items-center'>
                 <div className='flex-start'>
-                    <h1 className='text-4xl font-bold text-gray-800'>CityX</h1>
+                    <h1 className='text-2xl font-bold text-gray-800'>CityX</h1>
                     <p className='text-gray-500 text-xl'>Dashboard <KeyboardArrowRightIcon color='primary' /> </p>
                 </div>
-                <div className='flex-end'>
+                <div className='border rounded-lg [&>*]:border-r justify-between flex first:rounded-l-lg last:rounded-r-lg border-r last:border-r-none'>
+                    <a href="#overall" onClick={() => setCurrSection('overall')} className={currSection == 'overall' ? sectionActive : sectionInactive}>Overall</a>
+                    <a href="#deepDive"><div onClick={() => setCurrSection('deepDive')} className={currSection == 'deepDive' ? sectionActive : sectionInactive}>Deep Dive</div></a>
+                    <a href="#actionItems"><div onClick={() => setCurrSection('actionItems')} className={currSection == 'actionItems' ? sectionActive : sectionInactive}>Action Items/Issues</div></a>
+                    <a href="#wardTable"><div onClick={() => setCurrSection('wardTable')} className={currSection == 'wardTable' ? sectionActive : sectionInactive}>Ward Table</div></a>
+                </div>
+                <div className='w-[22%]'>
                     <DateRangePicker
                         startDate={dateRange.startDate}
                         startDateId="your_unique_start_date_id"
@@ -153,65 +171,31 @@ function DashBoardHome() {
                     />
                 </div>
             </div>
-            <div className='flex items-center justify-between space-x-2'>
-                <OverAllScoreComponent/>
-                <IndividualScores/>
-            </div>
-            {/* <Scores
-                mainScoreName="Overall Score"
-                mainScoreValue={overallScore}
-                scores={
-                    [
-                        { scoreName: "National Average", scoreValue: nationalScore, scoreColor: "purple"},
-                        { scoreName: "Walkability Score", scoreValue: walkabilityScore, scoreColor: "blue" },
-                        { scoreName: "Tourism Score", scoreValue: touristScore, scoreColor: "gray",disabled:true }
-                    ]
-                }
-            /> */}
-            <div className='sm:flex items-center space-y-2 sm:space-y-0 justify-between'>
-                <MapAnalysis/>
-                <MapComponent />
-            </div>
-            <div className='sm:flex items-center space-y-2 sm:space-y-0 justify-between'>
-                <LineBarCombination/>
-                {/* <AQIChart /> */}
-                <ActionCard/>
-            </div>
-            <div className='sm:flex sm:items-center 
-                sm:justify-between mb-2 
-                rounded-lg
-                space-y-2
-                sm:space-y-0
-            '>
-                {/* <div className='shadow-md p-4 rounded-lg bg-cyan-50'>
-                    <h1 className='text-2xl'>City Parameters</h1>
-                    <BarChartComponent width={575} XLabels={capitilizecityParams} values={cityParamsValue} />
+            <div className='relative p-4' ref={containerRef}>
+                <div id='overall' className='section pt-[60px] flex items-center justify-between space-x-2'>
+                    <OverAllScoreComponent />
+                    <IndividualScores />
                 </div>
-                <div className='shadow-md p-4 rounded-lg bg-yellow-50'>
-                    <div className='w-[full] flex item-center justify-between'>
-                        <h1 className='text-2xl'>Ward/Area Score</h1>
-                        <Select
-                            sx={{ width: '170px' }}
-                            value={wardRange}
-                            onChange={handleWardRangeChange}
-                            size='small'
-                        >
-                            {
-                                wardRanges.map((wardR, idx) => {
-                                    return <MenuItem value={idx}>{wardR}</MenuItem>
-                                })
-                            }
-                        </Select>
-                    </div>
-                    <BarChartWard width={600} XLabels={wards} values={wardValue} />
-                </div> */}
-                <WardTable/>
+                <div id='deepDive' className='section pt-[120px] sm:flex items-center space-y-2 sm:space-y-0 justify-between'>
+                    <MapAnalysis />
+                    <MapComponent />
+                </div>
+                <div id='actionItems' className='section pt-[120px] sm:flex items-center space-y-2 sm:space-y-0 justify-between'>
+                    <LineBarCombination />
+                    <ActionCard />
+                </div>
+                <div
+                    
+                    id='wardTable'
+                    className='section pt-[120px] sm:flex sm:items-center 
+                    sm:justify-between mb-2 
+                    rounded-lg
+                    space-y-2
+                    sm:space-y-0'
+                >
+                    <WardTable />
+                </div>
             </div>
-            {/* <div className='w-full p-4 shadow-md rounded-lg mb-2'>
-                <h1 className='text-4xl'>Progress of Intiatives</h1>
-                <YojanaTable />
-            </div> */}
-            <AirQualityIndex />
         </div>
     )
 }

@@ -10,9 +10,9 @@ function Dashboard() {
     return (
         <div className='flex'>
             <Sidebar></Sidebar>
-            <div className='w-full space-y-4'>
+            <div className='w-full'>
                 <Navbar />
-                <div className='px-4'>
+                <div>
                     <Outlet />
                 </div>
                 <Footer />

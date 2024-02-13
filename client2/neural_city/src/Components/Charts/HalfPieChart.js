@@ -4,15 +4,32 @@ import Chart from 'react-apexcharts'
 function HalfPieChart() {
     let [series, setSeries] = useState([49]);
     let [options, setOption] = useState({
+        toolbar: {
+            show: false
+        },
         plotOptions: {
+            chart: {
+                height: '200px',
+            },
+            grid: {
+                padding: {
+                    top: -20,
+                    bottom: -50
+                }
+            },
             radialBar: {
                 startAngle: -90,
                 endAngle: 90,
+                offsetY: -50,
                 track: {
                     background: "#f2f2f2",
                     strokeWidth: "100%"
                 },
+                hollow: {
+                    size: '50%',
+                },
                 dataLabels: {
+                    offsetY: -25,
                     show: true,
                     value: {
                         show: false,
@@ -24,7 +41,6 @@ function HalfPieChart() {
                         fontWeight: "bold",
                         fontSize: "30px"
                     },
-
                 },
                 grid: {
                     padding: {

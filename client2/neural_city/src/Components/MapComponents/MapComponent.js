@@ -20,7 +20,34 @@ const LeafIcon = L.Icon.extend({
 const redIcon = new LeafIcon({
 	iconUrl:
 		"redMarker.png"
-})
+});
+
+
+const earthRadius = 6371; // Earth's radius in kilometers
+
+// Function to calculate the appropriate zoom level for a given area and map dimensions
+function calculateZoom(areaInSqKm, mapWidth, mapHeight) {
+    // Calculate the aspect ratio of the map viewport
+    const aspectRatio = mapWidth / mapHeight;
+
+    // Convert area to an equivalent geographical extent in degrees
+    const extentInDegrees = Math.sqrt(areaInSqKm) / earthRadius * (180 / Math.PI);
+
+    // Determine the scale of the map at zoom level 0 (pixels per degree)
+    const scale = Math.pow(2, 0) / 360;
+
+    // Adjust extent for aspect ratio
+    const extentX = extentInDegrees * aspectRatio;
+    const extentY = extentInDegrees / aspectRatio;
+
+    // Calculate the zoom level based on the adjusted size of the extent relative to the map's viewport
+    const zoomX = Math.log(mapWidth / (extentX * scale)) / Math.LN2;
+    const zoomY = Math.log(mapHeight / (extentY * scale)) / Math.LN2;
+
+    // Use the smaller of the two zoom levels to ensure that the entire area fits within the viewport
+    return Math.min(zoomX, zoomY);
+}
+
 
 const customMarkerIcon = (name) =>
 	divIcon({
@@ -39,25 +66,36 @@ wardDivision.features.map((ward) => {
 
 function MapComponent() {
 	const [scoreValue, setScoreValue] = useState("Any");
-	// const [loading, setLoading] = useState(true);
+	const [loading, setLoading] = useState(false);
 	const [mapData, setmapData] = useState({
 		currWard: "any",
-		zoom: 12.2,
+		zoom: 11.5,
 		position: [25.4484, 78.5685]
 	});
+
+	// useEffect(() => {
+	// 	setLoading(true);
+	// 	let timeId = setTimeout(() => {
+	// 		setLoading(false);
+	// 	},1000);
+	// },[mapData])
 
 
 	const handleWardChange = (e) => {
 		let wardValue = e.target.value;
 		let currPosition = [];
-		let currZoom = 12;
+		let currZoom = 11.5;
 		if (wardValue !== "any") {
 			wardDivision.features.map((feature) => {
 				if (wardValue === feature.properties["Ward Numbe"]) {
-					currPosition = [feature.geometry.coordinates[0][0][parseInt((feature.geometry.coordinates[0][0].length) / 2)][1], feature.geometry.coordinates[0][0][parseInt((feature.geometry.coordinates[0][0].length) / 2)][0]];
+					currPosition = [feature.properties['Y Centroid'],feature.properties['X centroid']];
+					let area = feature.properties.Area;
+					// let height = document.getElementById('map').offsetHeight;
+					// let width = document.getElementById('map').offsetWidth;
+					currZoom = calculateZoom(area,650,600) - 9.5;
+					console.log(currZoom);
 				}
 			});
-			currZoom = 15;
 		} else {
 			currPosition = [25.4484, 78.5685];
 			currZoom = 12;
@@ -106,10 +144,22 @@ function MapComponent() {
 	}
 	const handleClose = () => setOpen(false);
 
-	let selectedWardBoundary = [[[90, -180],
-	[90, 180],
-	[-90, 180],
-	[-90, -180]]];
+	let selectedWardBoundary = [];
+	let allBoundary = [
+		[
+			[90, -180],
+			[90, 180],
+			[-90, 180],
+			[-90, -180]
+		]
+	]
+	wardDivision.features.map((ward) => {
+		let boundary1 = [];
+		ward.geometry.coordinates[0][0].map((point) => {
+			boundary1.push([point[1], point[0]]);
+		});
+		allBoundary.push(boundary1);
+	});
 	if (mapData.currWard === "any") {
 		wardDivision.features.map((ward) => {
 			let boundary = [];
@@ -129,139 +179,141 @@ function MapComponent() {
 			}
 		});
 	}
-	console.log(selectedWardBoundary);
 
 	if (mapData.currWard !== "any") {
 		markerjson = markerjson.filter((dat) => {
-			var polygonFormed = L.polygon(selectedWardBoundary[0][0][0]);
-			console.log(polygonFormed);
-			console.log(selectedWardBoundary[0][0]);
+			var polygonFormed = L.polygon(selectedWardBoundary);
 			var marker = L.marker([dat.longitude, dat.latitude])
-			console.log(marker);
 			let isContains = polygonFormed.contains(marker.getLatLng());
-			let isTrue = isMarkerInsidePolygon([dat.longitude, dat.latitude], selectedWardBoundary[0]);
+			let isTrue = isMarkerInsidePolygon([dat.longitude, dat.latitude], [selectedWardBoundary]);
 			return isContains;
 		});
 	}
 
 
 	return (
-		// loading ? <div>Loading...</div> : 
-		<div className='mb-2 p-2 flex flex-col shadow-md rounded-lg w-[50%]'>
-			<div className='flex p-2 items-center justify-between'>
-				<div className='sm:flex sm:space-x-4 space-y-2 sm:space-y-0'>
-					<Box sx={{ minWidth: 120 }}>
-						<FormControl fullWidth>
-							<InputLabel id="demo-simple-select-label">Ward</InputLabel>
-							<Select
-								value={mapData.currWard}
-								label="Ward"
-								onChange={handleWardChange}
-							>
-								<MenuItem value={"any"}>All Wards</MenuItem>
-								{wards.map((ward) => {
-									return (<MenuItem value={ward.ward_number}>{ward.ward_name}</MenuItem>)
-								})}
-							</Select>
-						</FormControl>
-					</Box>
-					<Box sx={{ minWidth: 120 }}>
-						<FormControl fullWidth>
-							<InputLabel id="demo-simple-select-label">Parameter</InputLabel>
-							<Select
-								value={parameter}
-								label="Parameter"
-								onChange={handleParameterChange}
-							>
-								<MenuItem value={"Cleaniness"}>Cleaniness</MenuItem>
-								<MenuItem value={"Tourism"}>Tourism</MenuItem>
-								<MenuItem value={"Health"}>Health</MenuItem>
-							</Select>
-						</FormControl>
-					</Box>
+		loading ? <div>Loading...</div> :
+			<div className='mb-2 p-2 flex flex-col shadow-md rounded-lg w-[50%]'>
+				<div className='flex p-2 items-center justify-between'>
+					<div className='sm:flex sm:space-x-4 space-y-2 sm:space-y-0'>
+						<Box sx={{ minWidth: 120 }}>
+							<FormControl fullWidth>
+								<InputLabel id="demo-simple-select-label">Ward</InputLabel>
+								<Select
+									value={mapData.currWard}
+									label="Ward"
+									onChange={handleWardChange}
+								>
+									<MenuItem value={"any"}>All Wards</MenuItem>
+									{wards.map((ward) => {
+										return (<MenuItem value={ward.ward_number}>{ward.ward_name}</MenuItem>)
+									})}
+								</Select>
+							</FormControl>
+						</Box>
+						<Box sx={{ minWidth: 120 }}>
+							<FormControl fullWidth>
+								<InputLabel id="demo-simple-select-label">Parameter</InputLabel>
+								<Select
+									value={parameter}
+									label="Parameter"
+									onChange={handleParameterChange}
+								>
+									<MenuItem value={"Cleaniness"}>Cleaniness</MenuItem>
+									<MenuItem value={"Tourism"}>Tourism</MenuItem>
+									<MenuItem value={"Health"}>Health</MenuItem>
+								</Select>
+							</FormControl>
+						</Box>
 
-					<Box sx={{ minWidth: 120 }}>
-						<FormControl fullWidth>
-							<InputLabel id="demo-simple-select-label">Score</InputLabel>
-							<Select
-								value={scoreValue}
-								label="Score"
-								onChange={(e) => setScoreValue(e.target.value)}
-							>
-								<MenuItem value={"Any"}>Any</MenuItem>
-								<MenuItem value={1}>1</MenuItem>
-								<MenuItem value={2}>2</MenuItem>
-								<MenuItem value={3}>3</MenuItem>
-								<MenuItem value={4}>4</MenuItem>
-								<MenuItem value={5}>5</MenuItem>
-							</Select>
-						</FormControl>
-					</Box>
+						<Box sx={{ minWidth: 120 }}>
+							<FormControl fullWidth>
+								<InputLabel id="demo-simple-select-label">Score</InputLabel>
+								<Select
+									value={scoreValue}
+									label="Score"
+									onChange={(e) => setScoreValue(e.target.value)}
+								>
+									<MenuItem value={"Any"}>Any</MenuItem>
+									<MenuItem value={1}>1</MenuItem>
+									<MenuItem value={2}>2</MenuItem>
+									<MenuItem value={3}>3</MenuItem>
+									<MenuItem value={4}>4</MenuItem>
+									<MenuItem value={5}>5</MenuItem>
+								</Select>
+							</FormControl>
+						</Box>
+					</div>
 				</div>
-			</div>
-			<div>
-				<MapContainer
-					className='w-[100%] h-[600px]'
-					center={mapData.position}
-					zoom={mapData.zoom}
-					minZoom={12.2}
-					// dragging={false}
-					scrollWheelZoom={true}
-					key={mapData.position[0] + "$" + mapData.position[1]}
-				>
-					{/* <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+				<div>
+					<MapContainer
+						id='map'
+						className='w-[100%] h-[600px]'
+						center={mapData.position}
+						zoom={mapData.zoom}
+						zoomSnap={0.5}
+						minZoom={12.2}
+						// dragging={false}
+						scrollWheelZoom={true}
+						key={mapData.position[0] + "$" + mapData.position[1]}
+					>
+						{/* <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 						attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
 					/> */}
-					<TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="© OpenStreetMap contributors" />
+						<TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="© OpenStreetMap contributors" />
 
-					{/* {wardDivision.features.map((feature) => {
+						{/* {wardDivision.features.map((feature) => {
 						if (wardValue !== feature.properties["Ward Numbe"]) {
 							return (<Polyline positions={feature.geometry.coordinates[0][0].map((cord) => [cord[1], cord[0]])} color={'purple'} />)
 						}
 					})} */}
-					<Polygon positions={selectedWardBoundary} pathOptions={{
-						fillColor:' #D9D9D9',
-						fillOpacity: 1,
-						
-					}} />
-					{
-						markerjson.map((pos) => {
-							return (
-								<Marker position={[pos.latitude, pos.longitude]}
-									eventHandlers={{
-										mouseover: (event) => event.target.openPopup(),
-									}} icon={redIcon}>
-									<Popup>
-										<p>Latitude:- {pos.latitude}</p>
-										<p>Longitude:- {pos.longitude}</p>
-										<p>Here is XYZ Information</p>
-										<img src={`/images/${pos.filename}`} className='w-20 h-20' onClick={handleOpen} />
-									</Popup>
-								</Marker>
-							)
-						})
-					}
-				</MapContainer>
-				<Modal
-					open={open}
-					onClose={handleClose}
-					aria-labelledby="modal-modal-title"
-					aria-describedby="modal-modal-description"
-				>
-					<Box sx={style}>
-						<div className='flex items-center justify-between'>
-							<h1 className='text-center'> Image </h1>
-							<IconButton onClick={handleClose}>
-								<CloseIcon />
-							</IconButton>
-						</div>
-						<div>
-							<ReactImageZoom zoomWidth={800} img={imgsrc} height={400} width={500} className='w-100 h-100 cursor-pointer' />
-						</div>
-					</Box>
-				</Modal>
+						<Polygon color='black' positions={allBoundary} pathOptions={{
+							fillColor: ' #D9D9D9',
+							fillOpacity: 1,
+							color: 'black',
+							weight: 0.5,
+							lineJoin: 'miter'
+						}} />
+						<Polygon positions={selectedWardBoundary} color='blue'></Polygon>
+
+						{
+							markerjson.map((pos) => {
+								return (
+									<Marker position={[pos.latitude, pos.longitude]}
+										eventHandlers={{
+											mouseover: (event) => event.target.openPopup(),
+										}} icon={redIcon}>
+										<Popup>
+											<p>Latitude:- {pos.latitude}</p>
+											<p>Longitude:- {pos.longitude}</p>
+											<p>Here is XYZ Information</p>
+											<img src={`/images/${pos.filename}`} className='w-20 h-20' onClick={handleOpen} />
+										</Popup>
+									</Marker>
+								)
+							})
+						}
+					</MapContainer>
+					<Modal
+						open={open}
+						onClose={handleClose}
+						aria-labelledby="modal-modal-title"
+						aria-describedby="modal-modal-description"
+					>
+						<Box sx={style}>
+							<div className='flex items-center justify-between'>
+								<h1 className='text-center'> Image </h1>
+								<IconButton onClick={handleClose}>
+									<CloseIcon />
+								</IconButton>
+							</div>
+							<div>
+								<ReactImageZoom zoomWidth={800} img={imgsrc} height={400} width={500} className='w-100 h-100 cursor-pointer' />
+							</div>
+						</Box>
+					</Modal>
+				</div>
 			</div>
-		</div>
 	)
 }
 
