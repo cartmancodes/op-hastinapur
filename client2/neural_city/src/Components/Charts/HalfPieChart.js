@@ -1,76 +1,74 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Chart from 'react-apexcharts'
-
+import { isMobile } from 'react-device-detect'
 function HalfPieChart() {
+    const [loading, setLoading] = useState(false);
+
+    // useEffect(() => {
+    //     setLoading(true);
+    //     let timeOut = setTimeout(() => {
+    //         setLoading(false);
+    //     },200);
+    // },[])
     let [series, setSeries] = useState([49]);
     let [options, setOption] = useState({
-        toolbar: {
-            show: false
+        chart: {
+            type: 'radialBar',
+            offsetY: -50,
+            sparkline: {
+                enabled: true
+            }
         },
         plotOptions: {
-            chart: {
-                height: '200px',
-            },
-            grid: {
-                padding: {
-                    top: -20,
-                    bottom: -50
-                }
-            },
             radialBar: {
                 startAngle: -90,
                 endAngle: 90,
-                offsetY: -50,
                 track: {
-                    background: "#f2f2f2",
-                    strokeWidth: "100%"
-                },
-                hollow: {
-                    size: '50%',
+                    background: "#e7e7e7",
+                    strokeWidth: '97%',
+                    margin: 5,
                 },
                 dataLabels: {
-                    offsetY: -25,
-                    show: true,
+                    name: {
+                        show: false
+                    },
                     value: {
-                        show: false,
-                    },
-                    total: {
-                        show: true,
-                        label: series[0],
-                        color: "#373d3f",
-                        fontWeight: "bold",
-                        fontSize: "30px"
-                    },
-                },
-                grid: {
-                    padding: {
-                        top: 0,
-                        bottom: 0
-                    },
-                    margin: {
-                        top: 0,
-                        bottom: 0
+                        offsetY:0,
+                        fontSize: '22px',
+                        fontWeight: 'bold'
                     }
-                },
-                goals: [
-                    {
-                        name: 'Expected',
-                        value: 52,
-                        strokeColor: '#775DD0'
-                    }
-                ]
+                }
+            }
+        },
+        grid: {
+            padding: {
+                top: -30,
+                bottom: -20
+            }
+        },
+        fill: {
+            type: 'gradient',
+            gradient: {
+                shade: 'light',
+                shadeIntensity: 0.4,
+                inverseColors: false,
+                opacityFrom: 1,
+                opacityTo: 1,
+                stops: [0, 50, 53, 91]
             },
+        },
+        labels: ['Overall Score'],
+    });
 
-        }
-    })
+    console.log(isMobile);
 
     return (
-        <div className='mt-[0]'>
+        loading ? <div>Loading...</div> : <div className='mt-[0]'>
             <Chart
                 options={options}
                 series={series}
                 type="radialBar"
-                width="600"
+                width={isMobile ? 400 : 600}
             />
         </div >
     )

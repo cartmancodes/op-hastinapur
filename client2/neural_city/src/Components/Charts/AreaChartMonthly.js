@@ -3,19 +3,7 @@ import Chart from 'react-apexcharts';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 
-
-// {
-//     name: "Cleaniness",
-//     monthlyData: [38, 72, 14, 65, 83, 45, 92, 27, 51, 96, 63, 20],
-//     score: 67,
-//     change: 2.4,
-//     topParams: [
-//         {name:"Garbage and Litter",score: 57,change: 1.3},
-//         {name:"Dust",score: 47,change: -1.3},
-//         {name:"Drain",score: 33,change: 2.3}
-//     ]
-// },
-const AreaChartMonthly = ({ data }) => {
+const AreaChartMonthly = ({ data, color }) => {
     const seriesData = [{
         name: 'Monthly Data',
         data: data.monthlyData // Sample monthly data
@@ -28,11 +16,16 @@ const AreaChartMonthly = ({ data }) => {
                 enabled: false
             },
             toolbar: {
-                show: true
-            }
+                show: false
+            },
+            background: data.colors[2]
         },
+        toolbar: {
+            enabled: true,
+        },
+        colors: [data.colors[0]],
         xaxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+            categories: ['Jan', 'Apr', 'Jul',  'Oct', 'Dec']
         },
         yaxis: {
             max: 100,
@@ -40,9 +33,6 @@ const AreaChartMonthly = ({ data }) => {
         },
         dataLabels: {
             enabled: false
-        },
-        title: {
-            text: data.name
         },
         stroke: {
             curve: 'stepline',
@@ -54,27 +44,27 @@ const AreaChartMonthly = ({ data }) => {
     };
 
     return (
-        <div className='rounded-lg border-dashed border p-2'>
+        <div className='h-[50%]'>
+            <div style={{background: data.colors[1]}} className='bg-blue-200 border-b flex items-center justify-between rounded-t-md py-1 px-2'>
+                <div className='font-bold'>{data.name}</div>
+                <div className='font-bold text-gray-500'>{data.score}</div>
+                <span className={data.change < 0 ? 'text-red-500' : 'text-green-800'}>{data.change}% {data.change < 0 ? <ArrowDropDownIcon color='red' /> : <ArrowDropUpIcon />}</span>
+            </div>
             <Chart
                 options={chartOptions}
                 series={seriesData}
                 type="area"
-                height={180}
-                width={'280px'}
+                height={150}
+                width={'100%'}
             />
-            <div className='w-full bg-gray-100 rounded-lg mt-[-20px]'>
-                <div className='bg-blue-200 border-b flex items-center justify-between rounded-lg p-2'>
-                    <div className='font-bold'>Score</div>
-                    <div className='font-bold text-gray-700'>{data.score}</div>
-                    <span className={data.change < 0 ? 'text-red-500' : 'text-green-500'}>{data.change}% {data.change < 0 ? <ArrowDropDownIcon color='red' /> : <ArrowDropUpIcon />}</span>
-                </div>
+            <div style={{background: data.colors[2]}} className='border-t border-black w-full p-2 rounded-b-md mt-[-15px]'>
                 {
                     data.topParams.map((param) => {
                         return (
-                            <div className='flex items-center justify-between px-2'>
-                                <div className='w-[58%] text-sm'>{param.name}</div>
-                                <div className='font-bold text-gray-500'>{param.score}</div>
-                                <div className='w-[27%]'>
+                            <div className='flex items-center justify-between border-gray-300 text-md'>
+                                <div className='w-[60%] font-bold text-sm'>{param.name}</div>
+                                <div className='font-bold text-gray-500 text-center text-sm'>{param.score}</div>
+                                <div className='w-[25%] text-right text-sm'>
                                     <span className={param.change < 0 ? 'text-red-500' : 'text-green-500'}>{param.change}% {param.change < 0 ? <ArrowDropDownIcon color='red' /> : <ArrowDropUpIcon />}</span>
                                 </div>
                             </div>

@@ -1,11 +1,8 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import {IconButton} from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import SubScoreTable from './SubScoreTable';
+import SubScoreTable from '../Tables/SubScoreTable';
 import { useState } from 'react';
 
 
@@ -17,7 +14,8 @@ function IndividualScoreCard({ score,parameter }) {
     return (
         <div className='bg-white rounded-lg 
                         shadow-[rgba(50,_50,_105,_0.15)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.05)_0px_1px_1px_0px]
-                        p-4
+                        sm:p-4
+                        p-2
                         flex-[1/3]
                         space-y-4'
         >
@@ -27,7 +25,7 @@ function IndividualScoreCard({ score,parameter }) {
             </div>
 
             <div className='flex w-[100%] item-center justify-center'>
-                <div className='flex flex-col items-center justify-center border-r p-2 w-[33%]'>
+                <div className='flex flex-col items-center justify-center border-r sm:p-2 w-[33%]'>
                     <p onClick={() => {
                         setScores(score.poor.params);
                         handleOpen();

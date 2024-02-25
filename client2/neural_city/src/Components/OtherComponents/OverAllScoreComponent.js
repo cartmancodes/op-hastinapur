@@ -3,10 +3,10 @@ import HalfPieChart from '../Charts/HalfPieChart'
 
 function OverAllScoreComponent() {
     return (
-        <div className='w-[40%] rounded-lg flex flex-col items-center justify-center shadow-md p-4'>
-            <div className='font-bold text-2xl'>Overall Score</div>
+        <div className='sm:w-[40%] bg-white w-[100%] sm:p-4 rounded-sm flex flex-col items-center justify-center shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] p-1'>
+            <div className='font-bold text-2xl hover:bg-gray-200 cursor-pointer w-full p-2 text-center'>Overall Score</div>
             <HalfPieChart />
-            <div className='border-b-2 p-2 flex mt-[-100px]  w-[100%] items-center justify-center text-2xl'>
+            <div className='border-b sm:p-2 flex sm:mt-[-50px]  w-[100%] items-center justify-center text-2xl'>
                 <div className='w-[30%] p-2 border-r flex  flex-col items-center justify-center'>
                     <p>-</p>
                     <div className='rounded-2xl border p-2 text-sm  w-full text-center'>Poor</div>
@@ -20,8 +20,8 @@ function OverAllScoreComponent() {
                     <div className='rounded-2xl border p-2 text-sm bg-black text-white w-full text-center'>Good</div>
                 </div>
             </div>
-            <div className='w-[100%] p-4 bg-gray-100 mt-[10px] rounded-lg'>
-                <h1 className='text-xl font-bold text-center mb-[10px]'>Grading Criteria<span className='text-lg font-light'>(Based on Score)</span></h1>
+            <div className='w-[100%] sm:p-2 bg-gray-100 mt-[10px] rounded-md'>
+                <div className='text-xl font-bold  text-center'>Grading Criteria<span className='text-lg font-light'>(Based on Score)</span></div>
                 <div className='flex w-[100%] item-center justify-center'>
                     <div className='flex flex-col items-center justify-center border-r border-gray-400 p-2 w-[33%]'>
                         <p className='text-lg font-bold text-red-500'>{"0-50"}</p>

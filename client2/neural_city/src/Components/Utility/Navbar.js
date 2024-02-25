@@ -1,84 +1,27 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { Icon, IconButton } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
-import SmsIcon from '@mui/icons-material/Sms';
-import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
-import AppsIcon from '@mui/icons-material/Apps';
-import PersonIcon from '@mui/icons-material/Person';
+import React from 'react'
 import { useLocation } from 'react-router-dom';
-import MenuIcon from '@mui/icons-material/Menu';
+import { Link } from 'react-router-dom';
+
 function Navbar() {
     const location = useLocation();
     const { pathname } = location;
     const paths = pathname.split("/");
-    const [navhidden, setNavHidden] = useState("hidden");
     return (
-        <div className='border-b-2 px-2 bg-white'>
-            <div className='sm:hidden p-2 flex items-center justify-between'>
-                <div>
-                    <img src='logo.png' className='h-[30px] w-[30px]'/>
-                </div>
-                <div><IconButton onClick={() => {
-                    if (navhidden === "hidden") {
-                        setNavHidden("flex flex-col")
-                    } else {
-                        setNavHidden("hidden")
-                    }
-                }}>
-                    <MenuIcon></MenuIcon>
-                </IconButton></div>
+        <div className='p-4 border-b items-center justify-between flex bg-gray-100'>
+            <div className='flex-start'>
+                <h1 className='text-2xl font-bold text-gray-800'>CityX</h1>
             </div>
-            <div className={`w-[100%] sm:h-[60px] sm:items-center sm:justify-between ${navhidden} sm:flex`}>
-                <div className='flex
-                            flex-col
-                            justify-center
-                            items-center
-                            sm:flex-start
-                            sm:flex-row 
-                            sm:items-center 
-                            sm:justify-between
-                            space-x-[30px]
-            '>
-                    <div className='border-b-2 sm:p-0 p-2 sm:border-b-0 w-full sm:w-fit'><Link className={!(paths.length > 1 && paths[1] === "monitering") ?
-                        'hover:bg-purple-200 hover:text-purple-600 text-gray-500 p-2 rounded-lg'
-                        : "bg-purple-300 text-purple-900 p-2 rounded-lg"} to='/monitering'>Monitoring</Link></div>
-                    <div className='border-b-2 sm:p-0 p-2 sm:border-b-0  w-full sm:w-fit'><Link className={!(paths.length > 1 && paths[1] === "intiateaction") ?
-                        'hover:bg-purple-200 hover:text-purple-600 text-gray-500 p-2 rounded-lg'
-                        : "bg-purple-300 text-purple-900 p-2 rounded-lg"} to='/intiateaction'>Intiate Action</Link>
-                    </div>
-                    <div className='border-b-2 sm:p-0 p-2 sm:border-b-0  w-full sm:w-fit'>
-                        <Link className={!(paths.length > 1 && paths[1] === "planning") ?
-                            'hover:bg-purple-200 hover:text-purple-600 text-gray-500 p-2 rounded-lg'
-                            : "bg-purple-300 text-purple-900 p-2 rounded-lg"} to={`planning?id=${0}`}>Planning</Link>
-                    </div>
-                    {/* <div className='border-b-2 sm:p-0 p-2 sm:border-b-0  w-full sm:w-fit'>
-                        <Link className={!(paths.length > 1 && paths[1] === "others") ?
-                            'hover:bg-purple-200 hover:text-purple-600 text-gray-500 p-2 rounded-lg'
-                            : "bg-purple-300 text-purple-900 p-2 rounded-lg"} to='/others'>Other Modules</Link>
-                    </div> */}
-                    <div className='border-b-2 sm:p-0 p-2 sm:border-b-0 w-full sm:w-fit'>
-                        <Link className={!(paths.length > 1 && paths[1] === "help") ?
-                            'hover:bg-purple-200 hover:text-purple-600 text-gray-500 p-2 rounded-lg'
-                            : "bg-purple-300 text-purple-900 p-2 rounded-lg"} to='/help'>Help</Link>
-                    </div>
+            <div className='flex space-x-4'>
+                <div className='border-b-2 sm:p-0 p-2 sm:border-b-0 w-full sm:w-fit'><Link className={!(paths.length > 1 && paths[1] === "infra") ?
+                    'hover:bg-blue-300 hover:text-white text-gray-500 p-2 rounded-lg'
+                    : "bg-blue-400 text-white font-bold p-2 rounded-lg"} to='/'>City Infra</Link></div>
+                <div className='border-b-2 sm:p-0 p-2 sm:border-b-0  w-full sm:w-fit'><Link className={!(paths.length > 1 && paths[1] === "services") ?
+                    'hover:bg-blue-300 hover:text-white text-gray-500 p-2 rounded-lg'
+                    : "bg-blue-400 text-white font-bold p-2 rounded-lg"} to='/services'>Services</Link>
                 </div>
-                <div className='flex-end sm:w-fit w-full p-2 flex space-x-[30px]'>
-                    <IconButton>
-                        <SearchIcon color='gray' />
-                    </IconButton>
-                    <IconButton>
-                        <SmsIcon color='gray' />
-                    </IconButton>
-                    <IconButton style={{ padding: 0 }}>
-                        <NotificationsNoneIcon />
-                    </IconButton>
-                    <IconButton>
-                        <AppsIcon />
-                    </IconButton>
-                    <IconButton>
-                        <PersonIcon />
-                    </IconButton>
+                <div className='border-b-2 sm:p-0 p-2 sm:border-b-0  w-full sm:w-fit'><Link className={!(paths.length > 1 && paths[1] === "community") ?
+                    'hover:bg-blue-300 hover:text-white text-gray-500 p-2 rounded-lg'
+                    : "bg-blue-400 text-white font-bold p-2 rounded-lg"} to='/community'>Community</Link>
                 </div>
             </div>
         </div>

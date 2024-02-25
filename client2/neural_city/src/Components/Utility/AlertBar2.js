@@ -1,6 +1,6 @@
 import React from 'react'
 import {Alert,AlertTitle} from '@mui/material'
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function AlertBar({main_topic,heading,id}) {
     return (
@@ -9,7 +9,7 @@ function AlertBar({main_topic,heading,id}) {
             <p>
                 {heading.substring(0,50) + "...."}
             </p>
-            <Link to ={`/planning?id=${id}`}><u className='cursor-pointer'>Learn More</u></Link>
+            <Link to ={`/infra/planning?id=${id}`}><u className='cursor-pointer'>Learn More</u></Link>
         </Alert>
     )
 }
