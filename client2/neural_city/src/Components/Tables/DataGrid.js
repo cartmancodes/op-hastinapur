@@ -19,81 +19,74 @@ import { isMarkerInsidePolygon } from '../../utils/MapUtils';
 import { avgData, mockData } from '../../mockData/MapData';
 import { useEffect } from 'react';
 import Loader from 'react-js-loader'
+import L from 'leaflet';
 
-function wardSelection(newData, currWard, parameter, scoreValue, status) {
+function wardSelection(newData, currWard, param, sub_param, scoreValue) {
     try {
+        let selectedWardBoundary = [];
         let dataToReturn = newData;
         if (currWard !== "all") {
-            let selectedWardBoundary = [];
-            wardDivision.features.map((ward) => {
-                if (currWard === ward.properties["Ward Numbe"]) {
-                    selectedWardBoundary = ward.geometry.coordinates;
+            wardDivision.map((ward) => {
+                if (currWard === ward["Ward Numbe"]) {
+                    selectedWardBoundary = ward.geometry;
                 }
-                return undefined;
             });
-            dataToReturn = newData.filter((dat) => {
-                let isTrue = isMarkerInsidePolygon([dat.longitude, dat.latitude], selectedWardBoundary);
-                return isTrue;
+            
+            console.log(selectedWardBoundary);
+            dataToReturn = dataToReturn.filter((dat) => {
+                var polygonFormed = L.polygon(selectedWardBoundary);
+                var marker = L.marker([dat.longitude, dat.latitude]);
+                console.log(dat.longitude +  " " + dat.latitude);
+                if(marker !== null) {
+                    let isContains = polygonFormed.contains(marker.getLatLng());
+                    return isContains;
+                } else return false;    
             });
+            console.log(dataToReturn);
         }
-
+        console.log(dataToReturn);
         let dataToShow = dataToReturn.map((dat) => {
-            let score = undefined;
             let ward_name_curr = undefined;
-            for (let i = 0; i < wardDivision.features.length; i++) {
-                let ward = wardDivision.features[i];
-                let isInside = isMarkerInsidePolygon([dat.longitude, dat.latitude], ward.geometry.coordinates);
-                if (isInside) {
-                    console.log(isInside);
-                    ward_name_curr = ward.properties["Ward Name"];
-                    console.log(ward_name_curr);
+            let ward_number = undefined;
+            for (let i = 0; i < wardDivision.length; i++) {
+                let ward = wardDivision[i];
+                let isInside = isMarkerInsidePolygon([dat.longitude, dat.latitude], ward.geometry);
+                if (isInside === true) {
+                    ward_name_curr = ward["Ward Name"];
+                    ward_number = ward["Ward Numbe"];
                     break;
                 }
             }
-            if (parameter === "Overall") {
-                score = dat.score.overall_score;
-            } else if (parameter === "Cleanliness") {
-                score = dat.score.cleaniness_score.overall_cleaniness_score;
-            } else if (parameter === "Sidewalk") {
-                score = dat.score.sidewalk_score.overall_sidewalk_score;
-            } else if (parameter === "Roads") {
-                score = dat.score.road_score.overall_road_score;
-            } else if (parameter === "Encroachment") {
-                score = dat.score.encroachment_score.overall_encroachment_score;
-            } else if (parameter === "Traffic Calming") {
-                score = dat.score.traffic_calming.overall_traffic_calming;
-            }
-            score = (Number)(score);
+
+            let score = dat.score[param][sub_param];
             let preparedData = {
                 "ward": ward_name_curr,
                 "score": (Number)(score),
                 "date": dat.date,
                 "file_name": dat.image_name,
-                "status": dat.scoring_completed
+                "status": dat.scoring_completed,
+                "latitude": dat.latitude,
+                "longitude": dat.longitude,
+                "ward_number": ward_number
             };
-
-
             return preparedData;
         });
-
+        console.log("Data to show");
+        console.log(dataToShow);
+        let dataCleaned = dataToShow.filter((dat) => !Number.isNaN(dat.score) && dat.score != -10);
         if (scoreValue !== "any") {
-            if (scoreValue === "poor") {
-                dataToShow = dataToShow.filter((dat) => dat.score <= 50);
+            if (scoreValue === "good") {
+                dataCleaned = dataCleaned.filter((dat) => (Number)(dat.score) > 75);
             } else if (scoreValue === "acceptable") {
-                dataToShow = dataToShow.filter((dat) => dat.score > 50 && dat.score <= 75);
-            } else if (scoreValue === "good") {
-                dataToShow = dataToShow.filter((dat) => dat.score > 75);
+                dataCleaned = dataCleaned.filter((dat) => (Number)(dat.score) > 50 && (Number)(dat.score) <= 75);
+            } else {
+                dataCleaned = dataCleaned.filter((dat) => (Number)(dat.score) <= 50);
             }
-
         }
-
-        if (status !== "any") {
-            dataToShow = dataToShow.filter((dat) => dat.status === status)
-        }
-
-        return dataToShow;
-    } catch (err) {
-        throw new Error(err.message);
+        dataCleaned = dataCleaned.filter(dat => dat.score > 0);
+        return dataCleaned;
+    } catch(err) {
+        console.log(err.message);
     }
 }
 

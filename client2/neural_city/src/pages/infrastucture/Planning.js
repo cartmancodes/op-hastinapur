@@ -44,7 +44,7 @@ function Planning() {
         <h2 className="text-2xl font-bold mb-4 text-blue-700 underline">Recommended Topic: {mockRecommendation[currIdx].main_topic}</h2>
         <div className="space-y-4">
           {mockRecommendation[currIdx].points.map((recom, index) => (
-            <div key={index} className="border-b border-gray-200 pb-4">
+            <div key={index} className="border-b border-gray-200 pb-4 w-[88vw]">
               <h3 className="text-lg font-bold mb-2 text-green-700 underline">{recom.topic}</h3>
               <ul className="list-disc pl-6">
                 {recom.description.map((pt, idx) => (

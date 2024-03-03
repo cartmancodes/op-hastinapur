@@ -1,22 +1,22 @@
 import React from 'react'
 import HalfPieChart from '../Charts/HalfPieChart'
 
-function OverAllScoreComponent() {
+function OverAllScoreComponent({ score, good, acceptable, poor }) {
     return (
         <div className='sm:w-[40%] bg-white w-[100%] sm:p-4 rounded-sm flex flex-col items-center justify-center shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] p-1'>
             <div className='font-bold text-2xl hover:bg-gray-200 cursor-pointer w-full p-2 text-center'>Overall Score</div>
-            <HalfPieChart />
+            <HalfPieChart score={score} />
             <div className='border-b sm:p-2 flex sm:mt-[-50px]  w-[100%] items-center justify-center text-2xl'>
                 <div className='w-[30%] p-2 border-r flex  flex-col items-center justify-center'>
-                    <p>-</p>
+                    <p>{poor}</p>
                     <div className='rounded-2xl border p-2 text-sm  w-full text-center'>Poor</div>
                 </div>
                 <div className='w-[30%] p-2 border-r flex  flex-col items-center justify-center'>
-                    <p>-</p>
+                    <p>{acceptable}</p>
                     <div className='rounded-2xl border p-2 text-sm  w-full text-center'>Acceptable</div>
                 </div>
                 <div className='w-[30%] p-2 flex  flex-col items-center justify-center'>
-                    <p className='text-green-600'>24</p>
+                    <p className='text-green-600'>{good}</p>
                     <div className='rounded-2xl border p-2 text-sm bg-black text-white w-full text-center'>Good</div>
                 </div>
             </div>

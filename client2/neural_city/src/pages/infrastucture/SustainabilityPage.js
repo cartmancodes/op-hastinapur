@@ -24,13 +24,13 @@ function wardSelection(newData, currWard, param, sub_param, scoreValue) {
     let selectedWardBoundary = [];
     let dataToReturn = newData;
     if (currWard !== "any") {
-        wardDivision.features.map((ward) => {
-            if (currWard === ward.properties["Ward Numbe"]) {
-                selectedWardBoundary = ward.geometry.coordinates;
+        wardDivision.map((ward) => {
+            if (currWard === ward["Ward Numbe"]) {
+                selectedWardBoundary = ward.geometry;
             }
         });
         dataToReturn = dataToReturn.filter((dat) => {
-            var polygonFormed = L.polygon(selectedWardBoundary[0][0]);
+            var polygonFormed = L.polygon(selectedWardBoundary);
             var marker = L.marker([dat.longitude, dat.latitude])
             console.log(marker);
             let isContains = polygonFormed.contains(marker.getLatLng());
@@ -42,13 +42,13 @@ function wardSelection(newData, currWard, param, sub_param, scoreValue) {
     let dataToShow = dataToReturn.map((dat) => {
         let ward_name_curr = undefined;
         let ward_number = undefined;
-        for (let i = 0; i < wardDivision.features.length; i++) {
-            let ward = wardDivision.features[i];
-            let isInside = isMarkerInsidePolygon([dat.longitude, dat.latitude], ward.geometry.coordinates);
+        for (let i = 0; i < wardDivision.length; i++) {
+            let ward = wardDivision[i];
+            let isInside = isMarkerInsidePolygon([dat.longitude, dat.latitude], ward.geometry);
             console.log(isInside);
             if (isInside === true) {
-                ward_name_curr = ward.properties["Ward Name"];
-                ward_number = ward.properties["Ward Numbe"];
+                ward_name_curr = ward["Ward Name"];
+                ward_number = ward["Ward Numbe"];
                 console.log(ward_name_curr + " " + ward_number);
                 break;
             }
@@ -148,9 +148,9 @@ function SustainabilityPage() {
         let currPosition = [];
         let currZoom = 12;
         if (wardValue !== "any") {
-            wardDivision.features.map((feature) => {
-                if (wardValue === feature.properties["Ward Numbe"]) {
-                    currPosition = [feature.geometry.coordinates[0][0][0][1], feature.geometry.coordinates[0][0][0][0]];
+            wardDivision.map((feature) => {
+                if (wardValue === feature["Ward Numbe"]) {
+                    currPosition = [feature.geometry[0][1], feature.geometry[0][0]];
                 }
             });
             currZoom = 13;

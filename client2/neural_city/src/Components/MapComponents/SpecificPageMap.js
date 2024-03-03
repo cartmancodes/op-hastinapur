@@ -4,7 +4,6 @@ import 'leaflet/dist/leaflet.css';
 import { wardDivision } from './wardDivisionData';
 import { useState } from 'react';
 import { Polygon } from 'react-leaflet';
-
 import L from "leaflet";
 import 'leaflet/dist/leaflet.css';
 import "./mapstyle.css";
@@ -83,8 +82,12 @@ function SpecificPageMapComponent(props) {
                 center={position}
                 markerZoomAnimation={true}
             >
+                {
+                    selectedWardBoundary.map((ward) => {
+                        return <Polygon positions={ward.boundary} color={colRep} />
+                    })
+                }
                 
-                <Polygon positions={selectedWardBoundary} color={colRep} />
                 {
                     props.geojson.map((pos) => {
                         return (

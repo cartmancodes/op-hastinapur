@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Chart from 'react-apexcharts'
 import { isMobile } from 'react-device-detect'
-function HalfPieChart() {
+function HalfPieChart({score}) {
     const [loading, setLoading] = useState(false);
 
     // useEffect(() => {
@@ -10,7 +10,7 @@ function HalfPieChart() {
     //         setLoading(false);
     //     },200);
     // },[])
-    let [series, setSeries] = useState([49]);
+    let [series, setSeries] = useState([score]);
     let [options, setOption] = useState({
         chart: {
             type: 'radialBar',

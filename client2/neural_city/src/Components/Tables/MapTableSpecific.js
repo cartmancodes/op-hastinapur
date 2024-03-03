@@ -35,8 +35,8 @@ export default function MapTableSpecific({filteredOutput,loading}) {
         ["overall_encroachment_score", "general_encroachment", "encroachment_by_whom"],
         ["overall_traffic_calming", "toilet"]
     ]
-    wardDivision.features.map((ward) => {
-        wards.push({ "ward_name": ward.properties["Ward Name"], "ward_number": ward.properties["Ward Numbe"] })
+    wardDivision.map((ward) => {
+        wards.push({ "ward_name": ward["Ward Name"], "ward_number": ward["Ward Numbe"] })
     });
 
     const [page, setPage] = useState(0);

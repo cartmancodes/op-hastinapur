@@ -7,7 +7,9 @@ import 'react-dates/initialize';
 import { DateRangePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 
-function DashBoardNav() {
+
+
+function DashBoardNav({items,include_date}) {
     const location = useLocation();
     const { pathname } = location;
     const paths = pathname.split("/");
@@ -48,21 +50,16 @@ function DashBoardNav() {
                             sm:justify-between
                             sm:space-x-[30px]
                 '>
-                    <div className='border-b-2 sm:p-0 p-2 sm:border-b-0 w-full sm:w-fit'><Link className={!(paths.length > 1 && paths[2] === "monitering") ?
-                        'hover:bg-purple-200 hover:text-purple-600 text-gray-500 p-2 rounded-lg'
-                        : "bg-purple-300 text-purple-900 p-2 rounded-lg"} to='/infra/monitering'>Monitoring</Link></div>
-                    <div className='border-b-2 sm:p-0 p-2 sm:border-b-0  w-full sm:w-fit'><Link className={!(paths.length > 1 && paths[2] === "intiateaction") ?
-                        'hover:bg-purple-200 hover:text-purple-600 text-gray-500 p-2 rounded-lg'
-                        : "bg-purple-300 text-purple-900 p-2 rounded-lg"} to={'/infra/intiateaction'}>Intiate Action</Link>
-                    </div>
-                    <div className='border-b-2 sm:p-0 p-2 sm:border-b-0  w-full sm:w-fit'>
-                        <Link className={!(paths.length > 1 && paths[2] === "planning") ?
+                    {
+                        items.map((path) => {
+                            return <div className='border-b-2 sm:p-0 p-2 sm:border-b-0 w-full sm:w-fit'><Link className={!(paths.length > 1 && paths[2] === path.curr_path) ?
                             'hover:bg-purple-200 hover:text-purple-600 text-gray-500 p-2 rounded-lg'
-                            : "bg-purple-300 text-purple-900 p-2 rounded-lg"} to={`/infra/planning?id=${0}`}>Planning</Link>
-                    </div>
+                            : "bg-purple-300 text-purple-900 p-2 rounded-lg"} to={path.path_link}>{path.name}</Link></div>
+                        })
+                    }
                 </div>
             </div>
-            <div>
+            {include_date ? <div>
                 <DateRangePicker
                     startDate={dateRange.startDate}
                     startDateId="your_unique_start_date_id"
@@ -72,7 +69,7 @@ function DashBoardNav() {
                     focusedInput={focusedInput}
                     onFocusChange={focusedInput => setFocusedInput(focusedInput)}
                 />
-            </div>
+            </div>: <></>}
         </div>
     )
 }
