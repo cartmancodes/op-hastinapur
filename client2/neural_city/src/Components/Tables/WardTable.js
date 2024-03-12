@@ -21,6 +21,7 @@ import WardTableRow from './WardTableRow';
 import { alpha } from '@mui/material/styles';
 import { useState, useEffect } from 'react';
 import { avgData } from '../../mockData/MapData';
+import InfoButton from '../OtherComponents/InfoButton';
 const columns = [
   { id: 'ward_number', label: 'Ward Number', minWidth: 100, align: 'center', },
   { id: 'ward_name', label: 'Ward Name', minWidth: 170, align: 'center', },
@@ -46,8 +47,8 @@ const columns = [
     format: (value) => value.toFixed(2),
   },
   {
-    id: 'encroachment_score',
-    label: 'Encroachment',
+    id: 'public_space_utilization_score',
+    label: 'Public Space Utilization',
     minWidth: 100,
     align: 'center',
     format: (value) => value.toFixed(2),
@@ -156,15 +157,18 @@ export default function WardTable() {
   let styleUnactive = 'text-sm border rounded-2xl p-1 px-2 cursor-pointer';
   let styleActive = 'text-sm border rounded-2xl p-1 px-2 cursor-pointer bg-sky-100 text-black'
   return (
-    <div className='flex items-center justify-center h-[80vh] w-[100%] mb-[60px]'>
+    <div className='flex items-center justify-center md:h-[80vh] w-[100%] mb-[60px]'>
       <Paper sx={{ width: '100%', overflow: 'scroll', scrollbarWidth: '0px'}}>
         <div className='py-4 space-y-2 sm:space-y-0 w-full shadow-lg rounded-t-lg px-2 sm:flex items-center justify-between'>
-          <div className='text-2xl w-[50%] flex items-center font-bold space-x-8'>
+          <div className='text-2xl w-[50%] flex items-center font-bold space-x-2'>
             {/* <h1>Wards</h1> */}
             <FormControl variant="standard">
               <BootstrapInput className='w-[300px]' value={searchText} onChange={(e) => setSearchText(e.target.value)} placeholder="Search Wards" />
             </FormControl>
+
+            <InfoButton></InfoButton>
           </div>
+          
           <div className='flex space-x-2'>
             <button onClick={() => setFilter("all")} className={filter == "all" ? styleActive : styleUnactive}>All</button>
             <button onClick={() => setFilter("top_five")} className={filter == "top_five" ? styleActive : styleUnactive}>Top 5 Wards</button>

@@ -2,7 +2,7 @@ import React from 'react'
 
 function MoniterProject() {
   return (
-    <div>MoniterProject</div>
+    <div className='min-h-[80vh]'>MoniterProject</div>
   )
 }
 

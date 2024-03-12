@@ -14,6 +14,10 @@ import Community from "./pages/community/Community";
 import Footer from "./Components/Utility/Footer";
 import SDGPage from "./pages/infrastucture/SDGPage";
 import ServicesHome from "./pages/services/ServicesHome";
+import GroupsPage from "./pages/community/GroupsPage";
+import ProjectPage from "./pages/community/ProjectPage";
+import PollPage from "./pages/community/PollPage";
+import MoniterProject from "./pages/community/MoniterProject";
 
 function App() {
   useEffect(() => {
@@ -37,7 +41,6 @@ function App() {
           <Route path="monitering" element={<Monitering />} >
             <Route path="" element={<DashBoardHome />} />
             <Route path="sustainability" element={<SustainabilityPage />} />
-            <Route path="sdg" element={<SDGPage />} />
             <Route path="traffic" element={<Traffic />}></Route>
           </Route>
           <Route path="intiateaction" element={<IntiateAction></IntiateAction>} />
@@ -48,6 +51,11 @@ function App() {
           <Route path="monitering" element={<ServicesHome />} />
         </Route>
         <Route path="/community" element={<Community />}>
+        <Route path="" element={<Navigate to='/community/group'></Navigate>} />
+          <Route path="group" element={<GroupsPage></GroupsPage>} />
+          <Route path="projects" element={<ProjectPage></ProjectPage>} />
+          <Route path="poll" element={<PollPage></PollPage>} />
+          <Route path="moniter_project" element={<MoniterProject></MoniterProject>} />
         </Route>
       </Routes>
       <Footer />

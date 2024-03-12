@@ -11,6 +11,8 @@ import { exportToExcel } from 'react-json-to-excel'
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { mockData } from '../../mockData/MapData'
 import L from 'leaflet'
+import { sdgImpact } from '../../mockData/MapData'
+import { calculateAverage, getColRep } from '../../utils/MapUtils';
 
 function caseChange(str) {
     let sepe = str.split("_");
@@ -32,27 +34,25 @@ function wardSelection(newData, currWard, param, sub_param, scoreValue) {
         dataToReturn = dataToReturn.filter((dat) => {
             var polygonFormed = L.polygon(selectedWardBoundary);
             var marker = L.marker([dat.longitude, dat.latitude])
-            console.log(marker);
             let isContains = polygonFormed.contains(marker.getLatLng());
             let isTrue = isMarkerInsidePolygon([dat.longitude, dat.latitude], selectedWardBoundary);
             return isContains;
         });
     }
-
+    console.log(param + " " + sub_param);
     let dataToShow = dataToReturn.map((dat) => {
         let ward_name_curr = undefined;
         let ward_number = undefined;
         for (let i = 0; i < wardDivision.length; i++) {
             let ward = wardDivision[i];
             let isInside = isMarkerInsidePolygon([dat.longitude, dat.latitude], ward.geometry);
-            console.log(isInside);
             if (isInside === true) {
                 ward_name_curr = ward["Ward Name"];
                 ward_number = ward["Ward Numbe"];
-                console.log(ward_name_curr + " " + ward_number);
                 break;
             }
         }
+        // console.log(dataToShow);
         let score = dat.score[param][sub_param];
         let preparedData = {
             "ward": ward_name_curr,
@@ -66,7 +66,6 @@ function wardSelection(newData, currWard, param, sub_param, scoreValue) {
         };
         return preparedData;
     });
-
     let dataCleaned = dataToShow.filter((dat) => !Number.isNaN(dat.score) && dat.score != -10);
     if (scoreValue !== "any") {
         if (scoreValue === "good") {
@@ -84,22 +83,13 @@ function wardSelection(newData, currWard, param, sub_param, scoreValue) {
 
 function SustainabilityPage() {
     let wards = getWardsWithName(wardDivision);
-    const parameter_names = [
-        "cleaniness_score",
-        "sidewalk_score",
-        "road_score",
-        "encroachment_score",
-        "traffic_calming"
-    ]
-
+    const parameter_names = ["cleaniness_score", "sidewalk_score", "road_score", "public_space_utilization"]
     const sub_parameters = [
-        ["overall_cleaniness_score", "garbage_and_litter", "tobacco_spit", "dustbin", "drain", "dust", "toilet"],
-        ["overall_sidewalk_score", "sidewalk_availability", "sidewalk_usability", "parking_on_sidewalk", "street_furniture_and_amenities"],
-        ["overall_road_score", "surface_quality", "blacktop_quality", "lane_markings", "parking_on_road", "type_of_road", "cycling_infrastructure"],
-        ["overall_encroachment_score", "general _encroachment", "encroachment_by_whom"],
-        ["overall_traffic_calming"]
+        ["overall_cleaniness_score", "garbage_and_litter", "tobacco_spit", "dust", "dustbins_dumpsters", "drain", "toilet_urination"],
+        ["overall_sidewalk_score", "construction_material", "sidewalk_availability", "sidewalk_usability", "parking_on_sidewalk", "street_furniture_and_amenities", "walking_space"],
+        ["overall_road_score", "road_motorable_space", "surface_quality", "repair_quality", "type_of_road", "blacktop_quality", "lane_markings", "parking_on_road", "cycling_infrastructure"],
+        ["overall_public_space_utilization_score", "general_occupation", "occupants"]
     ]
-
     const [scoreValue, setScoreValue] = useState("any");
     const [city, setCity] = useState("Jhansi");
     const [mapData, setmapData] = useState({
@@ -108,12 +98,19 @@ function SustainabilityPage() {
         position: [25.4484, 78.5685]
     });
     const [parameter, setParameter] = useState(0);
-    const [sub_parameter, setSubParameter] = useState(0);
+    const [sub_parameter, setSubParameter] = useState({
+        subParameters: sub_parameters[`${parameter}`],
+        currSubParameter: 0
+    });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [data, setData] = useState(mockData.data);
     const [position, setPosition] = useState([25.4484, 78.5685])
-    const [filteredOutput, setFilteredOutput] = useState([]);
+    const [filteredOutput, setFilteredOutput] = useState({
+        data: [],
+        colorRep: "white",
+    });
+    const [sdgImpactParam, setsdgImpact] = useState("any");
     // useEffect(() => {
     //     async function fetchData() {
     //         setLoading(true);
@@ -135,10 +132,53 @@ function SustainabilityPage() {
     // console.log("data" + data);
 
     useEffect(() => {
-        const filteredOutput = wardSelection(data, mapData.currWard, parameter_names[parameter], sub_parameters[parameter][sub_parameter], scoreValue);
-        setFilteredOutput(filteredOutput);
-        console.log(filteredOutput)
-    }, [loading, mapData, parameter, sub_parameter, scoreValue])
+        console.log(parameter);
+        const filteredOutput = wardSelection(data, mapData.currWard, parameter_names[parameter], sub_parameter.subParameters[sub_parameter.currSubParameter], scoreValue);
+        console.log(filteredOutput);
+        console.log(parameter_names[parameter])
+        let avg = calculateAverage(filteredOutput);
+        let colRep = getColRep(avg);
+        setFilteredOutput({
+            data: filteredOutput,
+            colorRep: colRep
+        });
+    }, [loading, mapData, parameter, sub_parameter, scoreValue]);
+
+    useEffect(() => {
+        const parameter_name = parameter_names[parameter];
+        console.log(parameter_name);
+        if (sdgImpactParam !== "any") {
+            let subs = sub_parameters[parameter];
+            if (sdgImpactParam === "standard") {
+                subs = subs.filter((sub, idx) => {
+                    if (idx === 0) return true;
+                    else return (sdgImpact[`${parameter_name}`][`${sub}_score`] <= 1.5);
+                });
+            } else if (sdgImpactParam === "high") {
+                subs = subs.filter((sub, idx) => {
+                    if (idx === 0) return true;
+                    else return (sdgImpact[`${parameter_name}`][`${sub}_score`] > 1.5 && sdgImpact[`${parameter_name}`][`${sub}_score`] <= 3);
+                });
+            } else {
+                subs = subs.filter((sub, idx) => {
+                    if (idx === 0) return true;
+                    else {
+                        console.log(sdgImpact);
+                        return (sdgImpact[`${parameter_name}`][`${sub}_score`] > 3);
+                    }
+                });
+            }
+            setSubParameter({
+                subParameters: subs,
+                currSubParameter: 0
+            });
+        } else {
+            setSubParameter({
+                subParameters: sub_parameters[`${parameter}`],
+                currSubParameter: 0
+            });
+        }
+    }, [sdgImpactParam, parameter]);
 
     const handleDownloadButtonClick = () => {
         exportToExcel(filteredOutput, 'Sustainability');
@@ -169,14 +209,15 @@ function SustainabilityPage() {
     return (
         loading ? <div>Loading...</div> :
             <div className='p-2 flex justify-between w-[100%] relative'>
-                <div className='sm:w-[90%] w-[100%] space-y-[10px]'>
+                <div className='md:w-[90%] w-[100%] space-y-[10px]'>
                     <div className='shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] p-2 rounded-md'>
-                        <div className='space-y-2 sm:space-y-0 sm:flex p-2 shadow-sm w-full sm:h-[60px] rounded-lg space-x-2 justify-between items-center'>
-                            <div className='sm:space-x-2 space-y-2 sm:space-y-0 sm:flex'>
+                        <div className='space-y-2 sm:space-y-0 sm:flex p-2 shadow-sm w-full md:h-[60px] rounded-lg space-x-2 justify-between items-center'>
+                            <div className='md:space-x-2 space-y-2 sm:space-y-0 md:flex flex-shrink sm:grid sm:grid-cols-4 gap-2'>
                                 <div>
                                     <FormControl>
                                         <InputLabel>Ward</InputLabel>
                                         <Select
+                                            className='w-[150px]'
                                             value={mapData.currWard}
                                             size='small'
                                             onChange={handleWardChange}
@@ -195,10 +236,10 @@ function SustainabilityPage() {
                                     <FormControl>
                                         <InputLabel>Parameter</InputLabel>
                                         <Select
+                                            className='w-[150px]'
                                             value={parameter}
                                             onChange={(e) => {
                                                 setParameter(e.target.value);
-                                                setSubParameter(0);
                                             }}
                                             label='Parameter'
                                             size='small'
@@ -212,18 +253,21 @@ function SustainabilityPage() {
                                     </FormControl>
 
                                 </div>
-
                                 <div>
                                     <FormControl>
                                         <InputLabel>Sub Parameter</InputLabel>
                                         <Select
-                                            value={sub_parameter}
-                                            onChange={(e) => setSubParameter(e.target.value)}
+                                            className='w-[150px]'
+                                            value={sub_parameter.currSubParameter}
+                                            onChange={(e) => setSubParameter({
+                                                ...sub_parameter,
+                                                currSubParameter: e.target.value
+                                            })}
                                             label='Sub Parameter'
                                             size='small'
                                         >
                                             {
-                                                sub_parameters[parameter].map((sub_para, idx) => {
+                                                sub_parameter.subParameters.map((sub_para, idx) => {
                                                     return <MenuItem value={idx}>{caseChange(sub_para)}</MenuItem>
                                                 })
                                             }
@@ -235,7 +279,7 @@ function SustainabilityPage() {
                                     <FormControl>
                                         <InputLabel>Score</InputLabel>
                                         <Select
-                                            sx={{ width: '100px' }}
+                                            className='w-[150px]'
                                             value={scoreValue}
                                             label="Score"
                                             onChange={(e) => setScoreValue(e.target.value)}
@@ -245,6 +289,26 @@ function SustainabilityPage() {
                                             <MenuItem value={"good"}>Good</MenuItem>
                                             <MenuItem value={"acceptable"}>Acceptable</MenuItem>
                                             <MenuItem value={"poor"}>Poor</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                </div>
+                                <div>
+                                    <FormControl>
+                                        <InputLabel sx={{ color: "" }}>SDG Impact</InputLabel>
+                                        <Select
+                                        
+                                            sx={{ width: '150px', backgroundColor: '#A5D6A7', color: 'black' }}
+                                            value={sdgImpactParam}
+                                            label="SDG Impact"
+                                            onChange={(e) => {
+                                                setsdgImpact(e.target.value);
+                                            }}
+                                            size='small'
+                                        >
+                                            <MenuItem value={"any"}>Any</MenuItem>
+                                            <MenuItem value={"standard"}>Standard</MenuItem>
+                                            <MenuItem value={"high"}>High </MenuItem>
+                                            <MenuItem value={"significant"}>Significant</MenuItem>
                                         </Select>
                                     </FormControl>
                                 </div>

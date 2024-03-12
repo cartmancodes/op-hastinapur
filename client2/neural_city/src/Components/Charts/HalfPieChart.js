@@ -14,27 +14,31 @@ function HalfPieChart({score}) {
     let [options, setOption] = useState({
         chart: {
             type: 'radialBar',
-            offsetY: -50,
+            offsetY: -20,
             sparkline: {
                 enabled: true
             }
         },
+        colors: score < 35 ? ["#FF0000"] : score < 70 ? ["#e7e7e7"] : ["#008000"],
         plotOptions: {
             radialBar: {
                 startAngle: -90,
                 endAngle: 90,
                 track: {
-                    background: "#e7e7e7",
                     strokeWidth: '97%',
                     margin: 5,
                 },
                 dataLabels: {
                     name: {
-                        show: false
+                        show: true,
+                        fontSize: '33px',
+                        fontWeight: 'bold',
+                        color: 'black'
                     },
                     value: {
+                        show: false,
                         offsetY:0,
-                        fontSize: '22px',
+                        fontSize: '44px',
                         fontWeight: 'bold'
                     }
                 }
@@ -48,6 +52,7 @@ function HalfPieChart({score}) {
         },
         fill: {
             type: 'gradient',
+            
             gradient: {
                 shade: 'light',
                 shadeIntensity: 0.4,
@@ -57,7 +62,7 @@ function HalfPieChart({score}) {
                 stops: [0, 50, 53, 91]
             },
         },
-        labels: ['Overall Score'],
+        labels: [`${score}`],
     });
 
     console.log(isMobile);

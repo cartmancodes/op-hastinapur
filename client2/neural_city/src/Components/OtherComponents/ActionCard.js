@@ -4,6 +4,7 @@ import { mockRecommendation } from '../../mockData/MapData';
 import { Button } from '@mui/material'
 import DownloadIcon from '@mui/icons-material/Download';
 import { AlignmentType, Document, HeadingLevel, Packer, Paragraph,TextRun } from "docx";
+import InfoButton from './InfoButton';
 
 function recomendationDocumentGenerator(recomandations) {
     let sections = recomandations.map((reco) => {
@@ -80,6 +81,7 @@ function makePoint(point) {
 
 
 function ActionCard() {
+    const tooltipText = "This section outlines critical, vulnerable, and essential actions, including waste management, public space regulations, and infrastructure upgrades. These efforts align with SDGs 11 and 9, fostering inclusive, resilient, and sustainable urban environments";
     const [filter, setFilter] = useState("total")
     const [recomandation, setRecomandations] = useState(mockRecommendation);
     let crticalCount = 0;
@@ -109,7 +111,7 @@ function ActionCard() {
         <div className='relative h-[600px] md:w-[50%] w-[100%] flex flex-col items-center justify-between rounded-sm shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]'>
             <div className='w-full overflow-y-scroll sm:overflow-y-hidden bg-white z-[1000] flex items-center justify-between border-b p-4'>
                 <div className=''>
-                    <h1 className='text-2xl font-bold'>Action Items</h1>
+                    <h1 className='text-2xl flex items-center font-bold'>Action Items<span><InfoButton text={tooltipText}></InfoButton></span></h1>
                     <div className='flex space-x-2'>
                         <button onClick={() => setFilter("total")} className={filter === "total" ? styleActive : styleUnactive}>Total({recomandation.length})</button>
                         <button onClick={() => setFilter("critical")} className={filter === "critical" ? styleActive : styleUnactive}>Critical({crticalCount})</button>

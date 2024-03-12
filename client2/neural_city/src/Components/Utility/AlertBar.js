@@ -9,7 +9,7 @@ function AlertBar({main_topic,heading,id}) {
             <p>
                 {heading}
             </p>
-            <Link to ={`/planning?id=${id}`}><u className='cursor-pointer'>Learn More</u></Link>
+            <Link to ={`/infra/planning?id=${id}`}><u className='cursor-pointer'>Learn More</u></Link>
         </Alert>
     )
 }

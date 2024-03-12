@@ -24,8 +24,8 @@ function DashBoardNav({items,include_date}) {
         setDateRange({ startDate, endDate });
     };
     return (
-        <div className='w-[100%] border-b px-2 sticky top-0 left-0 z-[1001] bg-white sm:flex justify-between items-center'>
-            <div className='sm:hidden flex items-center justify-between'>
+        <div className='w-[100%] border-b px-2 sticky top-0 left-0 z-[1001] bg-white sm:flex sm:justify-between items-center'>
+            <div className='sm:hidden w-[100%] flex items-center justify-between'>
                 <div>
                     <img src='logo.png' className='h-[30px] w-[30px]'/>
                 </div>
@@ -39,7 +39,7 @@ function DashBoardNav({items,include_date}) {
                     <MenuIcon></MenuIcon>
                 </IconButton></div>
             </div>
-            <div className={`sm:w-[70%] sm:h-[60px] sm:items-center sm:justify-between ${navhidden} sm:flex`}>
+            <div className={`sm:w-fit sm:h-[60px] sm:items-center sm:justify-between ${navhidden} sm:flex`}>
                 <div className='flex
                             flex-col
                             justify-center

@@ -126,7 +126,6 @@ export const isMarkerInsidePolygon = function (marker, poly) {
     var polygonFormed = L.polygon(poly);
     var marker = L.marker([y,x])
     let isContains = polygonFormed.contains(marker.getLatLng());
-    console.log(isContains);
     return isContains;
 };
 
@@ -144,11 +143,10 @@ export const calculateAverage = function (geojson) {
 
 // Getting The Representation of the Colors on Map
 export const getColRep = function (avg) {
-    console.log(avg);
-    if(avg === null) {
+    if(avg === null || avg === undefined || Number.isNaN(avg) === true) {
         return '#ebf2fa';
     }
-    let colRep = avg < 50 ? '#ef476f' : avg < 75 && avg >= 50 ? '#ffd166' : '#06d6a0';
+    let colRep = avg < 35 ? '#ef476f' : avg < 70 ? '#0000FF' : '#06d6a0';
     return colRep;
 }
 
@@ -184,7 +182,6 @@ export const getSelectedWardBoundary = (wardValue, wardDivision) => {
     if (wardValue === "any") {
         wardDivision.map((ward) => {
             let boundary = [];
-            console.log(ward);
             ward.geometry.map((point) => {
                 boundary.push([point[1], point[0]]);
             });

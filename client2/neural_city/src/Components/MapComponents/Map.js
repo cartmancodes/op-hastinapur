@@ -12,6 +12,7 @@ import { avgData } from '../../mockData/MapData';
 import { getColRep } from '../../utils/MapUtils';
 import WardPolygon from './ui/WardPolygon';
 import { getCityBoundary } from '../../utils/MapUtils';
+import InfoButton from '../OtherComponents/InfoButton';
 
 function getColor(curr_ward, parameter) {
 	const findData = avgData.find((dat) => dat.ward_number === curr_ward);
@@ -94,7 +95,7 @@ function MapComponent() {
 	let allBoundary = getMaskedBoundary(wardDivision);
 	let cityBoundary = getCityBoundary(wardDivision);
 	// let markerjson = getFilteredGeoJSON(geojson,mapData.currWard,selectedWardBoundary);
-	
+	const toolTipText = "Explore the map component to visualize urban parameters ward-wise, filterable by parameter and score. Color-coded wards display conditions: red for poor, blue for medium, and green for good";
 	let mapColoring = getColor(mapData.currWard, parameter);
 	return (
 		loading ? <div>Loading...</div> :
@@ -125,7 +126,7 @@ function MapComponent() {
 									>
 										<MenuItem value={"any"}>All Parameter</MenuItem>
 										<MenuItem value={"cleaniness_score"}>Cleaniness</MenuItem>
-										<MenuItem value={"encroachment_score"}>Enchrochment</MenuItem>
+										<MenuItem value={"public_space_utilization_score"}>Public Space Utilization</MenuItem>
 										<MenuItem value={"road_score"}>Road</MenuItem>
 										<MenuItem value={"sidewalk_score"}>Walkability</MenuItem>
 									</Select>
@@ -140,14 +141,15 @@ function MapComponent() {
 										onChange={(e) => setScoreValue(e.target.value)}
 									>
 										<MenuItem value={"any"}>Score</MenuItem>
-										<MenuItem value={1}>1</MenuItem>
-										<MenuItem value={2}>2</MenuItem>
-										<MenuItem value={3}>3</MenuItem>
-										<MenuItem value={4}>4</MenuItem>
-										<MenuItem value={5}>5</MenuItem>
+										<MenuItem value={"poor"}>Poor</MenuItem>
+										<MenuItem value={"managable"}>Managable</MenuItem>
+										<MenuItem value={"good"}>Good</MenuItem>
 									</Select>
 								</FormControl>
 							</Box>
+						</div>
+						<div className='flex items-center'>
+							<InfoButton text={toolTipText}></InfoButton>
 						</div>
 					</div>
 				</div>

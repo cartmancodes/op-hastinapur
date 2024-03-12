@@ -8,7 +8,7 @@ import LocationCityIcon from '@mui/icons-material/LocationCity';
 
 let navitems = [
     {
-        name: "Monitering",
+        name: "Monitoring",
         path_link: "/infra/monitering",
         curr_path: "monitering"
     },
@@ -33,15 +33,9 @@ let sidebaritems = [
     },
     {
         icon: <ApartmentIcon />,
-        title: "sustainability",
+        title: "Feature Drill",
         path_link: "/infra/monitering/sustainability",
         curr_path: "sustainability"
-    },
-    {
-        icon: <LocationCityIcon />,
-        title: "SDG",
-        path_link: "/infra/monitering/sdg",
-        curr_path: "sdg"
     },
     {
         icon: <Traffic />,

@@ -9,7 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import {MenuItem, Select } from '@mui/material';
-import DataGridRow from './DataGridRow';
+import DataGridRow from './MapTableRow';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { wardDivision } from '../MapComponents/wardDivisionData';
@@ -57,7 +57,7 @@ export default function MapTableSpecific({filteredOutput,loading}) {
         setPage(0);
     };
 
-    let sortedData = filteredOutput;
+    let sortedData = filteredOutput.data;
     if (sortScore == "asc") {
         sortedData = sortedData.sort((a, b) => a.score - b.score);
     } else if (sortScore == "desc") {
@@ -144,7 +144,7 @@ export default function MapTableSpecific({filteredOutput,loading}) {
                 <TablePagination
                     rowsPerPageOptions={[10, 25, 100]}
                     component="div"
-                    count={filteredOutput.length}
+                    count={sortedData.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onPageChange={handleChangePage}

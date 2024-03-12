@@ -2,7 +2,7 @@ import React from 'react'
 
 function PollPage() {
   return (
-    <div>PollPage</div>
+    <div className='min-h-[80vh]'>PollPage</div>
   )
 }
 

@@ -4,6 +4,7 @@ import {IconButton} from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import SubScoreTable from '../Tables/SubScoreTable';
 import { useState } from 'react';
+import InfoButton from './InfoButton';
 
 
 function IndividualScoreCard({ score,parameter }) {
@@ -19,9 +20,10 @@ function IndividualScoreCard({ score,parameter }) {
                         flex-[1/3]
                         space-y-4'
         >
+            
             <div className='flex items-center justify-between'>
-                <h1 className='text-gray-500'>{score.name}</h1>
-                <h1 className='text-green-800 font-bold text-2xl'>{score.value}</h1>
+                <div className='text-gray-500 flex items-center '>{score.name}<span><InfoButton text={score.description}/></span></div>
+                <h1 style={{color : score.value < 35 ? "#FF0000" : score.value < 70 ? "#0000FF" : "#008000"}} className='font-bold text-2xl'>{score.value}</h1>
             </div>
 
             <div className='flex w-[100%] item-center justify-center'>
@@ -37,7 +39,7 @@ function IndividualScoreCard({ score,parameter }) {
                         setScores(score.acceptable.params);
                         handleOpen();
                     }} className='text-lg font-bold text-blue-500 cursor-pointer hover:text-blue-900'>{score.acceptable.total}</p>
-                    <p className='text-gray-400'>Acceptable</p>
+                    <p className='text-gray-400'>Managable</p>
                 </div>
                 <div className='flex flex-col items-center justify-center  p-2 w-[33%]'>
                     <p onClick={() => {

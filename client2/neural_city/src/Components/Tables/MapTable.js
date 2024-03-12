@@ -9,7 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import { Button, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-import DataGridRow from './DataGridRow';
+import DataGridRow from './MapTableRow';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
@@ -21,7 +21,7 @@ import { useEffect } from 'react';
 import Loader from 'react-js-loader'
 import L from 'leaflet';
 
-function wardSelection(newData, currWard, param, sub_param, scoreValue) {
+function wardSelection(newData, currWard, param, scoreValue) {
     try {
         let selectedWardBoundary = [];
         let dataToReturn = newData;
@@ -58,7 +58,13 @@ function wardSelection(newData, currWard, param, sub_param, scoreValue) {
                 }
             }
 
-            let score = dat.score[param][sub_param];
+            let score = undefined;
+            if(param !== "Overall") {
+                score = dat.score[`${param}_score`][`overall_${param}_score`];
+            } else {
+                score = dat.score.overall_score;
+            }
+            
             let preparedData = {
                 "ward": ward_name_curr,
                 "score": (Number)(score),
@@ -71,9 +77,7 @@ function wardSelection(newData, currWard, param, sub_param, scoreValue) {
             };
             return preparedData;
         });
-        console.log("Data to show");
-        console.log(dataToShow);
-        let dataCleaned = dataToShow.filter((dat) => !Number.isNaN(dat.score) && dat.score != -10);
+        let dataCleaned = dataToShow.filter((dat) => !Number.isNaN(dat.score) && dat.score > 0);
         if (scoreValue !== "any") {
             if (scoreValue === "good") {
                 dataCleaned = dataCleaned.filter((dat) => (Number)(dat.score) > 75);
@@ -84,6 +88,7 @@ function wardSelection(newData, currWard, param, sub_param, scoreValue) {
             }
         }
         dataCleaned = dataCleaned.filter(dat => dat.score > 0);
+        console.log(dataCleaned);
         return dataCleaned;
     } catch(err) {
         console.log(err.message);
@@ -93,7 +98,7 @@ function wardSelection(newData, currWard, param, sub_param, scoreValue) {
 
 export default function MapTable() {
     // let wards = getWardsWithName(wardDivision);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [data, setData] = useState([]);
     const [page, setPage] = useState(0);
@@ -108,6 +113,7 @@ export default function MapTable() {
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
+    console.log(data);
     const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(+event.target.value);
         setPage(0);
@@ -140,6 +146,7 @@ export default function MapTable() {
         try {
             // Get the  Data After Applying all the Parameters
             const dataToShow = wardSelection(mockData.data, currWard, parameter, scoreValue, status);
+            console.log(dataToShow);
             // Do all the sorting related Stuffs here
 
             // Sort on the basis of Score
@@ -158,7 +165,9 @@ export default function MapTable() {
             }
 
             filteredOutput = filteredOutput.filter((dat) => (Number)(dat.score) > 0);
+            console.log(filteredOutput);
             setData(filteredOutput);
+            console.log(data);
         } catch (err) {
             setError(err.message);
         }
@@ -216,11 +225,11 @@ export default function MapTable() {
                                     size='small'
                                 >
                                     <MenuItem value="Overall">Overall</MenuItem>
-                                    <MenuItem value="Cleanliness">Cleanliness</MenuItem>
-                                    <MenuItem value="Sidewalk">Sidewalk</MenuItem>
-                                    <MenuItem value="Roads">Roads</MenuItem>
-                                    <MenuItem value="Encroachment">Encroachment</MenuItem>
-                                    <MenuItem value="Traffic Calming">Traffic Calming</MenuItem>
+                                    <MenuItem value="cleaniness">Cleanliness</MenuItem>
+                                    <MenuItem value="sidewalk">Sidewalk</MenuItem>
+                                    <MenuItem value="road">Roads</MenuItem>
+                                    <MenuItem value="encroachment">Encroachment</MenuItem>
+                                    
                                 </Select>
                             </FormControl>
                         </div>
@@ -315,7 +324,7 @@ export default function MapTable() {
                                         return (
                                             <DataGridRow row={row} idx={idx} />
                                         );
-                                    })}
+                                })}
                             </TableBody>
                         </Table>
                     </TableContainer>

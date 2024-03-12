@@ -6,7 +6,7 @@ import HomeIcon from '@mui/icons-material/Home';
 function Services() {
   let navItems = [
     {
-      name: "Monitering",
+      name: "Monitoring",
       path_link: "/services/monitering",
       curr_path: "monitering"
     },
@@ -21,7 +21,7 @@ function Services() {
     },
   ]
   return (
-    <div className='bg-white brightness-50 w-full space-y-2'>
+    <div className='bg-white relative grayscale w-full space-y-2'>
       <DashBoardNav items={navItems} include_date={true}></DashBoardNav>
       <div className='flex relative'>
         <Sidebar items={sidebaritems} />

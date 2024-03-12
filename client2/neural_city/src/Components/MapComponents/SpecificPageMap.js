@@ -10,7 +10,7 @@ import "./mapstyle.css";
 import MapMarker from './ui/MapMarker';
 import { calculateAverage, getSelectedWardBoundary, getColRep } from '../../utils/MapUtils';
 import ImageModal from '../Modals/ImageModal';
-
+import { getCityBoundary } from '../../utils/MapUtils';
 const LeafIcon = L.Icon.extend({
     options: {}
 });
@@ -49,7 +49,6 @@ function SpecificPageMapComponent(props) {
         setShowLoading(true);
         // Use setTimeout to update the message after 2000 milliseconds (2 seconds)
         const timeoutId = setTimeout(() => {
-            console.log("Timeout called");
             setShowLoading(false);
         }, 100);
     }, [props.mapData]);
@@ -61,16 +60,15 @@ function SpecificPageMapComponent(props) {
 
     // Getting Selected Ward Boundary,Average and Corresponding Color Representations
     let selectedWardBoundary = getSelectedWardBoundary(wardValue, wardDivision);
-    let avg = calculateAverage(props.geojson);
-    let colRep = getColRep(avg);
-    const polygon = L.polygon(selectedWardBoundary);
+    let cityBoundary = getCityBoundary(wardDivision);
+    const polygon = L.polygon(cityBoundary);
     const bounds = polygon.getBounds();
 
     // let wards = getWardsWithName(wardDivision);
     return (
         showLoading ? <div>Loading...</div> : <div>
             <MapContainer
-            zoomSnap={0.5}
+                zoomSnap={0.5}
                 maxBounds={bounds}
                 key={props.pos}
                 // maxBoundsViscosity={1.0}
@@ -84,12 +82,11 @@ function SpecificPageMapComponent(props) {
             >
                 {
                     selectedWardBoundary.map((ward) => {
-                        return <Polygon positions={ward.boundary} color={colRep} />
+                        return <Polygon positions={ward.boundary} fillOpacity={0.4} weight={1} fillColor={props.geojson.colorRep} color={`gray`}/>
                     })
                 }
-                
                 {
-                    props.geojson.map((pos) => {
+                    props.geojson.data.map((pos) => {
                         return (
                             <MapMarker pos={pos} handleOpen={handleOpen} />
                         )

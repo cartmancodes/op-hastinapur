@@ -18,12 +18,12 @@ const AreaChartMonthly = ({ data, color }) => {
             toolbar: {
                 show: false
             },
-            background: data.colors[2]
+            background: data.colors[1]
         },
         toolbar: {
             enabled: true,
         },
-        colors: [data.colors[0]],
+        colors: [data.colors[2]],
         xaxis: {
             categories: ['Jan', 'Apr', 'Jul',  'Oct', 'Dec']
         },
@@ -44,10 +44,10 @@ const AreaChartMonthly = ({ data, color }) => {
     };
 
     return (
-        <div className='h-[50%]'>
-            <div style={{background: data.colors[1]}} className='bg-blue-200 border-b flex items-center justify-between rounded-t-md py-1 px-2'>
+        <div style={{color: data.colors[2]}} className='h-[50%]'>
+            <div style={{background: data.colors[1]}} className='bg-blue-200 border-b border-black flex items-center justify-between rounded-t-md py-1 px-2'>
                 <div className='font-bold'>{data.name}</div>
-                <div className='font-bold text-gray-500'>{data.score}</div>
+                <div style={{color : data.score < 35 ? 'red' : data.score < 70 ? 'blue' : 'green'}} className='font-bold'>{data.score}</div>
                 <span className={data.change < 0 ? 'text-red-500' : 'text-green-800'}>{data.change}% {data.change < 0 ? <ArrowDropDownIcon color='red' /> : <ArrowDropUpIcon />}</span>
             </div>
             <Chart
@@ -57,13 +57,13 @@ const AreaChartMonthly = ({ data, color }) => {
                 height={150}
                 width={'100%'}
             />
-            <div style={{background: data.colors[2]}} className='border-t border-black w-full p-2 rounded-b-md mt-[-15px]'>
+            <div style={{background: data.colors[1]}} className='border-t border-black w-full p-2 rounded-b-md mt-[-15px]'>
                 {
                     data.topParams.map((param) => {
                         return (
                             <div className='flex items-center justify-between border-gray-300 text-md'>
                                 <div className='w-[60%] font-bold text-sm'>{param.name}</div>
-                                <div className='font-bold text-gray-500 text-center text-sm'>{param.score}</div>
+                                <div className='text-gray-500 font-bold text-center text-sm'>{param.score}</div>
                                 <div className='w-[25%] text-right text-sm'>
                                     <span className={param.change < 0 ? 'text-red-500' : 'text-green-500'}>{param.change}% {param.change < 0 ? <ArrowDropDownIcon color='red' /> : <ArrowDropUpIcon />}</span>
                                 </div>

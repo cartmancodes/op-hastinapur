@@ -131,10 +131,10 @@ function ServicesHome() {
         },
     ]
     return (
-        <div className='w-[100%] '>
+        <div className='w-[100%] min-h-[100vh] '>
             <div className='w-full'>
                 <div className='space-y-[100px] relatives w-full sm:p-4'>
-                    <div id='overall' className='w-full section sm:flex items-center sm:space-x-6 space-y-2 sm:space-y-0'>
+                    <div id='overall' className='w-full section md:flex items-center md:space-x-6 space-y-2 md:space-y-0'>
                         <OverAllScoreComponent score={57} good={24} acceptable={"-"} poor={"-"} />
                         <IndividualScores scores={scores} />
                     </div>
