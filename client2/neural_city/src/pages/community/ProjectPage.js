@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { TextField,IconButton, Modal, FormControl, InputLabel, Button, Select, MenuItem } from '@mui/material'
-import YojanaTable from '../../Components/OtherComponents/YojanaTable';
+import YojanaTable from '../../Components/Tables/YojanaTable';
 import CloseIcon from '@mui/icons-material/Close';
 
 const dummyProjects = [

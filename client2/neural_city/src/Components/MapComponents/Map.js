@@ -12,7 +12,7 @@ import { avgData } from '../../mockData/MapData';
 import { getColRep } from '../../utils/MapUtils';
 import WardPolygon from './ui/WardPolygon';
 import { getCityBoundary } from '../../utils/MapUtils';
-import InfoButton from '../OtherComponents/InfoButton';
+import InfoButton from '../ui/InfoButton';
 
 function getColor(curr_ward, parameter) {
 	const findData = avgData.find((dat) => dat.ward_number === curr_ward);

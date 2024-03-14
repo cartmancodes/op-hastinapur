@@ -1,9 +1,9 @@
 import React from 'react'
 import MapComponent from '../../Components/MapComponents/Map';
-import OverAllScoreComponent from '../../Components/OtherComponents/OverAllScoreComponent';
-import IndividualScores from '../../Components/OtherComponents/IndividualScores';
+import OverAllScoreComponent from '../../Components/Cards/OverAllScore';
+import IndividualScores from '../../Components/Cards/IndividualScores';
 import LineBarCombination from '../../Components/Charts/LineBarCombination';
-import ActionCard from '../../Components/OtherComponents/ActionCard';
+import ActionCard from '../../Components/Cards/ActionCard';
 import WardTable from '../../Components/Tables/WardTable';
 import MapAnalysis from '../../Components/Charts/MapAnalysis';
 
@@ -23,17 +23,17 @@ let scores = [
         poor: {
             total: 4,
             params: [
-                { name: "Garbage and Litter", score: 30 },
-                { name: "Tobbaco spit", score: 28 },
-                { name: "Dust Score", score: 26 },
-                { name: "Drain Score", score: 28.67 },
+                { name: "Garbage and Litter", score: 28.88888889 },
+                { name: "Tobbaco spit", score: 0 },
+                { name: "Dust Score", score: 18.06451613 },
+                { name: "Drain Score", score: 21.44927536 },
             ]
         },
         acceptable: {
             total: 2,
             params: [
-                { name: "Dustbins/Dumpsters Score", score: 60 },
-                { name: "Toilet/Urination Score", score: 54 }
+                { name: "Dustbins/Dumpsters Score", score: 50 },
+                { name: "Toilet/Urination Score", score: 50 }
             ]
         },
         good: {
@@ -50,17 +50,18 @@ let scores = [
         poor: {
             total: 3,
             params: [
-                { name: "Construction Material Score", score: 30 },
-                { name: "Sidewalk Usability Score", score: 28 },
-                { name: "Parking on Sidewalk Score", score: 28 }
+                { name: "Construction Material Score", score: 20 },
+                { name: "Sidewalk Usability Score", score: 30.47619048 },
+                { name: "Parking on Sidewalk Score", score: 4.578313253 },
+                { name: "Sidewalk Availability Score", score: 0 },
             ]
         },
         acceptable: {
             total: 3,
             params: [
-                { name: "Street Furniture and Amenities Score", score: 60 },
-                { name: "Sidewalk Availability Score", score: 54 },
-                { name: "Walking Space Score", score: 54 }
+                { name: "Street Furniture and Amenities Score", score: 50 },
+
+                { name: "Walking Space Score", score: 54.28571429 }
             ]
         },
         good: {
@@ -76,13 +77,13 @@ let scores = [
         poor: {
             total: 1,
             params: [
-                { name: "General  Encroachment Score", score: 30 },
+                { name: "General Occupation", score: 18.7027027 },
             ]
         },
         acceptable: {
             total: 1,
             params: [
-                { name: "Encroachment by Whom Score", score: 60 },
+                { name: "Occupants", score: 49.68553459 },
             ]
         },
         good: {
@@ -97,19 +98,19 @@ let scores = [
         poor: {
             total: 2,
             params: [
-                { name: "Type of Road Score", score: 30 },
-                { name: "Lane Markings Score", score: 28 }
+                { name: "Type of Road Score", score: 27.31958763 },
+                { name: "Lane Markings Score", score: 20 },
+                { name: "Parking on Road Score", score: 31.70984456 },
             ]
         },
         acceptable: {
             total: 6,
             params: [
-                { name: "Road Motorable Space Score", score: 60 },
-                { name: "Surface Quality Score", score: 54 },
-                { name: "Repair Quality Score", score: 54 },
-                { name: "Blacktop Quality Score", score: 54 },
-                { name: "Parking on Road Score", score: 54 },
-                { name: "Cycling Infrastructure Score", score: 54 },
+                { name: "Road Motorable Space Score", score: 38.27586207 },
+                { name: "Surface Quality Score", score: 53.76623377 },
+                { name: "Repair Quality Score", score: 50 },
+                { name: "Blacktop Quality Score", score: 40 },
+                { name: "Cycling Infrastructure Score", score: 50 },
             ]
         },
         good: {
@@ -123,7 +124,7 @@ let scores = [
 ]
 function DashBoardHome() {
     return (
-        <div className='w-full min-h-[100vh]'>
+        <div className='w-full p-2 sm:p-0 min-h-[100vh]'>
             <div className='md:space-y-[100px] space-y-[20px] relatives w-full sm:p-4'>
                 <div id='overall' className='w-full section md:flex items-center md:space-x-6 space-y-2 md:space-y-0'>
                     <OverAllScoreComponent score={28.87} good={"-"} acceptable={12} poor={10} />

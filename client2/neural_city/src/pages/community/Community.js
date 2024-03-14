@@ -1,6 +1,6 @@
 import React from 'react'
-import YojanaTable from '../../Components/OtherComponents/YojanaTable'
-import DashBoardNav from '../../Components/DashBoardNav';
+import YojanaTable from '../../Components/Tables/YojanaTable'
+import DashBoardNav from '../../Components/Global/DashBoardNav';
 import {Outlet} from 'react-router-dom'
 function Community() {
   let navItems = [

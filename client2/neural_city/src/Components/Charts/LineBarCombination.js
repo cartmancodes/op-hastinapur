@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import Chart from 'react-apexcharts'
 import {isMobile} from 'react-device-detect';
 function LineBarCombination() {
-    let cityXData = [30, 45, 24, 13, 50, 45, 17, 35, 22, 27, 12, 12];
-    let nationalAvg = [30,30,30,30,30,30,30,30,30,30,30,30];
+    let cityXData = [30, 45, 24, 13, 50];
+    let nationalAvg = [30,30,30,30,30];
     let cityXWithColor = [];
     let national = [];
     for(let i=0;i<cityXData.length;i++) {
@@ -55,6 +55,9 @@ function LineBarCombination() {
         },
         plotOptions: {
             bar: {
+                borderRadius: '0',
+                horizontal: false,
+                columnWidth: '40%', // Change this value to adjust the width of bars
                 barHeight: '100%',
                 dataLabels: {
                     position: 'bottom'
@@ -72,7 +75,7 @@ function LineBarCombination() {
             enabled: true,
             enabledOnSeries: [0]
         },
-        labels: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
+        labels: ["JAN","APR","JUL","OCT","DEC"],
     })
 
     return (

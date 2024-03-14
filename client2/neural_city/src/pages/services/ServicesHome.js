@@ -1,6 +1,6 @@
 import React from 'react'
-import OverAllScoreComponent from '../../Components/OtherComponents/OverAllScoreComponent'
-import IndividualScores from '../../Components/OtherComponents/IndividualScores'
+import OverAllScoreComponent from '../../Components/Cards/OverAllScore'
+import IndividualScores from '../../Components/Cards/IndividualScores'
 
 function ServicesHome() {
     let scores = [

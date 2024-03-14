@@ -3,11 +3,8 @@ import { Box, Modal } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close';
 import { TextField, Button, IconButton } from '@mui/material';
 import { useState } from 'react';
+import MessageForm from '../Forms/MessageForm';
 function MessageModal({ handleClose, open }) {
-    const [message,setMessage] = useState("");
-    const informAuthority = () => {
-        window.alert("Your Message Have Been Sent");
-    }
     return (
         <Modal
             open={open}
@@ -21,15 +18,7 @@ function MessageModal({ handleClose, open }) {
                             <CloseIcon />
                         </IconButton>
                     </div>
-                    <form className='p-4 flex flex-col space-y-4'>
-                        <TextField
-                            multiline
-                            minRows={4}
-                            label="Message"
-                            onChange={(e) => setMessage(e.target.value)}
-                        />
-                        <Button onClick={informAuthority} variant='contained'>Send Response</Button>
-                    </form>
+                    <MessageForm/>
                 </div>
             </div>
         </Modal>

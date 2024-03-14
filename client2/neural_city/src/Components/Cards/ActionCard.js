@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
-import AlertBar from '../Utility/AlertBar'
+import AlertBar from './AlertBar'
 import { mockRecommendation } from '../../mockData/MapData';
 import { Button } from '@mui/material'
 import DownloadIcon from '@mui/icons-material/Download';
 import { AlignmentType, Document, HeadingLevel, Packer, Paragraph,TextRun } from "docx";
-import InfoButton from './InfoButton';
+import InfoButton from '../ui/InfoButton';
+import { newRecomandationModel } from '../../mockData/MapData'
+
 
 function recomendationDocumentGenerator(recomandations) {
     let sections = recomandations.map((reco) => {
@@ -83,26 +85,27 @@ function makePoint(point) {
 function ActionCard() {
     const tooltipText = "This section outlines critical, vulnerable, and essential actions, including waste management, public space regulations, and infrastructure upgrades. These efforts align with SDGs 11 and 9, fostering inclusive, resilient, and sustainable urban environments";
     const [filter, setFilter] = useState("total")
-    const [recomandation, setRecomandations] = useState(mockRecommendation);
-    let crticalCount = 0;
-    let vulnerableCount = 0;
-    let essentialCount = 0;
-    mockRecommendation.map(reco => {
-        if (reco.severity === "critical") {
-            crticalCount++;
-        } else if (reco.severity === "vulnerable") {
-            vulnerableCount++;
-        } else {
-            essentialCount++;
+    const [recomandation, setRecomandations] = useState(newRecomandationModel);
+    let standardCount = 0;
+    let highCount = 0;
+    let significantCount = 0;
+    newRecomandationModel.map((reco) => {
+        console.log(reco.sdg_impact);
+        if (reco.sdg_impact <= 1.5) {
+            standardCount++;
+        } else if (reco.sdg_impact > 1.5 && reco.sdg_impact <= 3) {
+            highCount++;
+        } else if(reco.sdg_impact > 3){
+            significantCount++;
         }
     })
     let filtered = recomandation;
-    if (filter === "critical") {
-        filtered = filtered.filter((data) => data.severity === "critical");
-    } else if (filter === "vulnerable") {
-        filtered = filtered.filter((data) => data.severity === "vulnerable");
-    } else if (filter === "essential") {
-        filtered = filtered.filter((data) => data.severity === "essential");
+    if (filter === "standard") {
+        filtered = filtered.filter((data) => data.sdg_impact <= 1.5);
+    } else if (filter === "high") {
+        filtered = filtered.filter((data) => data.sdg_impact > 1.5 && data.sdg_impact <= 3);
+    } else if (filter === "significant") {
+        filtered = filtered.filter((data) => data.sdg_impact > 3);
     }
 
     let styleUnactive = 'text-sm border rounded-2xl p-1 px-2 cursor-pointer';
@@ -114,9 +117,9 @@ function ActionCard() {
                     <h1 className='text-2xl flex items-center font-bold'>Action Items<span><InfoButton text={tooltipText}></InfoButton></span></h1>
                     <div className='flex space-x-2'>
                         <button onClick={() => setFilter("total")} className={filter === "total" ? styleActive : styleUnactive}>Total({recomandation.length})</button>
-                        <button onClick={() => setFilter("critical")} className={filter === "critical" ? styleActive : styleUnactive}>Critical({crticalCount})</button>
-                        <button onClick={() => setFilter("vulnerable")} className={filter === "vulnerable" ? styleActive : styleUnactive}>Vulnerable({vulnerableCount})</button>
-                        <button onClick={() => setFilter("essential")} className={filter === "essential" ? styleActive : styleUnactive}>Essential/Desirable({essentialCount})</button>
+                        <button onClick={() => setFilter("standard")} className={filter === "standard" ? styleActive : styleUnactive}>Standard({standardCount})</button>
+                        <button onClick={() => setFilter("high")} className={filter === "high" ? styleActive : styleUnactive}>High({highCount})</button>
+                        <button onClick={() => setFilter("significant")} className={filter === "significant" ? styleActive : styleUnactive}>Significant({significantCount})</button>
                     </div>
                 </div>
                 <div>
@@ -128,7 +131,7 @@ function ActionCard() {
             <div className='bg-white space-y-4 h-[100%] w-full p-4 flex flex-col items-start overflow-y-scroll'>
                 {
                     filtered.map((reco, idx) => {
-                        return <AlertBar main_topic={reco.main_topic} heading={reco.heading} id={idx} />
+                        return <AlertBar main_topic={reco.topic} heading={reco.head_text} id={idx} />
                     })
                 }
             </div>

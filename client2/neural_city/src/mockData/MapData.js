@@ -282,12 +282,14 @@ export const mockRecommendation =
 				}
 			]
 		}
-	]
+]
 
 export const newRecomandationModel = [
 	{
 		id: 1,
 		topic: 'garbage_and_littering',
+		sdg_impact: 2.555555556,
+		head_text: "Real-Time Cleanliness Index,Investment in Sustainable Waste Technologies,Community Education Programs,Advanced Sanitation Worker Training and Equipment,Quick Sanitation Worker Welfare Measures,Enforcement of Littering Fines,Strategic Bin Placement and Signage,Community-Led Clean-Up Initiatives,Integrated Waste Management System",
 		immediate_measures: [
 			{
 				sub_topic: 'Real-Time Cleanliness Index',
@@ -339,10 +341,12 @@ export const newRecomandationModel = [
 				rationale: 'High cost, long-term sustainability, and aligns with SDG 9 (Industry, Innovation, and Infrastructure).'
 			}
 		]
-	}, 
+	},
 	{
 		id: 2,
 		topic: 'congestion',
+		sdg_impact: 3.2,
+		head_text: 'Serious Discussion on Congestion Tax,Enforcement of Fines for Restricted Entry or congestion causing Traffic violation,Focus on Walkability',
 		immediate_measures: [
 			{
 				sub_topic: 'Serious Discussion on Congestion Tax',
@@ -389,10 +393,12 @@ export const newRecomandationModel = [
 				rationale: 'Moderate cost, long-term impact, and aligns with SDG 11.'
 			}
 		]
-	}, 
+	},
 	{
 		id: 3,
 		topic: 'parking',
+		sdg_impact: 2.5,
+		head_text: 'Introduce Technology for Parking Violations,Multi-Level Parking Facility Development,Parking Audit and Planning,Parking Signage Standardization,',
 		immediate_measures: [
 			{
 				sub_topic: 'Introduce Technology for Parking Violations',
@@ -439,10 +445,12 @@ export const newRecomandationModel = [
 				rationale: 'Moderate cost, improves revenue collection, and aligns with SDG 11.'
 			}
 		]
-	}, 
+	},
 	{
 		id: 4,
 		topic: 'encroachment',
+		sdg_impact: 3,
+		head_text: 'Enforcement of Fines for Parking on Sidewalk,Movable Carts Utilization,Technology Integration for Encroachment Monitoring',
 		immediate_measures: [
 			{
 				sub_topic: 'Enforcement of Fines for Parking on Sidewalk',
@@ -494,10 +502,12 @@ export const newRecomandationModel = [
 				rationale: 'Moderate cost, addresses systemic issues, and aligns with SDG 11.'
 			}
 		]
-	}, 
+	},
 	{
 		id: 5,
 		topic: 'tobacco_spitting',
+		sdg_impact: 1.466666667,
+		head_text: "Enforcement of Fines for Spitting,Innovations in Spittoons,Behavioral Change Programs,Increased Use of Spittoons",
 		immediate_measures: [
 			{
 				sub_topic: 'Enforcement of Fines for Spitting',
@@ -554,10 +564,12 @@ export const newRecomandationModel = [
 				rationale: 'Moderate cost, enhances public spaces, and aligns with SDG 11.'
 			}
 		]
-	}, 
+	},
 	{
 		id: 6,
 		topic: 'public_washrooms',
+		sdg_impact: 2.5,
+		head_text: "Enforcement and Fines for Open Urination,Sewage System Development,Promotion of Public Health Hygiene,Maintenance of Public Toilets and Urinals,Digital Content on Public Health Hygiene,Technology Integration for Visibility",
 		immediate_measures: [
 			{
 				sub_topic: 'Enforcement and Fines for Open Urination',

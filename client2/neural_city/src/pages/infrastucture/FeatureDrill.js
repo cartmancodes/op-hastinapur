@@ -2,7 +2,7 @@ import React from 'react'
 import SpecificPageMapComponent from '../../Components/MapComponents/SpecificPageMap'
 import { Button, Select, FormControl, Box, MenuItem, InputLabel, } from '@mui/material'
 import { useState } from 'react'
-import RightSideBar from '../../Components/Utility/RightSideBar'
+import RightSideBar from '../../Components/Global/RightSideBar'
 import MapTableSpecific from '../../Components/Tables/MapTableSpecific'
 import { wardDivision } from '../../Components/MapComponents/wardDivisionData'
 import { getWardsWithName, isMarkerInsidePolygon } from '../../utils/MapUtils'
@@ -81,7 +81,7 @@ function wardSelection(newData, currWard, param, sub_param, scoreValue) {
 }
 
 
-function SustainabilityPage() {
+function FeatureDrill() {
     let wards = getWardsWithName(wardDivision);
     const parameter_names = ["cleaniness_score", "sidewalk_score", "road_score", "public_space_utilization"]
     const sub_parameters = [
@@ -181,7 +181,7 @@ function SustainabilityPage() {
     }, [sdgImpactParam, parameter]);
 
     const handleDownloadButtonClick = () => {
-        exportToExcel(filteredOutput, 'Sustainability');
+        exportToExcel(filteredOutput.data, 'PinPoints');
     }
     const handleWardChange = (e) => {
         let wardValue = e.target.value;
@@ -209,7 +209,7 @@ function SustainabilityPage() {
     return (
         loading ? <div>Loading...</div> :
             <div className='p-2 flex justify-between w-[100%] relative'>
-                <div className='md:w-[90%] w-[100%] space-y-[10px]'>
+                <div className='md:w-[100%] w-[100%] space-y-[10px]'>
                     <div className='shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] p-2 rounded-md'>
                         <div className='space-y-2 sm:space-y-0 sm:flex p-2 shadow-sm w-full md:h-[60px] rounded-lg space-x-2 justify-between items-center'>
                             <div className='md:space-x-2 space-y-2 sm:space-y-0 md:flex flex-shrink sm:grid sm:grid-cols-4 gap-2'>
@@ -332,9 +332,9 @@ function SustainabilityPage() {
                     <MapTableSpecific filteredOutput={filteredOutput} loading={loading} currWard={mapData.currWard} city={city} scoreValue={scoreValue} parameter={parameter} sub_parameter={sub_parameter} />
                 </div>
 
-                <RightSideBar />
+                {/* <RightSideBar /> */}
             </div>
     )
 }
 
-export default SustainabilityPage
+export default FeatureDrill

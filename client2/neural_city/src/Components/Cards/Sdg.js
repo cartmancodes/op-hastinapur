@@ -3,7 +3,7 @@ import Button from '@mui/material/Button'
 import { Carousel } from 'react-responsive-carousel';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import InfoButton from './InfoButton';
+import InfoButton from '../ui/InfoButton';
 function Sdg() {
     const aboutSDG = 
     "Sustainable Development Goal (SDG) 11 aims to make cities inclusive, safe, resilient, and sustainable. It targets improved urban planning, management, and infrastructure, promoting access to safe and affordable housing, public transport, green spaces, and cultural heritage preservation. SDG 11 strives for cities that are equitable, resilient, and environmentally friendly."    

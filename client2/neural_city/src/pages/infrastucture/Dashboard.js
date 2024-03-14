@@ -1,6 +1,6 @@
-import Sidebar from '../../Components/Utility/Sidebar'
+import Sidebar from '../../Components/Global/Sidebar'
 import { Outlet } from 'react-router';
-import DashBoardNav from '../../Components/DashBoardNav';
+import DashBoardNav from '../../Components/Global/DashBoardNav';
 import HomeIcon from '@mui/icons-material/Home';
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import { Traffic } from '@mui/icons-material';

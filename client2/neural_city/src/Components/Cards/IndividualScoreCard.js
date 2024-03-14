@@ -4,7 +4,7 @@ import {IconButton} from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import SubScoreTable from '../Tables/SubScoreTable';
 import { useState } from 'react';
-import InfoButton from './InfoButton';
+import InfoButton from '../ui/InfoButton';
 
 
 function IndividualScoreCard({ score,parameter }) {

@@ -1,7 +1,7 @@
 import React from 'react'
-import DashBoardNav from '../../Components/DashBoardNav'
+import DashBoardNav from '../../Components/Global/DashBoardNav'
 import { Outlet } from 'react-router';
-import Sidebar from '../../Components/Utility/Sidebar';
+import Sidebar from '../../Components/Global/Sidebar';
 import HomeIcon from '@mui/icons-material/Home';
 function Services() {
   let navItems = [

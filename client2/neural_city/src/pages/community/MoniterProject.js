@@ -1,8 +1,9 @@
 import React from 'react'
+import ComingSoon from '../../Components/Global/ComingSoon'
 
 function MoniterProject() {
   return (
-    <div className='min-h-[80vh]'>MoniterProject</div>
+    <ComingSoon/>
   )
 }
 

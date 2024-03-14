@@ -21,7 +21,7 @@ import WardTableRow from './WardTableRow';
 import { alpha } from '@mui/material/styles';
 import { useState, useEffect } from 'react';
 import { avgData } from '../../mockData/MapData';
-import InfoButton from '../OtherComponents/InfoButton';
+import InfoButton from '../ui/InfoButton';
 const columns = [
   { id: 'ward_number', label: 'Ward Number', minWidth: 100, align: 'center', },
   { id: 'ward_name', label: 'Ward Name', minWidth: 170, align: 'center', },

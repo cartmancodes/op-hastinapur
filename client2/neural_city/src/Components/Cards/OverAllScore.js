@@ -1,6 +1,6 @@
 import React from 'react'
 import HalfPieChart from '../Charts/HalfPieChart'
-import InfoButton from './InfoButton'
+import InfoButton from '../ui/InfoButton'
 
 function OverAllScoreComponent({ score, good, acceptable, poor }) {
     const tooltipText = "The Overall Score integrates Cleanliness, Walkability, Public Space Compliance, and Road Scores, offering a comprehensive assessment of an area's livability. It aids residents, planners, and policymakers in improving infrastructure and quality of life. By amalgamating key metrics, it enables efficient comparisons and targeted enhancements for safer and more accessible communities.";

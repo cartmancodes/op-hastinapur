@@ -24,7 +24,7 @@ function DashBoardNav({ items, include_date }) {
         setDateRange({ startDate, endDate });
     };
     return (
-        <div className='w-[100%] border-b px-2 sticky top-0 left-0 z-[1001] bg-white sm:flex sm:justify-between items-center'>
+        <div className='w-[100%] p-2 sm:p-0 border-b sticky top-0 left-0 z-[1001] bg-white sm:flex sm:justify-between items-center'>
             <div className='sm:hidden w-[100%] flex items-center justify-between'>
                 <div>
                     <img src='/logo.png' className='h-[30px] w-[30px]' />
@@ -39,7 +39,7 @@ function DashBoardNav({ items, include_date }) {
                     <MenuIcon></MenuIcon>
                 </IconButton></div>
             </div>
-            <div className={`sm:w-full p-4 sm:h-[60px] 2xl:h-[200px] 2xl:rounded-4xl sm:items-center sm:justify-between ${navhidden} sm:flex`}>
+            <div className={`sm:w-full p-0 sm:p-4 sm:h-[60px] 2xl:h-[200px] 2xl:rounded-4xl sm:items-center sm:justify-between ${navhidden} sm:flex`}>
                 <div className='flex
                             flex-col
                             justify-center
@@ -52,13 +52,13 @@ function DashBoardNav({ items, include_date }) {
                 '>
                     {
                         items.map((path) => {
-                            return <div className='border-b-2 sm:p-0 p-2 sm:border-b-0 w-full sm:w-fit'><Link className={!(paths.length > 1 && paths[2] === path.curr_path) ?
+                            return <div className='border-b sm:p-0 p-2 sm:border-b-0 w-full sm:w-fit'><Link className={!(paths.length > 1 && paths[2] === path.curr_path) ?
                                 'hover:bg-purple-200 2xl:rounded-3xl 2xl:p-10 hover:text-purple-600 2xl:text-6xl text-gray-500 p-2 rounded-lg'
                                 : "bg-purple-300 2xl:rounded-3xl 2xl:p-10 text-purple-900 p-2 rounded-lg 2xl:text-6xl"} to={path.path_link}>{path.name}</Link></div>
                         })
                     }
                 </div>
-                <div>
+                <div className='p-2 sm:p-0'>
                     {include_date ? <div>
                         <DateRangePicker
                             startDate={dateRange.startDate}
