@@ -168,14 +168,14 @@ function MapComponent() {
 					>
 						{/* <PrintCon */}
 						<TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="© OpenStreetMap contributors" />
-						<Polygon color='black' positions={allBoundary} pathOptions={{
+						{/* <Polygon color='black' positions={allBoundary} pathOptions={{
 							fillColor: 'white',
 							fillOpacity: 1,
 							color: '#808080',
 							weight: 2,
 							lineJoin: 'miter',
 							// dashArray:7
-						}} />
+						}} /> */}
 						{selectedWardBoundary.map((ward) => {
 							return <WardPolygon setMapData={setmapData} mapData={mapData} number={ward.scores.ward_number} name={ward.scores.ward_name} boundary={ward.boundary} fillColor={getColRep(parameter === "any" ? ward.scores.overall_score : ward.scores[`${parameter}`])}/>
 						})}

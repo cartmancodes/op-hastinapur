@@ -289,7 +289,7 @@ export const newRecomandationModel = [
 		id: 1,
 		topic: 'garbage_and_littering',
 		sdg_impact: 2.555555556,
-		head_text: "Real-Time Cleanliness Index,Investment in Sustainable Waste Technologies,Community Education Programs,Advanced Sanitation Worker Training and Equipment,Quick Sanitation Worker Welfare Measures,Enforcement of Littering Fines,Strategic Bin Placement and Signage,Community-Led Clean-Up Initiatives,Integrated Waste Management System",
+		head_text: "Technology Integration for Visibility, Upgrading Skills and Equipment, Enforcement of Fines, Strategic Bin Placement, Coordinated Clean-Up Initiatives.",
 		immediate_measures: [
 			{
 				sub_topic: 'Real-Time Cleanliness Index',
@@ -346,7 +346,7 @@ export const newRecomandationModel = [
 		id: 2,
 		topic: 'congestion',
 		sdg_impact: 3.2,
-		head_text: 'Serious Discussion on Congestion Tax,Enforcement of Fines for Restricted Entry or congestion causing Traffic violation,Focus on Walkability',
+		head_text: 'Explore Congestion Tax, Technology Integration for Multi-modal Congestion Data, Enforcement of Traffic Fines, Focus on Parking measures.',
 		immediate_measures: [
 			{
 				sub_topic: 'Serious Discussion on Congestion Tax',
@@ -398,7 +398,7 @@ export const newRecomandationModel = [
 		id: 3,
 		topic: 'parking',
 		sdg_impact: 2.5,
-		head_text: 'Introduce Technology for Parking Violations,Multi-Level Parking Facility Development,Parking Audit and Planning,Parking Signage Standardization,',
+		head_text: 'Technology Integration for Parking Visibility, Enforcement of Fines, Fines Rationalization, Parking Audit and Planning.',
 		immediate_measures: [
 			{
 				sub_topic: 'Introduce Technology for Parking Violations',
@@ -450,7 +450,7 @@ export const newRecomandationModel = [
 		id: 4,
 		topic: 'encroachment',
 		sdg_impact: 3,
-		head_text: 'Enforcement of Fines for Parking on Sidewalk,Movable Carts Utilization,Technology Integration for Encroachment Monitoring',
+		head_text: 'Enforcement of Fines for Parking on Sidewalk,Movable Carts Utilization,Technology Integration for Encroachment Monitoring.',
 		immediate_measures: [
 			{
 				sub_topic: 'Enforcement of Fines for Parking on Sidewalk',
@@ -507,7 +507,7 @@ export const newRecomandationModel = [
 		id: 5,
 		topic: 'tobacco_spitting',
 		sdg_impact: 1.466666667,
-		head_text: "Enforcement of Fines for Spitting,Innovations in Spittoons,Behavioral Change Programs,Increased Use of Spittoons",
+		head_text: "Enforcement of Fines for Spitting, Innovations in Spittoons, Behavioral Change Programs, Increased Use of Spittoons",
 		immediate_measures: [
 			{
 				sub_topic: 'Enforcement of Fines for Spitting',
@@ -569,7 +569,7 @@ export const newRecomandationModel = [
 		id: 6,
 		topic: 'public_washrooms',
 		sdg_impact: 2.5,
-		head_text: "Enforcement and Fines for Open Urination,Sewage System Development,Promotion of Public Health Hygiene,Maintenance of Public Toilets and Urinals,Digital Content on Public Health Hygiene,Technology Integration for Visibility",
+		head_text: "Technology Integration for Visibility, Enforcement of Fines, Maintenance Monitoring, Digital Content on Public Health Hygiene.",
 		immediate_measures: [
 			{
 				sub_topic: 'Enforcement and Fines for Open Urination',

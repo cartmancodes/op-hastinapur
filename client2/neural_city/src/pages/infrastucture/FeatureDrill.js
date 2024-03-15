@@ -1,6 +1,6 @@
 import React from 'react'
 import SpecificPageMapComponent from '../../Components/MapComponents/SpecificPageMap'
-import { Button, Select, FormControl, Box, MenuItem, InputLabel, } from '@mui/material'
+import { Button, Select, FormControl, Box, MenuItem, InputLabel, Drawer, Backdrop } from '@mui/material'
 import { useState } from 'react'
 import RightSideBar from '../../Components/Global/RightSideBar'
 import MapTableSpecific from '../../Components/Tables/MapTableSpecific'
@@ -82,6 +82,13 @@ function wardSelection(newData, currWard, param, sub_param, scoreValue) {
 
 
 function FeatureDrill() {
+    // Define a state to track whether the menu is open or closed
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    // Toggle the menu state when the menu button is clicked
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
     let wards = getWardsWithName(wardDivision);
     const parameter_names = ["cleaniness_score", "sidewalk_score", "road_score", "public_space_utilization"]
     const sub_parameters = [
@@ -210,125 +217,212 @@ function FeatureDrill() {
         loading ? <div>Loading...</div> :
             <div className='p-2 flex justify-between w-[100%] relative'>
                 <div className='md:w-[100%] w-[100%] space-y-[10px]'>
-                    <div className='shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] p-2 rounded-md'>
-                        <div className='space-y-2 sm:space-y-0 sm:flex p-2 shadow-sm w-full md:h-[60px] rounded-lg space-x-2 justify-between items-center'>
-                            <div className='md:space-x-2 space-y-2 sm:space-y-0 md:flex flex-shrink sm:grid sm:grid-cols-4 gap-2'>
-                                <div>
-                                    <FormControl>
-                                        <InputLabel>Ward</InputLabel>
-                                        <Select
-                                            className='w-[150px]'
-                                            value={mapData.currWard}
-                                            size='small'
-                                            onChange={handleWardChange}
-                                            label='Ward'
-                                        >
-                                            <MenuItem value={"any"}>All Wards</MenuItem>
-                                            {
-                                                wards.map(ward => {
-                                                    return <MenuItem value={ward.ward_number}>{ward.ward_name}</MenuItem>
-                                                })
-                                            }
-                                        </Select>
-                                    </FormControl>
-                                </div>
-                                <div>
-                                    <FormControl>
-                                        <InputLabel>Parameter</InputLabel>
-                                        <Select
-                                            className='w-[150px]'
-                                            value={parameter}
-                                            onChange={(e) => {
-                                                setParameter(e.target.value);
-                                            }}
-                                            label='Parameter'
-                                            size='small'
-                                        >
-                                            {
-                                                parameter_names.map((para, idx) => {
-                                                    return <MenuItem value={idx}>{caseChange(para)}</MenuItem>
-                                                })
-                                            }
-                                        </Select>
-                                    </FormControl>
+                    <div className='p-2 shadow-sm rounded-lg'>
+                        <div className="flex justify-between items-center">
+                            <div className="hidden md:space-x-2 space-y-2 sm:space-y-0 md:flex flex-shrink sm:grid sm:grid-cols-4 gap-2">
 
-                                </div>
-                                <div>
-                                    <FormControl>
-                                        <InputLabel>Sub Parameter</InputLabel>
-                                        <Select
-                                            className='w-[150px]'
-                                            value={sub_parameter.currSubParameter}
-                                            onChange={(e) => setSubParameter({
-                                                ...sub_parameter,
-                                                currSubParameter: e.target.value
-                                            })}
-                                            label='Sub Parameter'
-                                            size='small'
-                                        >
-                                            {
-                                                sub_parameter.subParameters.map((sub_para, idx) => {
-                                                    return <MenuItem value={idx}>{caseChange(sub_para)}</MenuItem>
-                                                })
-                                            }
-                                        </Select>
-                                    </FormControl>
+                                <FormControl fullWidth>
+                                    <InputLabel>Ward</InputLabel>
+                                    <Select
+                                        className='w-[150px]'
+                                        value={mapData.currWard}
+                                        size='small'
+                                        onChange={handleWardChange}
+                                        label='Ward'
+                                    >
+                                        <MenuItem value={"any"}>All Wards</MenuItem>
+                                        {
+                                            wards.map(ward => {
+                                                return <MenuItem value={ward.ward_number}>{ward.ward_name}</MenuItem>
+                                            })
+                                        }
+                                    </Select>
+                                </FormControl>
+                                <FormControl fullWidth>
+                                    <InputLabel>Parameter</InputLabel>
+                                    <Select
+                                        className='w-[150px]'
+                                        value={parameter}
+                                        onChange={(e) => {
+                                            setParameter(e.target.value);
+                                        }}
+                                        label='Parameter'
+                                        size='small'
+                                    >
+                                        {
+                                            parameter_names.map((para, idx) => {
+                                                return <MenuItem value={idx}>{caseChange(para)}</MenuItem>
+                                            })
+                                        }
+                                    </Select>
+                                </FormControl>
+                                <FormControl fullWidth>
+                                    <InputLabel>Sub Parameter</InputLabel>
+                                    <Select
+                                        className='w-[150px]'
+                                        value={sub_parameter.currSubParameter}
+                                        onChange={(e) => setSubParameter({
+                                            ...sub_parameter,
+                                            currSubParameter: e.target.value
+                                        })}
+                                        label='Sub Parameter'
+                                        size='small'
+                                    >
+                                        {
+                                            sub_parameter.subParameters.map((sub_para, idx) => {
+                                                return <MenuItem value={idx}>{caseChange(sub_para)}</MenuItem>
+                                            })
+                                        }
+                                    </Select>
+                                </FormControl>
+                                <FormControl fullWidth>
+                                    <InputLabel>Score</InputLabel>
+                                    <Select
+                                        className='w-[150px]'
+                                        value={scoreValue}
+                                        label="Score"
+                                        onChange={(e) => setScoreValue(e.target.value)}
+                                        size='small'
+                                    >
+                                        <MenuItem value={"any"}>Any</MenuItem>
+                                        <MenuItem value={"good"}>Good</MenuItem>
+                                        <MenuItem value={"acceptable"}>Acceptable</MenuItem>
+                                        <MenuItem value={"poor"}>Poor</MenuItem>
+                                    </Select>
+                                </FormControl>
+                                <FormControl fullWidth>
+                                    <InputLabel>SDG Impact</InputLabel>
+                                    <Select
+                                        sx={{ width: '150px', backgroundColor: '#A5D6A7', color: 'black' }}
+                                        value={sdgImpactParam}
+                                        label="SDG Impact"
+                                        onChange={(e) => {
+                                            setsdgImpact(e.target.value);
+                                        }}
+                                        size='small'
+                                    >
+                                        <MenuItem value={"any"}>Any</MenuItem>
+                                        <MenuItem value={"standard"}>Standard</MenuItem>
+                                        <MenuItem value={"high"}>High </MenuItem>
+                                        <MenuItem value={"significant"}>Significant</MenuItem>
+                                    </Select>
+                                </FormControl>
 
-                                </div>
-                                <div>
-                                    <FormControl>
-                                        <InputLabel>Score</InputLabel>
-                                        <Select
-                                            className='w-[150px]'
-                                            value={scoreValue}
-                                            label="Score"
-                                            onChange={(e) => setScoreValue(e.target.value)}
-                                            size='small'
-                                        >
-                                            <MenuItem value={"any"}>Any</MenuItem>
-                                            <MenuItem value={"good"}>Good</MenuItem>
-                                            <MenuItem value={"acceptable"}>Acceptable</MenuItem>
-                                            <MenuItem value={"poor"}>Poor</MenuItem>
-                                        </Select>
-                                    </FormControl>
-                                </div>
-                                <div>
-                                    <FormControl>
-                                        <InputLabel sx={{ color: "" }}>SDG Impact</InputLabel>
-                                        <Select
-                                        
-                                            sx={{ width: '150px', backgroundColor: '#A5D6A7', color: 'black' }}
-                                            value={sdgImpactParam}
-                                            label="SDG Impact"
-                                            onChange={(e) => {
-                                                setsdgImpact(e.target.value);
-                                            }}
-                                            size='small'
-                                        >
-                                            <MenuItem value={"any"}>Any</MenuItem>
-                                            <MenuItem value={"standard"}>Standard</MenuItem>
-                                            <MenuItem value={"high"}>High </MenuItem>
-                                            <MenuItem value={"significant"}>Significant</MenuItem>
-                                        </Select>
-                                    </FormControl>
-                                </div>
                             </div>
-
+                            <div className="sm:hidden">
+                                <Button onClick={toggleMenu}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
+                                    </svg>
+                                </Button>
+                            </div>
                             <div>
-                                <Button variant='outlined' onClick={
-                                    handleDownloadButtonClick
-                                }>
+                                <Button variant='outlined' onClick={handleDownloadButtonClick}>
                                     <FileDownloadIcon />
                                 </Button>
                             </div>
                         </div>
-                        <SpecificPageMapComponent
-                            mapData={mapData}
-                            position={position}
-                            zoom={mapData.zoom}
-                            geojson={filteredOutput}
-                            pos={mapData.currWard + "@" + parameter + "@" + sub_parameter} />
+                        <Drawer
+                            anchor="bottom"
+                            open={isMenuOpen}
+                            onClose={() => setIsMenuOpen(false)}
+                            BackdropComponent={Backdrop}
+                            anchorOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                        >
+                            <div className='space-y-4' style={{ width: '300px', padding: '16px' }}>
+                                <FormControl fullWidth>
+                                    <InputLabel>Ward</InputLabel>
+                                    <Select
+                                        value={mapData.currWard}
+                                        size='small'
+                                        onChange={handleWardChange}
+                                        label='Ward'
+                                    >
+                                        <MenuItem value={"any"}>All Wards</MenuItem>
+                                        {
+                                            wards.map(ward => {
+                                                return <MenuItem value={ward.ward_number}>{ward.ward_name}</MenuItem>
+                                            })
+                                        }
+                                    </Select>
+                                </FormControl>
+                                <FormControl fullWidth>
+                                    <InputLabel>Parameter</InputLabel>
+                                    <Select
+                                        value={parameter}
+                                        onChange={(e) => {
+                                            setParameter(e.target.value);
+                                        }}
+                                        label='Parameter'
+                                        size='small'
+                                    >
+                                        {
+                                            parameter_names.map((para, idx) => {
+                                                return <MenuItem value={idx}>{caseChange(para)}</MenuItem>
+                                            })
+                                        }
+                                    </Select>
+                                </FormControl>
+                                <FormControl fullWidth>
+                                    <InputLabel>Sub Parameter</InputLabel>
+                                    <Select
+                                        value={sub_parameter.currSubParameter}
+                                        onChange={(e) => setSubParameter({
+                                            ...sub_parameter,
+                                            currSubParameter: e.target.value
+                                        })}
+                                        label='Sub Parameter'
+                                        size='small'
+                                    >
+                                        {
+                                            sub_parameter.subParameters.map((sub_para, idx) => {
+                                                return <MenuItem value={idx}>{caseChange(sub_para)}</MenuItem>
+                                            })
+                                        }
+                                    </Select>
+                                </FormControl>
+                                <FormControl fullWidth>
+                                    <InputLabel>Score</InputLabel>
+                                    <Select
+                                        value={scoreValue}
+                                        label="Score"
+                                        onChange={(e) => setScoreValue(e.target.value)}
+                                        size='small'
+                                    >
+                                        <MenuItem value={"any"}>Any</MenuItem>
+                                        <MenuItem value={"good"}>Good</MenuItem>
+                                        <MenuItem value={"acceptable"}>Acceptable</MenuItem>
+                                        <MenuItem value={"poor"}>Poor</MenuItem>
+                                    </Select>
+                                </FormControl>
+                                <FormControl fullWidth>
+                                    <InputLabel>SDG Impact</InputLabel>
+                                    <Select
+                                        sx={{ backgroundColor: '#A5D6A7', color: 'black' }}
+                                        value={sdgImpactParam}
+                                        label="SDG Impact"
+                                        onChange={(e) => {
+                                            setsdgImpact(e.target.value);
+                                        }}
+                                        size='small'
+                                    >
+                                        <MenuItem value={"any"}>Any</MenuItem>
+                                        <MenuItem value={"standard"}>Standard</MenuItem>
+                                        <MenuItem value={"high"}>High </MenuItem>
+                                        <MenuItem value={"significant"}>Significant</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </div>
+                        </Drawer>
                     </div>
+                    
                     <MapTableSpecific filteredOutput={filteredOutput} loading={loading} currWard={mapData.currWard} city={city} scoreValue={scoreValue} parameter={parameter} sub_parameter={sub_parameter} />
                 </div>
 

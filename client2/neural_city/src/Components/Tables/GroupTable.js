@@ -10,29 +10,8 @@ import GroupTableRow from './GroupTableRow';
 import { useState } from 'react';
 import TablePagination from '@mui/material/TablePagination';
 
-const rows = [
-    {
+const rows = [{
         "sno": 1,
-        "name": "XYZ Samaj",
-        "description": "XYZ Samaj is a prominent community organization dedicated to fostering cultural exchange and social welfare within the community. With a rich history spanning over several decades, XYZ Samaj has been actively involved in organizing various cultural events, educational programs, and community outreach initiatives. The organization is committed to preserving and promoting the cultural heritage of the region while also addressing contemporary social issues. Under the dynamic leadership of Chairperson XYZ abc, XYZ Samaj continues to play a pivotal role in uniting people from diverse backgrounds and creating a sense of belonging. Through its dedicated members and volunteers, XYZ Samaj strives to make a positive impact and build a stronger, more inclusive community.",
-        "chairperson": "XYZ abc",
-        "peoples": [
-            {
-                "name": "XYZ",
-                "email": "xyz@gmail.com",
-                "mobile": "91400XXXXX",
-                "address": "XYZ"
-            },
-            {
-                "name": "abc",
-                "email": "abc@gmail.com",
-                "mobile": "94158XXXXX",
-                "address": "abc"
-            }
-        ]
-    },
-    {
-        "sno": 2,
         "name": "ABC Foundation",
         "description": "ABC Foundation is a leading non-profit organization dedicated to transforming lives through education. With a mission to empower underprivileged communities and break the cycle of poverty, ABC Foundation works tirelessly to provide access to quality education, resources, and support systems. The organization believes that education is the key to unlocking individual potential and creating lasting change in society. Led by Chairperson John Doe, ABC Foundation collaborates with schools, educators, and local communities to implement innovative programs and initiatives. By focusing on holistic development and lifelong learning, ABC Foundation aims to build a brighter future for all.",
         "chairperson": "John Doe",
@@ -52,7 +31,7 @@ const rows = [
         ]
     },
     {
-        "sno": 3,
+        "sno": 2,
         "name": "Community Care Group",
         "description": "Community Care Group is a grassroots organization committed to providing compassionate care and support to elderly individuals in our local communities. Our dedicated team of volunteers works tirelessly to address the unique needs and challenges faced by seniors, ensuring they feel valued, respected, and included. Through a range of services, including home visits, social activities, and assistance with daily tasks, we strive to enhance the quality of life for our elderly neighbors. Led by Chairperson Emily Brown, Community Care Group embodies the spirit of community and demonstrates the power of kindness and empathy in making a meaningful difference in the lives of others.",
         "chairperson": "Emily Brown",
@@ -72,7 +51,7 @@ const rows = [
         ]
     },
     {
-        "sno": 4,
+        "sno": 3,
         "name": "Environmental Alliance",
         "description": "Environmental Alliance is a dynamic coalition of passionate individuals and organizations dedicated to protecting our planet and promoting environmental sustainability. With the urgent need to address climate change and protect biodiversity, our alliance advocates for policy change, conducts educational outreach, and engages in direct action to preserve natural habitats and mitigate environmental degradation. Led by Chairperson Adam Green, Environmental Alliance is committed to fostering a more harmonious relationship between humanity and nature, ensuring a healthier and more resilient planet for future generations.",
         "chairperson": "Adam Green",
@@ -88,6 +67,26 @@ const rows = [
                 "email": "robert@example.com",
                 "mobile": "5559876543",
                 "address": "789 Lake St"
+            }
+        ]
+    },
+    {
+        "sno": 4,
+        "name": "XYZ Samaj",
+        "description": "XYZ Samaj is a prominent community organization dedicated to fostering cultural exchange and social welfare within the community. With a rich history spanning over several decades, XYZ Samaj has been actively involved in organizing various cultural events, educational programs, and community outreach initiatives. The organization is committed to preserving and promoting the cultural heritage of the region while also addressing contemporary social issues. Under the dynamic leadership of Chairperson XYZ abc, XYZ Samaj continues to play a pivotal role in uniting people from diverse backgrounds and creating a sense of belonging. Through its dedicated members and volunteers, XYZ Samaj strives to make a positive impact and build a stronger, more inclusive community.",
+        "chairperson": "XYZ abc",
+        "peoples": [
+            {
+                "name": "XYZ",
+                "email": "xyz@gmail.com",
+                "mobile": "91400XXXXX",
+                "address": "XYZ"
+            },
+            {
+                "name": "abc",
+                "email": "abc@gmail.com",
+                "mobile": "94158XXXXX",
+                "address": "abc"
             }
         ]
     },

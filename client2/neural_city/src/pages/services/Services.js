@@ -3,6 +3,7 @@ import DashBoardNav from '../../Components/Global/DashBoardNav'
 import { Outlet } from 'react-router';
 import Sidebar from '../../Components/Global/Sidebar';
 import HomeIcon from '@mui/icons-material/Home';
+import { Traffic } from '@mui/icons-material';
 function Services() {
   let navItems = [
     {
@@ -10,6 +11,7 @@ function Services() {
       path_link: "/services/monitering",
       curr_path: "monitering"
     },
+    
   ]
 
   let sidebaritems = [
@@ -18,6 +20,12 @@ function Services() {
       title: "Home",
       path_link: "/services/monitering",
       curr_path: null
+    },
+    {
+      icon: <Traffic></Traffic>,
+      title: "Traffic",
+      path_link: "/services/monitering/traffic",
+      curr_path: "traffic"
     },
   ]
   return (

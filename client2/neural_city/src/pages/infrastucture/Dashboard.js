@@ -36,17 +36,11 @@ let sidebaritems = [
         title: "Feature Drill",
         path_link: "/infra/monitering/sustainability",
         curr_path: "sustainability"
-    },
-    {
-        icon: <Traffic />,
-        title: "Traffic",
-        path_link: "/infra/monitering/traffic",
-        curr_path: "traffic"
-    },
+    }
 ]
 function Dashboard() {
     return (
-        <div className='bg-rose-50 bg-opacity-25 w-full space-y-2'>
+        <div className='bg-purple-50 font-sans bg-opacity-25 w-full space-y-2'>
             <DashBoardNav items={navitems} include_date={true}/>
             <div className='rounded-lg w-full flex relative'>
                 <Sidebar items={sidebaritems}></Sidebar>

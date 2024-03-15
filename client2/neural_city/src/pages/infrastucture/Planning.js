@@ -29,7 +29,7 @@ function CustomTabPanel(props) {
       {...other}
     >
       {value === index && (
-        <div class="p-4 mt-4 max-h-[500px] overflow-y-scroll bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] ">
+        <div class="p-2 max-h-[500px] overflow-y-scroll ">
           <ul class="divide-y divide-gray-200">
             {
               props.data.map((point) => {
@@ -109,7 +109,7 @@ export default function Planning() {
           </FormControl>
         </div>
       </div>
-      <Box sx={{ width: '100%' }}>
+      <div className='bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] w-full'>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs value={value} onChange={handleTabChange} aria-label="basic tabs example">
             <Tab label="Immediate Measures" {...a11yProps(0)} />
@@ -125,7 +125,7 @@ export default function Planning() {
         <CustomTabPanel value={value} index={2} data={newRecomandationModel[currIdx].foundational_changes} >
           Item Three
         </CustomTabPanel>
-      </Box>
+      </div>
     </div>
   );
 }

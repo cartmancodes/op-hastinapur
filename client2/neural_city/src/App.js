@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import Dashboard from "./pages/infrastucture/Dashboard";
 import { Navigate, Route } from "react-router";
 import { Routes } from "react-router-dom";
@@ -7,7 +7,7 @@ import DashBoardHome from "./pages/infrastucture/DashBoardHome";
 import Monitering from "./pages/infrastucture/Monitering";
 import IntiateAction from "./pages/infrastucture/IntiateAction";
 import Planning from "./pages/infrastucture/Planning";
-import Traffic from "./pages/infrastucture/Traffic";
+import Traffic from "./pages/services/Traffic";
 import Services from "./pages/services/Services";
 import Navbar from "./Components/Global/Navbar";
 import Community from "./pages/community/Community";
@@ -20,6 +20,8 @@ import PollPage from "./pages/community/PollPage";
 import MoniterProject from "./pages/community/MoniterProject";
 import FormModal from "./Components/Modals/FormModal";
 import RequestData from "./Components/Forms/RequestData";
+import Loader from "./Components/Global/Loader";
+import ServiceMoniter from "./pages/services/ServiceMoniter";
 
 function App() {
   useEffect(() => {
@@ -32,7 +34,13 @@ function App() {
       document.body.removeChild(script);
     }
   }, []);
-  const [open,setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 5000);
+  })
   const handleOpen = () => {
     console.log("Called for Open");
     setOpen(true);
@@ -42,7 +50,7 @@ function App() {
     setOpen(false);
   }
   return (
-    <React.Fragment>
+    loading ? <Loader></Loader> : <React.Fragment>
       <Navbar />
       <Routes>
         <Route path="/" element={<Navigate to="/infra/monitering"></Navigate>}></Route>
@@ -51,14 +59,16 @@ function App() {
           <Route path="monitering" element={<Monitering />} >
             <Route path="" element={<DashBoardHome />} />
             <Route path="sustainability" element={<SustainabilityPage />} />
-            <Route path="traffic" element={<Traffic />}></Route>
           </Route>
           <Route path="intiateaction" element={<IntiateAction></IntiateAction>} />
           <Route path="planning" element={<Planning />} />
         </Route>
         <Route path="/services" element={<Services />}>
           <Route path="" element={<Navigate to='/services/monitering'></Navigate>} />
-          <Route path="monitering" element={<ServicesHome />} />
+          <Route path="monitering" element={<ServiceMoniter />}>
+            <Route path="" element={<ServicesHome />} />
+            <Route path="traffic" element={<Traffic />}></Route>
+          </Route>
         </Route>
         <Route path="/community" element={<Community />}>
           <Route path="" element={<Navigate to='/community/group'></Navigate>} />
@@ -78,7 +88,7 @@ function App() {
       <FormModal open={open} heading={`Request Data`} handleClose={handleClose}>
         <RequestData></RequestData>
       </FormModal>
-    </React.Fragment>
+    </React.Fragment >
   );
 }
 

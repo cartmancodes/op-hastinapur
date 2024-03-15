@@ -83,7 +83,7 @@ function makePoint(point) {
 
 
 function ActionCard() {
-    const tooltipText = "This section outlines critical, vulnerable, and essential actions, including waste management, public space regulations, and infrastructure upgrades. These efforts align with SDGs 11 and 9, fostering inclusive, resilient, and sustainable urban environments";
+    const tooltipText = "This section outlines critical, vulnerable, and essential actions, including waste management, public space regulations, and infrastructure upgrades. These efforts align with SDGs 11 and 9, fostering inclusive, resilient, and sustainable urban environments.\nEach actions are Classified according to their SDG Impact";
     const [filter, setFilter] = useState("total")
     const [recomandation, setRecomandations] = useState(newRecomandationModel);
     let standardCount = 0;
@@ -111,7 +111,7 @@ function ActionCard() {
     let styleUnactive = 'text-sm border rounded-2xl p-1 px-2 cursor-pointer';
     let styleActive = 'text-sm border rounded-2xl p-1 px-2 cursor-pointer bg-sky-100 text-black'
     return (
-        <div className='relative h-[600px] md:w-[50%] w-[100%] flex flex-col items-center justify-between rounded-sm shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]'>
+        <div className='hidden relative h-[600px] md:w-[50%] w-[100%] sm:flex flex-col items-center justify-between rounded-sm shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]'>
             <div className='w-full overflow-y-scroll sm:overflow-y-hidden bg-white z-[1000] flex items-center justify-between border-b p-4'>
                 <div className=''>
                     <h1 className='text-2xl flex items-center font-bold'>Action Items<span><InfoButton text={tooltipText}></InfoButton></span></h1>
