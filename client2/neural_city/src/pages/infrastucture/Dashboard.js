@@ -5,6 +5,8 @@ import HomeIcon from '@mui/icons-material/Home';
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import { Traffic } from '@mui/icons-material';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
+import InsightsIcon from '@mui/icons-material/Insights';
+import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 
 let navitems = [
     {
@@ -26,13 +28,13 @@ let navitems = [
 
 let sidebaritems = [
     {
-        icon: <HomeIcon></HomeIcon>,
+        icon: <InsightsIcon></InsightsIcon>,
         title: "Home",
         path_link: "/infra/monitering",
         curr_path: null
     },
     {
-        icon: <ApartmentIcon />,
+        icon: <ManageSearchIcon />,
         title: "Feature Drill",
         path_link: "/infra/monitering/sustainability",
         curr_path: "sustainability"
@@ -42,7 +44,7 @@ function Dashboard() {
     return (
         <div className='bg-purple-50 font-sans bg-opacity-25 w-full space-y-2'>
             <DashBoardNav items={navitems} include_date={true}/>
-            <div className='rounded-lg w-full flex relative'>
+            <div className='min-h-[100vh] rounded-lg w-full flex relative'>
                 <Sidebar items={sidebaritems}></Sidebar>
                 <Outlet />
             </div>

@@ -29,12 +29,12 @@ function Services() {
     },
   ]
   return (
-    <div className='bg-white relative grayscale w-full space-y-2'>
+    <div className='bg-purple-50 font-sans bg-opacity-25 w-full space-y-2 grayscale'>
       <DashBoardNav items={navItems} include_date={true}></DashBoardNav>
-      <div className='flex relative'>
+      <div className='min-h-[100vh] rounded-lg w-full p-2 flex relative'>
         <Sidebar items={sidebaritems} />
-        <Outlet></Outlet>
-      </div>
+        <Outlet/>
+      </div> 
     </div>
   )
 }

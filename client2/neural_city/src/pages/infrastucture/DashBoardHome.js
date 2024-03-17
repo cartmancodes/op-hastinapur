@@ -124,7 +124,7 @@ let scores = [
 function DashBoardHome() {
     return (
         <div className='w-full p-2 sm:p-0 min-h-[100vh]'>
-            <div className='md:space-y-[100px] space-y-[20px] relatives w-full sm:p-4'>
+            <div className='md:space-y-[100px] space-y-[20px] relative w-full sm:p-4'>
                 <div id='overall' className='w-full section md:flex items-center md:space-x-6 space-y-2 md:space-y-0'>
                     <OverAllScoreComponent score={28.87} good={2} acceptable={10} poor={11} />
                     <IndividualScores scores={scores} include_sdg={true} />

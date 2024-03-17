@@ -78,56 +78,45 @@ export default function MapTableSpecific({filteredOutput,loading}) {
                     <Table stickyHeader aria-label="sticky table">
                         <TableHead>
                             <TableRow>
-                                <TableCell sx={{ fontWeight: 'bold' }}>S.No.</TableCell>
-                                <TableCell sx={{ fontWeight: 'bold' }}>Locality</TableCell>
-                                <TableCell sx={{ fontWeight: 'bold' }}>
-                                    <div className='flex items-center'>
+                                <TableCell align='center' sx={{ fontWeight: 'bold' }}>S.No.</TableCell>
+                                <TableCell align='center' sx={{ fontWeight: 'bold' }}>Locality</TableCell>
+                                <TableCell align='center' sx={{ fontWeight: 'bold' }}>
+                                    <div className='flex justify-center items-center'>
                                         <p>Score</p>
                                         <div className='p-0 rounded-xl hover:bg-gray-100' onClick={() => {
                                             setSortScore("asc");
                                             setSortDate("none");
                                         }}>
-                                            <ArrowUpwardIcon />
+                                            <ArrowUpwardIcon fontSize='small'/>
                                         </div>
                                         <div onClick={() => {
                                             setSortScore("desc");
                                             setSortDate("none");
                                         }} className='p-0 rounded-xl hover:bg-gray-100'>
-                                            <ArrowDownwardIcon />
+                                            <ArrowDownwardIcon fontSize='small'/>
                                         </div>
                                     </div>
                                 </TableCell>
-                                <TableCell sx={{ fontWeight: 'bold' }}>
-                                    <div className='flex items-center'>
+                                <TableCell align='center' sx={{ fontWeight: 'bold' }}>
+                                    <div className='flex items-center justify-center'>
                                         <p>Date</p>
                                         <div className='p-0 hover:bg-gray-100 rounded-xl' onClick={() => {
                                             setSortDate("asc");
                                             setSortScore("none");
                                         }}>
-                                            <ArrowUpwardIcon />
+                                            <ArrowUpwardIcon fontSize='small'/>
                                         </div>
 
                                         <div onClick={() => {
                                             setSortDate("desc");
                                             setSortScore("none");
                                         }} className='hover:bg-gray-100 p-0 rounded-xl'>
-                                            <ArrowDownwardIcon />
+                                            <ArrowDownwardIcon fontSize='small'/>
                                         </div>
                                     </div>
                                 </TableCell>
-                                <TableCell sx={{ fontWeight: 'bold' }}>Picture</TableCell>
-                                <TableCell sx={{ fontWeight: 'bold' }} className='flex items-center space-x-2'>
-                                    Status
-                                    <Select value={status}
-                                        onChange={(e) => setStatus(e.target.value)}
-                                        size='small'
-                                        label='Status'>
-                                        <MenuItem value={`any`}>Any</MenuItem>
-                                        <MenuItem value={`pending`}>Pending</MenuItem>
-                                        <MenuItem value={`completed`}>Completed</MenuItem>
-                                    </Select>
-                                </TableCell>
-                                <TableCell sx={{ fontWeight: 'bold' }}>Inform Authority</TableCell>
+                                <TableCell align='center' sx={{ fontWeight: 'bold' }}>Picture</TableCell>
+                                <TableCell align='center' sx={{ fontWeight: 'bold' }}>Inform Authority</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>

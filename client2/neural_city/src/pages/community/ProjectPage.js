@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { TextField,IconButton, Modal, FormControl, InputLabel, Button, Select, MenuItem } from '@mui/material'
+import { TextField, IconButton, Modal, FormControl, InputLabel, Button, Select, MenuItem } from '@mui/material'
 import YojanaTable from '../../Components/Tables/YojanaTable';
 import CloseIcon from '@mui/icons-material/Close';
+import FormModal from '../../Components/Modals/FormModal';
 
 const dummyProjects = [
     {
@@ -69,7 +70,7 @@ function ProjectPage() {
     }
 
     const createProject = () => {
-        if(!pname || !group || !projectType || !supportType) {
+        if (!pname || !group || !projectType || !supportType) {
             window.alert("Some Fields are Missing");
         }
         const project = {
@@ -81,71 +82,63 @@ function ProjectPage() {
             "status": "In Progress",
             "supportType": supportType
         };
-        const newProjects = [...projects,project];
+        const newProjects = [...projects, project];
         setProjects(newProjects);
         setFormOpen(false);
     }
 
     return (
         <div className='p-4 w-full min-h-[80vh] flex flex-col justify-between space-y-4'>
-            <Modal
+            <FormModal
                 open={formOpen}
-                className="flex items-center justify-center"
+                heading={`Add a Project`}
+                handleClose={formModalClose}
             >
-                <div className='w-[50%] bg-white z-[10001] rounded-md h-fit space-y-4 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] '>
-                    <div className='flex items-center justify-between border-b bg-gray-100  p-4'>
-                        <h1 className='text-2xl rounded-md font-bold text-gray-500'>Add a Project</h1>
-                        <IconButton onClick={formModalClose}>
-                            <CloseIcon />
-                        </IconButton>
-                    </div>
+                <form className='p-4 space-y-6'>
+                    <TextField fullWidth placeholder='Enter Project Name' value={pname} onChange={(e) => setPname(e.target.value)} />
+                    <FormControl fullWidth>
+                        <InputLabel>Project Type</InputLabel>
+                        <Select
+                            value={projectType}
+                            label="Project Type"
+                            onChange={(e) => setProjectType(e.target.value)}
+                        >
+                            <MenuItem value={"Cleanliness"}>Cleanliness</MenuItem>
+                            <MenuItem value={"Awareness"}>Awareness</MenuItem>
+                            <MenuItem value={"Sustainability"}>Sustainability</MenuItem>
+                        </Select>
+                    </FormControl>
 
-                    <form className='p-4 space-y-6'>
-                        <TextField fullWidth placeholder='Enter Project Name' value={pname} onChange={(e) => setPname(e.target.value)} />
-                        <FormControl fullWidth>
-                            <InputLabel>Project Type</InputLabel>
-                            <Select
-                                value={projectType}
-                                label="Project Type"
-                                onChange={(e) => setProjectType(e.target.value)}
-                            >
-                                <MenuItem value={"Cleanliness"}>Cleanliness</MenuItem>
-                                <MenuItem value={"Awareness"}>Awareness</MenuItem>
-                                <MenuItem value={"Sustainability"}>Sustainability</MenuItem>
-                            </Select>
-                        </FormControl>
+                    <FormControl fullWidth>
+                        <InputLabel>Group Name</InputLabel>
+                        <Select
+                            value={group}
+                            label="Group Name"
+                            onChange={(e) => setGroup(e.target.value)}
+                        >
+                            <MenuItem value={"XYZ Samaj"}>XYZ Samaj</MenuItem>
+                            <MenuItem value={"ABC Foundation"}>ABC Foundation</MenuItem>
+                            <MenuItem value={"Community Care Group"}>Community Care Group</MenuItem>
+                        </Select>
+                    </FormControl>
 
-                        <FormControl fullWidth>
-                            <InputLabel>Group Name</InputLabel>
-                            <Select
-                                value={group}
-                                label="Group Name"
-                                onChange={(e) => setGroup(e.target.value)}
-                            >
-                                <MenuItem value={"XYZ Samaj"}>XYZ Samaj</MenuItem>
-                                <MenuItem value={"ABC Foundation"}>ABC Foundation</MenuItem>
-                                <MenuItem value={"Community Care Group"}>Community Care Group</MenuItem>
-                            </Select>
-                        </FormControl>
+                    <FormControl fullWidth>
+                        <InputLabel>Support Type</InputLabel>
+                        <Select
+                            value={supportType}
+                            label="Support Type"
+                            onChange={(e) => setSupportType(e.target.value)}
+                        >
+                            <MenuItem value={"manpower"}>Manpower</MenuItem>
+                            <MenuItem value={"fund"}>Funds</MenuItem>
+                        </Select>
+                    </FormControl>
 
-                        <FormControl fullWidth>
-                            <InputLabel>Support Type</InputLabel>
-                            <Select
-                                value={supportType}
-                                label="Support Type"
-                                onChange={(e) => setSupportType(e.target.value)}
-                            >
-                                <MenuItem value={"manpower"}>Manpower</MenuItem>
-                                <MenuItem value={"fund"}>Funds</MenuItem>
-                            </Select>
-                        </FormControl>
-
-                        <Button size='large' onClick={createProject} disableElevation fullWidth variant='contained'>
-                            Create Project
-                        </Button>
-                    </form>
-                </div>
-            </Modal>
+                    <Button size='large' onClick={createProject} disableElevation fullWidth variant='contained'>
+                        Create Project
+                    </Button>
+                </form>
+            </FormModal>
 
             <div className='w-[100%]'>
                 <div className='flex border bg-gray-100 p-4 items-center justify-between'>

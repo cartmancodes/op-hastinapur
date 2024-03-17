@@ -13,6 +13,8 @@ import { styled } from '@mui/material/styles';
 import TableContainer from '@mui/material/TableContainer';
 import MessageModal from '../Modals/MessageModal';
 import { useState } from 'react';
+import FormModal from '../Modals/FormModal';
+import MessageForm from '../Forms/MessageForm';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -105,7 +107,9 @@ function GroupTableRow(props) {
                     </Collapse>
                 </TableCell>
             </TableRow>
-            <MessageModal handleClose = {handleOpenMessageModalClose} open={openMessageModal}></MessageModal>
+            <FormModal open={openMessageModal} handleClose={handleOpenMessageModalClose} heading={`Message`}>
+                <MessageForm/>
+            </FormModal>
         </React.Fragment>
     );
 }

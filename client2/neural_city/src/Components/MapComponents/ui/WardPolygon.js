@@ -25,7 +25,7 @@ function WardPolygon({ name, boundary, fillColor, mapData, setMapData, number })
             key={mapData.currWard + "$" + number}
             eventHandlers={{
             }}
-            positions={boundary} weight={(mapData.currWard === number) ? 2 : 1} color={'black'} fillOpacity={0.5} fillColor={fillColor}></Polygon>
+            positions={boundary} weight={(mapData.currWard === number) ? 2 : 1} color={'black'} fillOpacity={0.6} fillColor={fillColor}></Polygon>
     )
 }
 

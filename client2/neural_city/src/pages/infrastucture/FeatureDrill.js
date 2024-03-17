@@ -1,6 +1,6 @@
 import React from 'react'
 import SpecificPageMapComponent from '../../Components/MapComponents/SpecificPageMap'
-import { Button, Select, FormControl, Box, MenuItem, InputLabel, Drawer, Backdrop } from '@mui/material'
+import { Button, IconButton, Select, FormControl, Box, MenuItem, InputLabel, Drawer, Backdrop } from '@mui/material'
 import { useState } from 'react'
 import RightSideBar from '../../Components/Global/RightSideBar'
 import MapTableSpecific from '../../Components/Tables/MapTableSpecific'
@@ -13,6 +13,7 @@ import { mockData } from '../../mockData/MapData'
 import L from 'leaflet'
 import { sdgImpact } from '../../mockData/MapData'
 import { calculateAverage, getColRep } from '../../utils/MapUtils';
+import CloseIcon from '@mui/icons-material/Close';
 
 function caseChange(str) {
     let sepe = str.split("_");
@@ -220,7 +221,6 @@ function FeatureDrill() {
                     <div className='p-2 shadow-sm rounded-lg'>
                         <div className="flex justify-between items-center">
                             <div className="hidden md:space-x-2 space-y-2 sm:space-y-0 md:flex flex-shrink sm:grid sm:grid-cols-4 gap-2">
-
                                 <FormControl fullWidth>
                                     <InputLabel>Ward</InputLabel>
                                     <Select
@@ -307,7 +307,6 @@ function FeatureDrill() {
                                         <MenuItem value={"significant"}>Significant</MenuItem>
                                     </Select>
                                 </FormControl>
-
                             </div>
                             <div className="sm:hidden">
                                 <Button onClick={toggleMenu}>
@@ -336,7 +335,14 @@ function FeatureDrill() {
                                 horizontal: 'right',
                             }}
                         >
-                            <div className='space-y-4' style={{ width: '300px', padding: '16px' }}>
+                            <div className='p-2 flex  border-b items-center justify-between'>
+                                <h1 className='text-xl'>Filters</h1>
+                                <IconButton onClick={() => setIsMenuOpen(false)}>
+                                    <CloseIcon />
+                                </IconButton>
+                            </div>
+                            <div className='space-y-4 p-4'>
+
                                 <FormControl fullWidth>
                                     <InputLabel>Ward</InputLabel>
                                     <Select
@@ -422,7 +428,12 @@ function FeatureDrill() {
                             </div>
                         </Drawer>
                     </div>
-                    
+                    <SpecificPageMapComponent
+                        mapData={mapData}
+                        position={position}
+                        zoom={mapData.zoom}
+                        geojson={filteredOutput}
+                        pos={mapData.currWard + "@" + parameter + "@" + sub_parameter} />
                     <MapTableSpecific filteredOutput={filteredOutput} loading={loading} currWard={mapData.currWard} city={city} scoreValue={scoreValue} parameter={parameter} sub_parameter={sub_parameter} />
                 </div>
 

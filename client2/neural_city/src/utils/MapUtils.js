@@ -146,7 +146,7 @@ export const getColRep = function (avg) {
     if(avg === null || avg === undefined || Number.isNaN(avg) === true) {
         return '#ebf2fa';
     }
-    let colRep = avg < 35 ? '#ef476f' : avg < 70 ? '#0000FF' : '#06d6a0';
+    let colRep = avg < 35 ? '#DC2626' : avg < 70 ? '#2563EB' : '#65A30D';
     return colRep;
 }
 

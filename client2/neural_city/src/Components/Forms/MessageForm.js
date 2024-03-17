@@ -8,7 +8,7 @@ function MessageForm() {
         window.alert("Your Message Have Been Sent");
     }
     return (
-        <form className='p-4 flex flex-col space-y-4'>
+        <form className='flex flex-col space-y-4'>
             <TextField
                 multiline
                 minRows={4}

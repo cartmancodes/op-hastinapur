@@ -5,6 +5,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import SubScoreTable from '../Tables/SubScoreTable';
 import { useState } from 'react';
 import InfoButton from '../ui/InfoButton';
+import FormModal from '../Modals/FormModal';
 
 
 function IndividualScoreCard({ score,parameter }) {
@@ -22,7 +23,7 @@ function IndividualScoreCard({ score,parameter }) {
         >
             
             <div className='flex items-center justify-between'>
-                <div className='text-gray-500 flex items-center '>{score.name}<span><InfoButton text={score.description}/></span></div>
+                <div className='text-black text-lg flex items-center '>{score.name}<span><InfoButton text={score.description}/></span></div>
                 <h1 style={{color : score.value < 35 ? "#FF0000" : score.value < 70 ? "#0000FF" : "#008000"}} className='font-bold text-2xl'>{score.value}</h1>
             </div>
 
@@ -50,19 +51,15 @@ function IndividualScoreCard({ score,parameter }) {
                 </div>
             </div>
             <div>
-                <Modal
+                <FormModal
                     open={open}
-                    onClose={handleClose}
+                    handleClose={handleClose}
+                    heading={`${parameter}`}
                 >
-                    <div className='z-[10000] bg-white p-4 shadow-lg w-[40%] rounded-lg absolute top-[30%] left-[30%]'>
-                        <div className='flex items-center justify-between'>
-                            <h1 className='text-xl font-bold'>{parameter}</h1>
-                            <IconButton onClick={handleClose}><CloseIcon /></IconButton>
-                        </div>
-                        <hr/>
+                    
                         <SubScoreTable scores={scores}/>
-                    </div>
-                </Modal>
+                    
+                </FormModal>
             </div>
         </div>
     )

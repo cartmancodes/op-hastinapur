@@ -6,6 +6,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import 'react-dates/initialize';
 import { DateRangePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
+import CloseIcon from '@mui/icons-material/Close';
 
 function DashBoardNav({ items, include_date }) {
     const location = useLocation();
@@ -23,7 +24,7 @@ function DashBoardNav({ items, include_date }) {
     };
     const styleActive = "border-b p-2 sm:border-b-0 w-full sm:w-fit hover:bg-purple-50 hover:text-purple-600 2xl:text-6xl text-gray-500 text-center sm:rounded-lg";
     const styleUnactive = "border-b p-2 sm:border-b-0 w-full sm:w-fit bg-purple-200 text-purple-900 sm:rounded-lg 2xl:text-6xl text-center";
-    
+
     return (
         <div className='w-full font-serif z-[1002] sm:p-0 border-b sticky top-0 left-0 bg-white sm:flex sm:justify-between items-center'>
             {/* Mobile navigation */}
@@ -33,7 +34,7 @@ function DashBoardNav({ items, include_date }) {
                 </div>
                 <div>
                     <IconButton onClick={() => setNavHidden(!navHidden)}>
-                        <MenuIcon />
+                        {navHidden ?<MenuIcon /> : <CloseIcon/>}
                     </IconButton>
                 </div>
             </div>

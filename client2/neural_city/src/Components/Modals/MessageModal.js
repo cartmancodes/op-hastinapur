@@ -4,9 +4,11 @@ import CloseIcon from '@mui/icons-material/Close';
 import { TextField, Button, IconButton } from '@mui/material';
 import { useState } from 'react';
 import MessageForm from '../Forms/MessageForm';
+import FormModal from './FormModal';
 function MessageModal({ handleClose, open }) {
     return (
-        <Modal
+        <FormModal
+            heading={`Message`}
             open={open}
             onClose={handleClose}
         >
@@ -21,7 +23,7 @@ function MessageModal({ handleClose, open }) {
                     <MessageForm/>
                 </div>
             </div>
-        </Modal>
+        </FormModal>
     )
 }
 

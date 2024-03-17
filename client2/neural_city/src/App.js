@@ -12,7 +12,6 @@ import Services from "./pages/services/Services";
 import Navbar from "./Components/Global/Navbar";
 import Community from "./pages/community/Community";
 import Footer from "./Components/Global/Footer";
-import SDGPage from "./pages/infrastucture/SDGPage";
 import ServicesHome from "./pages/services/ServicesHome";
 import GroupsPage from "./pages/community/GroupsPage";
 import ProjectPage from "./pages/community/ProjectPage";
@@ -79,8 +78,8 @@ function App() {
         </Route>
       </Routes>
       <Footer />
-      <div class="fixed z-[1001] bottom-10 right-4">
-        <button onClick={handleOpen} class="bg-blue-500 hover:bg-blue-600 text-white rounded-full py-3 px-4 shadow-lg">
+      <div class="fixed z-[1001] bottom-1 right-1 md:bottom-10 md:right-4">
+        <button onClick={handleOpen} class="bg-blue-500 hover:bg-blue-600 text-white rounded-full py-3 px-4 md:shadow-lg">
           Request Data
         </button>
       </div>

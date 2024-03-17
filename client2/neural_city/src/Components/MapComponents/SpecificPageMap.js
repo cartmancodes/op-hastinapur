@@ -66,7 +66,7 @@ function SpecificPageMapComponent(props) {
 
     // let wards = getWardsWithName(wardDivision);
     return (
-        showLoading ? <div>Loading...</div> : <div>
+        showLoading ? <div>Loading...</div> : <div className='hidden sm:block'>
             <MapContainer
                 zoomSnap={0.5}
                 maxBounds={bounds}

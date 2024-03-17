@@ -83,7 +83,7 @@ function makePoint(point) {
 
 
 function ActionCard() {
-    const tooltipText = "This section outlines critical, vulnerable, and essential actions, including waste management, public space regulations, and infrastructure upgrades. These efforts align with SDGs 11 and 9, fostering inclusive, resilient, and sustainable urban environments.\nEach actions are Classified according to their SDG Impact";
+    const tooltipText = "Recommendations are categorised based on SDG Impact.";
     const [filter, setFilter] = useState("total")
     const [recomandation, setRecomandations] = useState(newRecomandationModel);
     let standardCount = 0;

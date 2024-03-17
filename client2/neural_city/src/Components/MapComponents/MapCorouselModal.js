@@ -18,7 +18,7 @@ function MapCorouselModal({ ward_name, handleCorouselClose, handleCorouselOpen, 
                 open={corouselOpen}
                 onClose={handleCorouselClose}
             >
-                <div className='z-[10000] bg-white pb-0 shadow-lg w-[65%] rounded-lg absolute top-[5%] left-[20%]'>
+                <div className='z-[10000] bg-white pb-0 shadow-lg sm:w-[65%] w-[98%] rounded-lg absolute top-[5%] left-[20%]'>
                     <div className='flex items-center p-2 justify-between'>
                         <h1 className='text-xl font-bold'>{ward_name}</h1>
                         <IconButton onClick={handleCorouselClose}><CloseIcon /></IconButton>

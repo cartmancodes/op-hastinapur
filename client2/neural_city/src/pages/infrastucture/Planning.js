@@ -111,7 +111,7 @@ export default function Planning() {
       </div>
       <div className='bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] w-full'>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <Tabs value={value} onChange={handleTabChange} aria-label="basic tabs example">
+          <Tabs allowScrollButtonsMobile scrollButtons variant="scrollable" value={value} onChange={handleTabChange} aria-label="basic tabs example">
             <Tab label="Immediate Measures" {...a11yProps(0)} />
             <Tab label="Short Term Solutions" {...a11yProps(1)} />
             <Tab label="Foundational Changes" {...a11yProps(2)} />
