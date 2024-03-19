@@ -23,7 +23,7 @@ function Sdg() {
                 </div>
 
                 <div>
-                    <Button><Link to="/infra/monitering/sustainability">Details</Link></Button>
+                    <Button><Link to="/infra/monitoring/featuredrill">Details</Link></Button>
                 </div>
             </div>
             <div className='text-lg text-center w-full'>

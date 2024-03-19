@@ -1,7 +1,9 @@
 import React from 'react'
 import YojanaTable from '../../Components/Tables/YojanaTable'
 import DashBoardNav from '../../Components/Global/DashBoardNav';
-import {Outlet} from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
+import {ToastContainer} from 'react-toastify'
+
 function Community() {
   let navItems = [
     {
@@ -31,6 +33,18 @@ function Community() {
       <div className='flex relative'>
         <Outlet></Outlet>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </div>
   )
 }

@@ -9,22 +9,53 @@ import CloseIcon from '@mui/icons-material/Close';
 import ReactImageZoom from 'react-image-zoom'
 import ImageModal from '../Modals/ImageModal';
 import FormModal from '../Modals/FormModal';
-function DataGridRow(props) {
-    const informAuthority = () => {
-        alert("Your Response Has been sent");
-    }
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [message, setMessage] = useState("");
+import { useFormik } from 'formik';
+import {toast} from 'react-toastify'
 
+function DataGridRow(props) {
+    // States
     const [openFormModal, setOpenFormModal] = useState(false);
     const [openVideoModal, setOpenVideoModal] = useState(false);
 
+    // Controllers for Form Modal
+    const handleFormModalOpen = () => setOpenFormModal(true);
+    const handleFormModalClose = () => setOpenFormModal(false);
+
+    // Controllers for Video Modal
     const handleVideoModalOpen = () => setOpenVideoModal(true);
     const handleVideoModalClose = () => setOpenVideoModal(false);
 
-    const handleFormModalOpen = () => setOpenFormModal(true);
-    const handleFormModalClose = () => setOpenFormModal(false);
+    // Form Submit Handler
+    const informAuthority = () => {
+        toast("Your Response Has been sent");
+        handleFormModalClose();
+    }
+
+    // Formik Form Handling
+    const validate = values => {
+        const errors = {};
+        if (!values.name) {
+            errors.name = 'Name is required';
+        }
+        if (!values.email) {
+            errors.email = 'Email is required';
+        } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+            errors.email = 'Invalid email address';
+        }
+        if (!values.message) {
+            errors.message = 'Message is required';
+        }
+        return errors;
+    };
+    const formik = useFormik({
+        initialValues: { name: '', email: '', message: '' },
+        validate,
+        onSubmit: (values, { resetForm }) => {
+            informAuthority(values);
+            resetForm();
+        },
+    });
+
     let row = props.row;
     return (
         <>
@@ -38,7 +69,7 @@ function DataGridRow(props) {
                         <RemoveRedEyeIcon />
                     </IconButton>
                 </TableCell>
-                
+
                 <TableCell align='center'>
                     <Button variant='contained' onClick={handleFormModalOpen}>Inform Authority</Button>
                 </TableCell>
@@ -48,23 +79,38 @@ function DataGridRow(props) {
                 handleClose={handleFormModalClose}
                 heading={`Inform Authority`}
             >
-                <form className='space-y-2 flex flex-col'>
-                    <TextField value={name}
+                <form className='space-y-2 flex flex-col' onSubmit={formik.handleSubmit}>
+                    <TextField
+                        id="name"
+                        name="name"
                         label="Name"
-                        onChange={(e) => setName(e.target.value)}
+                        value={formik.values.name}
+                        onChange={formik.handleChange}
+                        error={formik.errors.name && formik.touched.name}
+                        helperText={formik.errors.name && formik.touched.name ? formik.errors.name : ''}
                     />
                     <TextField
-                        value={email}
+                        id="email"
+                        name="email"
+                        type="email"
                         label="Email"
-                        onChange={(e) => setName(e.target.value)}
+                        value={formik.values.email}
+                        onChange={formik.handleChange}
+                        error={formik.errors.email && formik.touched.email}
+                        helperText={formik.errors.email && formik.touched.email ? formik.errors.email : ''}
                     />
                     <TextField
+                        id="message"
+                        name="message"
                         multiline
                         minRows={4}
                         label="Message"
-                        onChange={(e) => setMessage(e.target.value)}
+                        value={formik.values.message}
+                        onChange={formik.handleChange}
+                        error={formik.errors.message && formik.touched.message}
+                        helperText={formik.errors.message && formik.touched.message ? formik.errors.message : ''}
                     />
-                    <Button onClick={informAuthority} variant='contained'>Send Response</Button>
+                    <Button type='submit' variant='contained'>Send Response</Button>
                 </form>
 
             </FormModal>

@@ -5,7 +5,7 @@ import {
 } from '@mui/material'
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import CloseIcon from '@mui/icons-material/Close';
-
+import { useFormik } from 'formik';
 function TableRowSpecific(props) {
     const formModalStyle = {
         position: 'absolute',
@@ -22,11 +22,6 @@ function TableRowSpecific(props) {
     const informAuthority = () => {
         alert("Your Response Has been sent");
     }
-
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [message, setMessage] = useState("");
-
     const [openFormModal, setOpenFormModal] = useState(false);
     const [openVideoModal, setOpenVideoModal] = useState(false);
 
@@ -34,6 +29,32 @@ function TableRowSpecific(props) {
     const handleVideoModalOpen = () => setOpenVideoModal(true);
     let row = props.row;
     console.log(row);
+
+    const validate = values => {
+        const errors = {};
+        if (!values.name) {
+            errors.name = 'Name is required';
+        }
+        if (!values.email) {
+            errors.email = 'Email is required';
+        } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+            errors.email = 'Invalid email address';
+        }
+        if (!values.message) {
+            errors.message = 'Message is required';
+        }
+        return errors;
+    };
+
+    const formik = useFormik({
+        initialValues: { name: '', email: '', message: '' },
+        validate,
+        onSubmit: (values, { resetForm }) => {
+            informAuthority(values);
+            resetForm();
+        },
+    });
+
     return (
         <>
             <TableRow hover role="checkbox" tabIndex={-1}>
@@ -65,23 +86,38 @@ function TableRowSpecific(props) {
                         </IconButton>
                     </div>
 
-                    <form className='space-y-2 flex flex-col'>
-                        <TextField value={name}
+                    <form className='space-y-2 flex flex-col' onSubmit={formik.handleSubmit}>
+                        <TextField
+                            id="name"
+                            name="name"
                             label="Name"
-                            onChange={(e) => setName(e.target.value)}
+                            value={formik.values.name}
+                            onChange={formik.handleChange}
+                            error={formik.errors.name && formik.touched.name}
+                            helperText={formik.errors.name && formik.touched.name ? formik.errors.name : ''}
                         />
                         <TextField
-                            value={email}
+                            id="email"
+                            name="email"
+                            type="email"
                             label="Email"
-                            onChange={(e) => setName(e.target.value)}
+                            value={formik.values.email}
+                            onChange={formik.handleChange}
+                            error={formik.errors.email && formik.touched.email}
+                            helperText={formik.errors.email && formik.touched.email ? formik.errors.email : ''}
                         />
                         <TextField
+                            id="message"
+                            name="message"
                             multiline
                             minRows={4}
                             label="Message"
-                            onChange={(e) => setMessage(e.target.value)}
+                            value={formik.values.message}
+                            onChange={formik.handleChange}
+                            error={formik.errors.message && formik.touched.message}
+                            helperText={formik.errors.message && formik.touched.message ? formik.errors.message : ''}
                         />
-                        <Button onClick={informAuthority} variant='contained'>Send Response</Button>
+                        <Button type='submit' variant='contained'>Send Response</Button>
                     </form>
                 </Box>
             </Modal>

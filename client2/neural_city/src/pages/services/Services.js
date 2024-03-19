@@ -8,8 +8,8 @@ function Services() {
   let navItems = [
     {
       name: "Monitoring",
-      path_link: "/services/monitering",
-      curr_path: "monitering"
+      path_link: "/services/monitoring",
+      curr_path: "monitoring"
     },
     
   ]
@@ -18,13 +18,13 @@ function Services() {
     {
       icon: <HomeIcon></HomeIcon>,
       title: "Home",
-      path_link: "/services/monitering",
+      path_link: "/services/monitoring",
       curr_path: null
     },
     {
       icon: <Traffic></Traffic>,
       title: "Traffic",
-      path_link: "/services/monitering/traffic",
+      path_link: "/services/monitoring/traffic",
       curr_path: "traffic"
     },
   ]
