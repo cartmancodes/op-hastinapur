@@ -69,7 +69,6 @@ function DataGridRow(props) {
                         <RemoveRedEyeIcon />
                     </IconButton>
                 </TableCell>
-
                 <TableCell align='center'>
                     <Button variant='contained' onClick={handleFormModalOpen}>Inform Authority</Button>
                 </TableCell>
