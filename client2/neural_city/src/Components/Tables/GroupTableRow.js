@@ -15,6 +15,9 @@ import MessageModal from '../Modals/MessageModal';
 import { useState } from 'react';
 import FormModal from '../Modals/FormModal';
 import MessageForm from '../Forms/MessageForm';
+import { toast } from 'react-toastify'
+import { TextField } from '@mui/material'
+import { useFormik } from 'formik';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -37,18 +40,39 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 function GroupTableRow(props) {
+    // States
     const { row } = props;
     const [open, setOpen] = React.useState(false);
+    const [openMessageModal, setopenMessageModal] = useState(false);
 
-    const [openMessageModal,setopenMessageModal] = useState(false);
-
+    // Message Modal Open Close Controllers
     const handleOpenMessageModalOpen = () => {
         setopenMessageModal(true);
     }
-
     const handleOpenMessageModalClose = () => {
         setopenMessageModal(false);
     }
+
+    // Formik for form Handling
+    const validate = values => {
+        const errors = {};
+        if (!values.message) {
+            errors.message = 'Message is required';
+        }
+        return errors;
+    };
+    const formik = useFormik({
+        initialValues: {
+            message: ''
+        },
+        validate,
+        onSubmit: (values, { resetForm }) => {
+            toast("We Have Successfully Recieved your Response");
+            resetForm();
+            handleOpenMessageModalClose();
+        },
+    });
+
     return (
         <React.Fragment>
             <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
@@ -68,7 +92,7 @@ function GroupTableRow(props) {
                 <TableCell align="center">{row.chairperson}</TableCell>
                 <TableCell align="center"><Button onClick={handleOpenMessageModalOpen}>Message</Button></TableCell>
                 <TableCell align="center"><Button onClick={() => {
-                    window.alert("Request for the Support has been Sent");
+                    toast("Request for the Support has been Sent");
                 }}>Request Support</Button></TableCell>
             </TableRow>
             <TableRow>
@@ -108,7 +132,20 @@ function GroupTableRow(props) {
                 </TableCell>
             </TableRow>
             <FormModal open={openMessageModal} handleClose={handleOpenMessageModalClose} heading={`Message`}>
-                <MessageForm/>
+                <form className='flex flex-col space-y-4' onSubmit={formik.handleSubmit}>
+                    <TextField
+                        id="message"
+                        name="message"
+                        multiline
+                        minRows={4}
+                        label="Message"
+                        value={formik.values.message}
+                        onChange={formik.handleChange}
+                        error={formik.touched.message && Boolean(formik.errors.message)}
+                        helperText={formik.touched.message && formik.errors.message}
+                    />
+                    <Button type='submit' variant='contained'>Send Response</Button>
+                </form>
             </FormModal>
         </React.Fragment>
     );

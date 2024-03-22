@@ -3,6 +3,8 @@ import { TextField, IconButton, Modal, FormControl, InputLabel, Button, Select, 
 import YojanaTable from '../../Components/Tables/YojanaTable';
 import CloseIcon from '@mui/icons-material/Close';
 import FormModal from '../../Components/Modals/FormModal';
+import { useFormik } from 'formik';
+import {toast} from 'react-toastify';
 
 const dummyProjects = [
     {
@@ -69,23 +71,50 @@ function ProjectPage() {
         setFormOpen(false);
     }
 
-    const createProject = () => {
-        if (!pname || !group || !projectType || !supportType) {
-            window.alert("Some Fields are Missing");
-        }
+    const createProject = (values) => {
         const project = {
             "id": projects.length + 2,
-            "group": group,
-            "pname": pname,
+            "group": values.group,
+            "pname": values.pname,
             "date": "12-10-2022",
-            "category": projectType,
+            "category": values.projectType,
             "status": "In Progress",
-            "supportType": supportType
+            "supportType": values.supportType
         };
         const newProjects = [...projects, project];
         setProjects(newProjects);
+        toast("Project Created SuccessFully");
         setFormOpen(false);
     }
+
+    const formik = useFormik({
+        initialValues: {
+            pname: '',
+            projectType: '',
+            group: '',
+            supportType: ''
+        },
+        validate: values => {
+            const errors = {};
+            if (!values.pname) {
+                errors.pname = 'Project Name is required';
+            }
+            if (!values.projectType) {
+                errors.projectType = 'Project Type is required';
+            }
+            if (!values.group) {
+                errors.group = 'Group Name is required';
+            }
+            if (!values.supportType) {
+                errors.supportType = 'Support Type is required';
+            }
+            return errors;
+        },
+        onSubmit: (values, { resetForm }) => {
+            createProject(values);
+            resetForm();
+        },
+    });
 
     return (
         <div className='p-4 w-full min-h-[80vh] flex flex-col justify-between space-y-4'>
@@ -94,47 +123,73 @@ function ProjectPage() {
                 heading={`Add a Project`}
                 handleClose={formModalClose}
             >
-                <form className='p-4 space-y-6'>
-                    <TextField fullWidth placeholder='Enter Project Name' value={pname} onChange={(e) => setPname(e.target.value)} />
-                    <FormControl fullWidth>
+                <form className='p-4 space-y-6' onSubmit={formik.handleSubmit}>
+                    <TextField
+                        fullWidth
+                        placeholder='Enter Project Name'
+                        id="pname"
+                        name="pname"
+                        value={formik.values.pname}
+                        onChange={formik.handleChange}
+                        error={formik.touched.pname && Boolean(formik.errors.pname)}
+                        helperText={formik.touched.pname && formik.errors.pname}
+                    />
+
+                    <FormControl fullWidth error={formik.touched.projectType && Boolean(formik.errors.projectType)}>
                         <InputLabel>Project Type</InputLabel>
                         <Select
-                            value={projectType}
+                            value={formik.values.projectType}
                             label="Project Type"
-                            onChange={(e) => setProjectType(e.target.value)}
+                            onChange={formik.handleChange}
+                            name="projectType"
                         >
                             <MenuItem value={"Cleanliness"}>Cleanliness</MenuItem>
                             <MenuItem value={"Awareness"}>Awareness</MenuItem>
                             <MenuItem value={"Sustainability"}>Sustainability</MenuItem>
                         </Select>
+                        {formik.touched.projectType && formik.errors.projectType &&
+                            <span className="error-text">{formik.errors.projectType}</span>}
                     </FormControl>
 
-                    <FormControl fullWidth>
+                    <FormControl fullWidth error={formik.touched.group && Boolean(formik.errors.group)}>
                         <InputLabel>Group Name</InputLabel>
                         <Select
-                            value={group}
+                            value={formik.values.group}
                             label="Group Name"
-                            onChange={(e) => setGroup(e.target.value)}
+                            onChange={formik.handleChange}
+                            name="group"
                         >
                             <MenuItem value={"XYZ Samaj"}>XYZ Samaj</MenuItem>
                             <MenuItem value={"ABC Foundation"}>ABC Foundation</MenuItem>
                             <MenuItem value={"Community Care Group"}>Community Care Group</MenuItem>
                         </Select>
+                        {formik.touched.group && formik.errors.group &&
+                            <span className="error-text">{formik.errors.group}</span>}
                     </FormControl>
 
-                    <FormControl fullWidth>
+                    <FormControl fullWidth error={formik.touched.supportType && Boolean(formik.errors.supportType)}>
                         <InputLabel>Support Type</InputLabel>
                         <Select
-                            value={supportType}
+                            value={formik.values.supportType}
                             label="Support Type"
-                            onChange={(e) => setSupportType(e.target.value)}
+                            onChange={formik.handleChange}
+                            name="supportType"
                         >
                             <MenuItem value={"manpower"}>Manpower</MenuItem>
                             <MenuItem value={"fund"}>Funds</MenuItem>
                         </Select>
+                        {formik.touched.supportType && formik.errors.supportType &&
+                            <span className="error-text">{formik.errors.supportType}</span>}
                     </FormControl>
 
-                    <Button size='large' onClick={createProject} disableElevation fullWidth variant='contained'>
+                    <Button
+                        size='large'
+                        type='submit'
+                        disableElevation
+                        fullWidth
+                        variant='contained'
+                        disabled={!formik.dirty || !formik.isValid}
+                    >
                         Create Project
                     </Button>
                 </form>

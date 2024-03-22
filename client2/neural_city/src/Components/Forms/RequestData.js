@@ -1,38 +1,77 @@
-import React from 'react'
-import { Box, TextField, Button } from '@mui/material';
-import { useState } from 'react';
-function RequestData() {
-    const [name,setName] = useState("");
-    const [email,setEmail] = useState("");
-    const [reason,setReason] = useState("");
+import React from 'react';
+import { TextField, Button } from '@mui/material';
+import { useFormik } from 'formik';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-    const requestData = () => {
-        window.alert("We Have Recived Your Request we will contact you soon");
-    }
+function RequestData({ handleClose }) {
+    const formik = useFormik({
+        initialValues: {
+            name: '',
+            email: '',
+            reason: ''
+        },
+        validate: values => {
+            const errors = {};
+            if (!values.name) {
+                errors.name = 'Required';
+            }
+            if (!values.email) {
+                errors.email = 'Required';
+            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+                errors.email = 'Invalid email address';
+            }
+            if (!values.reason) {
+                errors.reason = 'Required';
+            }
+            return errors;
+        },
+        onSubmit: values => {
+            toast("We Have Recived Your Request we will contact you soon");
+            handleClose();
+        },
+    });
+    
+
     return (
-        <form className='space-y-2 flex flex-col'>
-            <TextField value={name}
-            fullWidth
+        <form onSubmit={formik.handleSubmit} className='space-y-2 flex flex-col'>
+            <TextField
+                id="name"
+                name="name"
+                type='text'
+                fullWidth
                 label="Name"
-                onChange={(e) => setName(e.target.value)}
+                onChange={formik.handleChange}
+                value={formik.values.name}
+                error={formik.touched.name && Boolean(formik.errors.name)}
+                helperText={formik.touched.name && formik.errors.name}
             />
             <TextField
-            fullWidth
-                value={email}
+                id="email"
+                name="email"
+                type="email"
+                fullWidth
                 label="Email"
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={formik.handleChange}
+                value={formik.values.email}
+                error={formik.touched.email && Boolean(formik.errors.email)}
+                helperText={formik.touched.email && formik.errors.email}
             />
             <TextField
-            fullWidth
-                value={reason}
+                id="reason"
+                name="reason"
+                fullWidth
                 multiline
                 minRows={4}
                 label="Reason For Data"
-                onChange={(e) => setReason(e.target.value)}
+                onChange={formik.handleChange}
+                value={formik.values.reason}
+                error={formik.touched.reason && Boolean(formik.errors.reason)}
+                helperText={formik.touched.reason && formik.errors.reason}
             />
-            <Button fullWidth onClick={requestData} variant='contained'>Request Data</Button>
+            <Button type='submit' fullWidth variant='contained'>Request Data</Button>
         </form>
     )
 }
 
-export default RequestData
+export default RequestData;

@@ -113,11 +113,8 @@ let scores = [
             ]
         },
         good: {
-            total: 2,
-            params: [
-                { name: "Drain", score: 77 },
-                { name: "Toilet/Urination", score: 80 }
-            ]
+            total: 0,
+            params: []
         }
     },
 ]

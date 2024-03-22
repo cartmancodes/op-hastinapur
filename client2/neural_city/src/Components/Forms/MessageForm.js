@@ -1,21 +1,33 @@
 import React from 'react'
-import {TextField,Button} from '@mui/material'
+import { TextField, Button } from '@mui/material'
 import { useState } from 'react';
-
+import { ToastContainer, toast } from 'react-toastify';
+import { useFormik } from 'formik';
 function MessageForm() {
-    const [message,setMessage] = useState("");
+    const formik = useFormik({
+        initialValues: {
+            message: ''
+        },
+        onSubmit: (values, { resetForm }) => {
+            informAuthority(values);
+            resetForm();
+        },
+    });
     const informAuthority = () => {
-        window.alert("Your Message Have Been Sent");
+        toast("We Have Successfully Recieved your Request!");
     }
     return (
-        <form className='flex flex-col space-y-4'>
+        <form className='flex flex-col space-y-4' onSubmit={formik.handleSubmit}>
             <TextField
+                id="message"
+                name="message"
                 multiline
                 minRows={4}
                 label="Message"
-                onChange={(e) => setMessage(e.target.value)}
+                value={formik.values.message}
+                onChange={formik.handleChange}
             />
-            <Button onClick={informAuthority} variant='contained'>Send Response</Button>
+            <Button type='submit' variant='contained'>Send Response</Button>
         </form>
     )
 }

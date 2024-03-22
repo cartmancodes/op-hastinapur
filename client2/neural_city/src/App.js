@@ -21,6 +21,7 @@ import FormModal from "./Components/Modals/FormModal";
 import RequestData from "./Components/Forms/RequestData";
 import Loader from "./Components/Global/Loader";
 import ServiceMoniter from "./pages/services/ServiceMoniter";
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   useEffect(() => {
@@ -52,19 +53,19 @@ function App() {
     loading ? <Loader></Loader> : <React.Fragment>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Navigate to="/infra/monitering"></Navigate>}></Route>
+        <Route path="/" element={<Navigate to="/infra/monitoring"></Navigate>}></Route>
         <Route path="/infra" element={<Dashboard />}>
-          <Route path="" element={<Navigate to='/infra/monitering'></Navigate>} />
-          <Route path="monitering" element={<Monitering />} >
+          <Route path="" element={<Navigate to='/infra/monitoring'></Navigate>} />
+          <Route path="monitoring" element={<Monitering />} >
             <Route path="" element={<DashBoardHome />} />
-            <Route path="sustainability" element={<SustainabilityPage />} />
+            <Route path="featuredrill" element={<SustainabilityPage />} />
           </Route>
           <Route path="intiateaction" element={<IntiateAction></IntiateAction>} />
           <Route path="planning" element={<Planning />} />
         </Route>
         <Route path="/services" element={<Services />}>
-          <Route path="" element={<Navigate to='/services/monitering'></Navigate>} />
-          <Route path="monitering" element={<ServiceMoniter />}>
+          <Route path="" element={<Navigate to='/services/monitoring'></Navigate>} />
+          <Route path="monitoring" element={<ServiceMoniter />}>
             <Route path="" element={<ServicesHome />} />
             <Route path="traffic" element={<Traffic />}></Route>
           </Route>
@@ -85,7 +86,7 @@ function App() {
       </div>
 
       <FormModal open={open} heading={`Request Data`} handleClose={handleClose}>
-        <RequestData></RequestData>
+        <RequestData handleClose={handleClose}></RequestData>
       </FormModal>
     </React.Fragment >
   );
