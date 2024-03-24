@@ -31,16 +31,16 @@ function wardSelection(newData, currWard, param, scoreValue) {
                     selectedWardBoundary = ward.geometry;
                 }
             });
-            
+
             console.log(selectedWardBoundary);
             dataToReturn = dataToReturn.filter((dat) => {
                 var polygonFormed = L.polygon(selectedWardBoundary);
                 var marker = L.marker([dat.longitude, dat.latitude]);
-                console.log(dat.longitude +  " " + dat.latitude);
-                if(marker !== null) {
+                console.log(dat.longitude + " " + dat.latitude);
+                if (marker !== null) {
                     let isContains = polygonFormed.contains(marker.getLatLng());
                     return isContains;
-                } else return false;    
+                } else return false;
             });
             console.log(dataToReturn);
         }
@@ -59,12 +59,12 @@ function wardSelection(newData, currWard, param, scoreValue) {
             }
 
             let score = undefined;
-            if(param !== "Overall") {
+            if (param !== "Overall") {
                 score = dat.score[`${param}_score`][`overall_${param}_score`];
             } else {
                 score = dat.score.overall_score;
             }
-            
+
             let preparedData = {
                 "ward": ward_name_curr,
                 "score": (Number)(score),
@@ -90,19 +90,20 @@ function wardSelection(newData, currWard, param, scoreValue) {
         dataCleaned = dataCleaned.filter(dat => dat.score > 0);
         console.log(dataCleaned);
         return dataCleaned;
-    } catch(err) {
+    } catch (err) {
         console.log(err.message);
     }
 }
 
 
 export default function MapTable() {
+
     // let wards = getWardsWithName(wardDivision);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [data, setData] = useState([]);
     const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(6);
+    const [rowsPerPage, setRowsPerPage] = useState(8);
     const [sortScore, setSortScore] = useState("none");
     const [sortDate, setSortDate] = useState(false);
     const [status, setStatus] = useState("any");
@@ -229,7 +230,7 @@ export default function MapTable() {
                                     <MenuItem value="sidewalk">Sidewalk</MenuItem>
                                     <MenuItem value="road">Roads</MenuItem>
                                     <MenuItem value="encroachment">Encroachment</MenuItem>
-                                    
+
                                 </Select>
                             </FormControl>
                         </div>
@@ -314,7 +315,7 @@ export default function MapTable() {
                                             <MenuItem value={`No`}>Pending</MenuItem>
                                         </Select>
                                     </TableCell>
-                                    <TableCell sx={{ fontWeight: 'bold' }}>Inform Authority</TableCell>
+                                    <TableCell sx={{ fontWeight: 'bold' }}>Send Alert</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -324,7 +325,7 @@ export default function MapTable() {
                                         return (
                                             <DataGridRow row={row} idx={idx} />
                                         );
-                                })}
+                                    })}
                             </TableBody>
                         </Table>
                     </TableContainer>

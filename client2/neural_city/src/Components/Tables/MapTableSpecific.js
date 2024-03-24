@@ -8,18 +8,31 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import {MenuItem, Select } from '@mui/material';
 import DataGridRow from './MapTableRow';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { wardDivision } from '../MapComponents/wardDivisionData';
+import { tableCellClasses } from '@mui/material/TableCell';
+import { styled } from '@mui/material/styles';
+import DataNotAvailable from '../Global/DataNotAvailable';
 
 
-function sortingLogic(dataToShow,sortScore,sortDate) {
-    
+function sortingLogic(dataToShow, sortScore, sortDate) {
+
 }
 
-export default function MapTableSpecific({filteredOutput,loading}) {
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+        backgroundColor: '#808080',
+        color: theme.palette.common.white,
+        // fontWeight: 'bold',
+    },
+    [`&.${tableCellClasses.body}`]: {
+        fontSize: 14,
+    },
+}));
+
+export default function MapTableSpecific({ filteredOutput, loading }) {
     let wards = [];
     const parameter_names = [
         "cleaniness_score",
@@ -40,7 +53,7 @@ export default function MapTableSpecific({filteredOutput,loading}) {
     });
 
     const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(6);
+    const [rowsPerPage, setRowsPerPage] = useState(8);
 
     const [sortScore, setSortScore] = useState("none");
     const [sortDate, setSortDate] = useState(false);
@@ -70,55 +83,56 @@ export default function MapTableSpecific({filteredOutput,loading}) {
         sortedData = sortedData.sort((a, b) => b.date - a.date);
     }
 
-    
+
     return (
         loading ? <div>Loading...</div> : <div className='space-y-4'>
             <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-                <TableContainer sx={{ maxHeight: 600 }}>
+                {sortedData.length === 0 ? <DataNotAvailable></DataNotAvailable> : <TableContainer sx={{ maxHeight: 650 }}>
                     <Table stickyHeader aria-label="sticky table">
                         <TableHead>
                             <TableRow>
-                                <TableCell align='center' sx={{ fontWeight: 'bold' }}>S.No.</TableCell>
-                                <TableCell align='center' sx={{ fontWeight: 'bold' }}>Locality</TableCell>
-                                <TableCell align='center' sx={{ fontWeight: 'bold' }}>
+                                <StyledTableCell align='center' sx={{ fontWeight: 'bold' }}>S.No.</StyledTableCell>
+                                <StyledTableCell align='center' sx={{ fontWeight: 'bold' }}>Locality</StyledTableCell>
+                                <StyledTableCell align='center' sx={{ fontWeight: 'bold' }}>
                                     <div className='flex justify-center items-center'>
                                         <p>Score</p>
-                                        <div className='p-0 rounded-xl hover:bg-gray-100' onClick={() => {
+                                        <div className='p-0 rounded-xl hover:bg-gray-400' onClick={() => {
                                             setSortScore("asc");
                                             setSortDate("none");
                                         }}>
-                                            <ArrowUpwardIcon fontSize='small'/>
+                                            <ArrowUpwardIcon fontSize='small' />
                                         </div>
                                         <div onClick={() => {
                                             setSortScore("desc");
                                             setSortDate("none");
-                                        }} className='p-0 rounded-xl hover:bg-gray-100'>
-                                            <ArrowDownwardIcon fontSize='small'/>
+                                        }} className='p-0 rounded-xl hover:bg-gray-400'>
+                                            <ArrowDownwardIcon fontSize='small' />
                                         </div>
                                     </div>
-                                </TableCell>
-                                <TableCell align='center' sx={{ fontWeight: 'bold' }}>
+                                </StyledTableCell>
+                                <StyledTableCell align='center' sx={{ fontWeight: 'bold' }}>
                                     <div className='flex items-center justify-center'>
                                         <p>Date</p>
-                                        <div className='p-0 hover:bg-gray-100 rounded-xl' onClick={() => {
+                                        <div className='p-0 hover:bg-gray-400 rounded-xl' onClick={() => {
                                             setSortDate("asc");
                                             setSortScore("none");
                                         }}>
-                                            <ArrowUpwardIcon fontSize='small'/>
+                                            <ArrowUpwardIcon fontSize='small' />
                                         </div>
 
                                         <div onClick={() => {
                                             setSortDate("desc");
                                             setSortScore("none");
-                                        }} className='hover:bg-gray-100 p-0 rounded-xl'>
-                                            <ArrowDownwardIcon fontSize='small'/>
+                                        }} className='hover:bg-gray-400 p-0 rounded-xl'>
+                                            <ArrowDownwardIcon fontSize='small' />
                                         </div>
                                     </div>
-                                </TableCell>
-                                <TableCell align='center' sx={{ fontWeight: 'bold' }}>Picture</TableCell>
-                                <TableCell align='center' sx={{ fontWeight: 'bold' }}>Inform Authority</TableCell>
+                                </StyledTableCell>
+                                <StyledTableCell align='center' sx={{ fontWeight: 'bold' }}>Picture</StyledTableCell>
+                                <StyledTableCell align='center' sx={{ fontWeight: 'bold' }}>Send Alert</StyledTableCell>
                             </TableRow>
                         </TableHead>
+
                         <TableBody>
                             {sortedData
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
@@ -128,8 +142,10 @@ export default function MapTableSpecific({filteredOutput,loading}) {
                                     );
                                 })}
                         </TableBody>
+
                     </Table>
                 </TableContainer>
+                }
                 <TablePagination
                     rowsPerPageOptions={[10, 25, 100]}
                     component="div"

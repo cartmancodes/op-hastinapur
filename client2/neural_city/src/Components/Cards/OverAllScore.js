@@ -15,7 +15,7 @@ function OverAllScoreComponent({ score, good, acceptable, poor }) {
                 </div>
                 <div className='w-[30%] p-2 border-r flex  flex-col items-center justify-center'>
                     <p className='text-blue-500 font-bold'>{acceptable}</p>
-                    <div className='rounded-2xl border p-2 text-sm  w-full text-center'>Managable</div>
+                    <div className='rounded-2xl border p-2 text-sm  w-full text-center'>Manageable</div>
                 </div>
                 <div className='w-[30%] p-2 flex  flex-col items-center justify-center'>
                     <p className='text-green-600 font-bold'>{good}</p>
@@ -31,7 +31,7 @@ function OverAllScoreComponent({ score, good, acceptable, poor }) {
                     </div>
                     <div className='flex flex-col items-center justify-center  border-r border-gray-400 p-2 w-[33%]'>
                         <p className='text-lg font-bold text-blue-500'>{"35-70"}</p>
-                        <p className='text-gray-400'>Managable</p>
+                        <p className='text-gray-400'>Manageable</p>
                     </div>
                     <div className='flex flex-col items-center justify-center  p-2 w-[33%]'>
                         <p className='text-lg font-bold text-green-500'>{"70-100"}</p>

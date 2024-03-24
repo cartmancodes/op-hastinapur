@@ -8,7 +8,7 @@ import { wardDivision } from '../../Components/MapComponents/wardDivisionData'
 import { getWardsWithName, isMarkerInsidePolygon } from '../../utils/MapUtils'
 import { useEffect } from 'react'
 import { exportToExcel } from 'react-json-to-excel'
-import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import CloudDownloadRoundedIcon from '@mui/icons-material/CloudDownloadRounded';
 import { mockData } from '../../mockData/MapData'
 import L from 'leaflet'
 import { sdgImpact } from '../../mockData/MapData'
@@ -217,9 +217,9 @@ function IntiateAction() {
   return (
     loading ? <div>Loading...</div> :
       <div className='p-2 flex justify-between w-[100%] relative'>
-        <div className='md:w-[100%] w-[100%] space-y-[10px]'>
-          <div className='p-2 shadow-sm rounded-lg'>
-            <div className="flex justify-between items-center">
+        <div className='md:w-[100%] w-[100%]'>
+          <div className=''>
+          <div className='py-4 space-y-2 sm:space-y-0 w-full shadow-lg rounded-t-lg px-2 sm:flex items-center justify-between'>
               <div className="hidden sm:space-x-2 space-y-2 sm:space-y-0 sm:flex flex-shrink">
                 <FormControl >
                   <InputLabel>Ward</InputLabel>
@@ -286,7 +286,7 @@ function IntiateAction() {
                   >
                     <MenuItem value={"any"}>Any</MenuItem>
                     <MenuItem value={"good"}>Good</MenuItem>
-                    <MenuItem value={"acceptable"}>Acceptable</MenuItem>
+                    <MenuItem value={"acceptable"}>Manageable</MenuItem>
                     <MenuItem value={"poor"}>Poor</MenuItem>
                   </Select>
                 </FormControl>
@@ -319,8 +319,9 @@ function IntiateAction() {
                 </Button>
               </div>
               <div>
-                <Button variant='outlined' onClick={handleDownloadButtonClick}>
-                  <FileDownloadIcon />
+                <Button variant='outlined' onClick={handleDownloadButtonClick} className='space-x-2'>
+                  <p>Download</p>
+                  <CloudDownloadRoundedIcon />
                 </Button>
               </div>
             </div>
@@ -406,7 +407,7 @@ function IntiateAction() {
                   >
                     <MenuItem value={"any"}>Any</MenuItem>
                     <MenuItem value={"good"}>Good</MenuItem>
-                    <MenuItem value={"acceptable"}>Acceptable</MenuItem>
+                    <MenuItem value={"acceptable"}>Manageable</MenuItem>
                     <MenuItem value={"poor"}>Poor</MenuItem>
                   </Select>
                 </FormControl>

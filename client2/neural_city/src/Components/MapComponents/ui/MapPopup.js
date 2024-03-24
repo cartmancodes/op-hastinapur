@@ -34,7 +34,6 @@ function MapPopup(props) {
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description">
                 <Box sx={VideoModalStyle} className='space-y-6'>
-
                     <div className='flex items-center justify-between'>
                         <h1 className='text-2xl font-bold'>Footage</h1>
                         <IconButton onClick={() => setOpenVideoModal(false)}>

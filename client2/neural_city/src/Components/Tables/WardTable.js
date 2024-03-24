@@ -8,10 +8,7 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-  TableFooter,
-  TextField,
   FormControl,
-  InputLabel,
   InputBase
 } from '@mui/material';
 import { tableCellClasses } from '@mui/material/TableCell';
@@ -165,7 +162,6 @@ export default function WardTable() {
             <FormControl variant="standard">
               <BootstrapInput className='w-[300px]' value={searchText} onChange={(e) => setSearchText(e.target.value)} placeholder="Search Wards" />
             </FormControl>
-
             <InfoButton></InfoButton>
           </div>
           

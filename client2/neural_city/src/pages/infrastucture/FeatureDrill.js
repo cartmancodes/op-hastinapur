@@ -14,6 +14,7 @@ import L from 'leaflet'
 import { sdgImpact } from '../../mockData/MapData'
 import { calculateAverage, getColRep } from '../../utils/MapUtils';
 import CloseIcon from '@mui/icons-material/Close';
+import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 
 function caseChange(str) {
     let sepe = str.split("_");
@@ -218,9 +219,9 @@ function FeatureDrill() {
         loading ? <div>Loading...</div> :
             <div className='p-2 flex justify-between w-[100%] relative'>
                 <div className='md:w-[100%] w-[100%] space-y-[10px]'>
-                    <div className='p-2 shadow-sm rounded-lg'>
+                    <div className='p-3 border rounded-md'>
                         <div className="flex justify-between items-center">
-                            <div className="hidden md:space-x-2 space-y-2 sm:space-y-0 md:flex flex-shrink sm:grid sm:grid-cols-4 gap-2">
+                            <div className="hidden md:space-x-4 space-y-2 sm:space-y-0 md:flex flex-shrink sm:grid sm:grid-cols-4 gap-2">
                                 <FormControl fullWidth>
                                     <InputLabel>Ward</InputLabel>
                                     <Select
@@ -286,14 +287,14 @@ function FeatureDrill() {
                                     >
                                         <MenuItem value={"any"}>Any</MenuItem>
                                         <MenuItem value={"good"}>Good</MenuItem>
-                                        <MenuItem value={"acceptable"}>Acceptable</MenuItem>
+                                        <MenuItem value={"acceptable"}>Manageable</MenuItem>
                                         <MenuItem value={"poor"}>Poor</MenuItem>
                                     </Select>
                                 </FormControl>
                                 <FormControl fullWidth>
                                     <InputLabel>SDG Impact</InputLabel>
                                     <Select
-                                        sx={{ width: '150px', backgroundColor: '#A5D6A7', color: 'black' }}
+                                        sx={{ width: '150px',color: 'black' }}
                                         value={sdgImpactParam}
                                         label="SDG Impact"
                                         onChange={(e) => {
@@ -316,8 +317,9 @@ function FeatureDrill() {
                                 </Button>
                             </div>
                             <div>
-                                <Button variant='outlined' onClick={handleDownloadButtonClick}>
-                                    <FileDownloadIcon />
+                                <Button variant='outlined' onClick={handleDownloadButtonClick} className='space-x-2'>
+                                    <p>Download</p>
+                                    <CloudDownloadIcon />
                                 </Button>
                             </div>
                         </div>
@@ -342,7 +344,6 @@ function FeatureDrill() {
                                 </IconButton>
                             </div>
                             <div className='space-y-4 p-4'>
-
                                 <FormControl fullWidth>
                                     <InputLabel>Ward</InputLabel>
                                     <Select
@@ -404,7 +405,7 @@ function FeatureDrill() {
                                     >
                                         <MenuItem value={"any"}>Any</MenuItem>
                                         <MenuItem value={"good"}>Good</MenuItem>
-                                        <MenuItem value={"acceptable"}>Acceptable</MenuItem>
+                                        <MenuItem value={"acceptable"}>Manageable</MenuItem>
                                         <MenuItem value={"poor"}>Poor</MenuItem>
                                     </Select>
                                 </FormControl>
