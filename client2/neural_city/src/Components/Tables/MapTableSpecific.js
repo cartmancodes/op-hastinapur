@@ -23,8 +23,8 @@ function sortingLogic(dataToShow, sortScore, sortDate) {
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
-        backgroundColor: '#808080',
-        color: theme.palette.common.white,
+        backgroundColor: '#DBEAFE',
+        color: '#2563EB',
         // fontWeight: 'bold',
     },
     [`&.${tableCellClasses.body}`]: {
