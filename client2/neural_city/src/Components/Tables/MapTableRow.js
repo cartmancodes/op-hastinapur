@@ -4,14 +4,36 @@ import {
     , Modal, Box, TextField, FormControl, InputLabel, MenuItem, Select,
 
 } from '@mui/material'
+import { tableCellClasses } from '@mui/material/TableCell';
+import { styled } from '@mui/material/styles';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import CloseIcon from '@mui/icons-material/Close';
-import ReactImageZoom from 'react-image-zoom'
 import ImageModal from '../Modals/ImageModal';
 import FormModal from '../Modals/FormModal';
 import { useFormik } from 'formik';
 import {toast} from 'react-toastify'
+import CollectionsIcon from '@mui/icons-material/Collections';
 
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+        backgroundColor: theme.palette.common.black,
+        color: theme.palette.common.white,
+        fontWeight: 'bold',
+    },
+    [`&.${tableCellClasses.body}`]: {
+        fontSize: 14,
+    },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+    '&:nth-of-type(odd)': {
+        backgroundColor: theme.palette.action.hover,
+    },
+    // hide last border
+    '&:last-child td, &:last-child th': {
+        border: 0,
+    },
+}));
 function DataGridRow(props) {
     // States
     const [openFormModal, setOpenFormModal] = useState(false);
@@ -59,24 +81,24 @@ function DataGridRow(props) {
     let row = props.row;
     return (
         <>
-            <TableRow hover role="checkbox" tabIndex={-1}>
-                <TableCell align='center'>{props.idx + 1}</TableCell>
-                <TableCell align='center'>{row.ward}</TableCell>
-                <TableCell align='center'>{row.score}</TableCell>
-                <TableCell align='center'>{row.date}</TableCell>
-                <TableCell align='center'>
+            <StyledTableRow hover role="checkbox" tabIndex={-1}>
+                <StyledTableCell align='center'>{props.idx + 1}</StyledTableCell>
+                <StyledTableCell align='center'>{row.ward}</StyledTableCell>
+                <StyledTableCell align='center'>{row.score}</StyledTableCell>
+                <StyledTableCell align='center'>{row.date}</StyledTableCell>
+                <StyledTableCell align='center'>
                     <IconButton color='primary' onClick={() => setOpenVideoModal(true)}>
-                        <RemoveRedEyeIcon />
+                        <CollectionsIcon />
                     </IconButton>
-                </TableCell>
-                <TableCell align='center'>
-                    <Button variant='contained' onClick={handleFormModalOpen}>Inform Authority</Button>
-                </TableCell>
-            </TableRow>
+                </StyledTableCell>
+                <StyledTableCell align='center'>
+                    <Button color='primary' variant='contained' onClick={handleFormModalOpen}>Send Alert</Button>
+                </StyledTableCell>
+            </StyledTableRow>
             <FormModal
                 open={openFormModal}
                 handleClose={handleFormModalClose}
-                heading={`Inform Authority`}
+                heading={`Send Alert`}
             >
                 <form className='space-y-2 flex flex-col' onSubmit={formik.handleSubmit}>
                     <TextField

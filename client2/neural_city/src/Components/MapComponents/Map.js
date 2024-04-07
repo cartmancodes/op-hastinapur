@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { MapContainer, Polygon, TileLayer } from 'react-leaflet'
+import { MapContainer, TileLayer } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css';
 import { Box, FormControl, Select, MenuItem } from '@mui/material'
 import "./mapstyle.css";
@@ -7,7 +7,6 @@ import { wardDivision } from './wardDivisionData';
 import { getSelectedWardBoundary, calculateZoom, getWardsWithName, getMaskedBoundary, getFilteredGeoJSON } from '../../utils/MapUtils';
 import { isMobile } from 'react-device-detect';
 import ImageModal from '../Modals/ImageModal';
-import L from 'leaflet'
 import { avgData } from '../../mockData/MapData';
 import { getColRep } from '../../utils/MapUtils';
 import WardPolygon from './ui/WardPolygon';
@@ -142,7 +141,7 @@ function MapComponent() {
 									>
 										<MenuItem value={"any"}>Score</MenuItem>
 										<MenuItem value={"poor"}>Poor</MenuItem>
-										<MenuItem value={"managable"}>Managable</MenuItem>
+										<MenuItem value={"managable"}>Manageable</MenuItem>
 										<MenuItem value={"good"}>Good</MenuItem>
 									</Select>
 								</FormControl>

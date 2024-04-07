@@ -1,7 +1,4 @@
 import * as React from 'react';
-import Modal from '@mui/material/Modal';
-import {IconButton} from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
 import SubScoreTable from '../Tables/SubScoreTable';
 import { useState } from 'react';
 import InfoButton from '../ui/InfoButton';
@@ -40,7 +37,7 @@ function IndividualScoreCard({ score,parameter }) {
                         setScores(score.acceptable.params);
                         handleOpen();
                     }} className='text-lg font-bold text-blue-500 cursor-pointer hover:text-blue-900'>{score.acceptable.total}</p>
-                    <p className='text-gray-400'>Managable</p>
+                    <p className='text-gray-400'>Manageable</p>
                 </div>
                 <div className='flex flex-col items-center justify-center  p-2 w-[33%]'>
                     <p onClick={() => {
@@ -56,9 +53,7 @@ function IndividualScoreCard({ score,parameter }) {
                     handleClose={handleClose}
                     heading={`${parameter}`}
                 >
-                    
-                        <SubScoreTable scores={scores}/>
-                    
+                    <SubScoreTable scores={scores}/>
                 </FormModal>
             </div>
         </div>

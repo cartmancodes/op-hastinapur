@@ -2,12 +2,16 @@ import React from 'react'
 import { Marker } from 'react-leaflet';
 import { Popup } from 'react-leaflet';
 
-function MapMarker({pos,handleOpen}) {
+function MapMarker({ pos, handleOpen }) {
   return (
     <Marker position={[pos.latitude, pos.longitude]}
       eventHandlers={{
         mouseover: (event) => event.target.openPopup(),
-        // mouseout: (event) => event.target.closePopup()
+        mouseout: (event) => {
+          setTimeout(() => {
+            event.target.closePopup()
+          }, 1000);
+        }
       }}>
       <Popup>
         <p>Latitude:- {pos.latitude}</p>
