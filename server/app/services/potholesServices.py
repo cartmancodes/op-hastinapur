@@ -7,7 +7,7 @@ from typing import List
 async def get_all_potholes():
     data = await db.get_all("potholes")
     output_records = []
-    async for record in data:
+    for record in data:
         output_records.append(PotholesImages(**record, id=record["_id"]))
     return output_records
 
