@@ -4,7 +4,12 @@ Primary Database module for the application
 from typing import Any, List, Optional
 from bson import ObjectId
 from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorDatabase
+from beanie import init_beanie
 import json
+from app.model.city import City
+from app.model.ward import Ward
+
+from app.model.workflow import Workflow
 
 # MONGODB_URL = "db"
 MONGODB_URL = "mongodb://localhost:27017"
@@ -21,6 +26,8 @@ class Database:
         self.connection = AsyncIOMotorClient(MONGODB_URL, maxPoolsize=MAX_CONNECTIONS,
             minPoolSize=MIN_CONNECTIONS)
         self.database = self.connection.db
+        # Initialize beanie with the Product document class
+        await init_beanie(database=self.database, document_models=[Workflow, Ward, City])
 
     async def insert(self, record, collection: str):
         """Insert single record object in the collection

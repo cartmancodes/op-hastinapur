@@ -4,8 +4,8 @@ import uvicorn
 import logging
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.services.potholesServices import get_all_potholes,write_bulk_potholes,write_one_pothole
-from app.model.potholesModel import PotholesImages
+from app.services.potholes import get_all_potholes,write_bulk_potholes,write_one_pothole
+from app.model.potholes import PotholesImages
 # Import services and DB connections here 
 from app.db.connections import db
 import pandas as pd

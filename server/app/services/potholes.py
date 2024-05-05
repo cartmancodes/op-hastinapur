@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from app.db.connections import db
-from app.model.potholesModel import PotholesImages
+from app.model.potholes import PotholesImages
 from typing import List
 
 

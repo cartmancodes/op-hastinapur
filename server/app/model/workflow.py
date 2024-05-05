@@ -1,15 +1,16 @@
-from bson import ObjectId
-from typing import List, Optional
-from app.model.pyobject import PyObjectId
+from datetime import datetime
+from typing import Optional
+from pydantic import BaseModel
+from beanie import Document, Link
 
+class Workflow(Document):
+    longitude: int
+    latitude: int
+    status: Optional[str]
+    date: Optional[datetime]
+    category: str
+    issue: str
+    description: Optional[str]
 
-class Workflow:
-    id: Optional[PyObjectId] = None
-    def __init__(self, longitude, latitude):
-        self.longitude = longitude
-        self.latitude = latitude
-        self.status  = "pending"
-
-    class Config:
-        arbitrary_types_allowed = True
-        json_encoders = {PyObjectId: str}
+    class Settings:
+        is_root = True
