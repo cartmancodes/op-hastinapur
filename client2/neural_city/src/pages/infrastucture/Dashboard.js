@@ -8,6 +8,7 @@ import LocationCityIcon from '@mui/icons-material/LocationCity';
 import InsightsIcon from '@mui/icons-material/Insights';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import {ToastContainer} from 'react-toastify';
+import QueryStatsIcon from '@mui/icons-material/QueryStats';
 
 let navitems = [
     {
@@ -39,7 +40,14 @@ let sidebaritems = [
         title: "Feature Drill",
         path_link: "/infra/monitoring/featuredrill",
         curr_path: "featuredrill"
+    },
+    {
+        icon: <QueryStatsIcon/>,
+        title: "Level Division",
+        path_link: "/infra/monitoring/drillmore",
+        curr_path: "drillmore"
     }
+
 ]
 function Dashboard() {
     return (
