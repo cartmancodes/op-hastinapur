@@ -7,5 +7,5 @@ class City(Document):
     name: str
     state: str
     country: str
-    wards: Optional[List[Link[Ward]]]
+    wards: Optional[List[Link[Ward]]] = None
     

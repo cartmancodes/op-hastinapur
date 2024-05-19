@@ -2,13 +2,10 @@
 Primary Database module for the application
 """
 from typing import Any, List, Optional
-from bson import ObjectId
 from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorDatabase
 from beanie import init_beanie
-import json
 from app.model.city import City
 from app.model.ward import Ward
-
 from app.model.workflow import Workflow
 
 # MONGODB_URL = "db"
@@ -28,7 +25,21 @@ class Database:
         self.database = self.connection.db
         # Initialize beanie with the Product document class
         await init_beanie(database=self.database, document_models=[Workflow, Ward, City])
+    
+    async def start_transaction(self):
+        """Start a new transaction."""
+        session = self.connection.start_session()
+        return session.start_transaction()
 
+    async def commit_transaction(self, session):
+        """Commit the transaction."""
+        await session.commit_transaction()
+
+    async def abort_transaction(self, session):
+        """Abort the transaction."""
+        await session.abort_transaction()
+
+    
     async def insert(self, record, collection: str):
         """Insert single record object in the collection
         Args:

@@ -18,4 +18,4 @@ RUN pip install -r requirements.txt
 EXPOSE 5000
 
 # Run command
-CMD gunicorn -w 4 -k uvicorn.workers.UvicornWorker app.gateway:app -b 0.0.0.0:5000 --log-config logger.ini
+CMD gunicorn -w 4 -k uvicorn.workers.UvicornWorker --timeout 120 app.gateway:app -b 0.0.0.0:5000 --log-config logger.ini

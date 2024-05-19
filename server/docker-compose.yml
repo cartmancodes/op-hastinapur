@@ -1,13 +1,15 @@
-version: '3'
+version: '3.8'
 
 services:
   db:
     image: mongo
-  web_app:
-    build:
-      dockerfile: Dockerfile
-      context: .
-    depends_on:
-      - db
     ports:
-      - "5000:5000"
+      - "27017:27017"
+  # web_app:
+  #   build:
+  #     dockerfile: Dockerfile
+  #     context: .
+  #   depends_on:
+  #     - db
+  #   ports:
+  #     - "5000:5000"

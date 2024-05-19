@@ -10,7 +10,8 @@ class Workflow(Document):
     date: Optional[datetime]
     category: str
     issue: str
-    description: Optional[str]
+    media_url: Optional[str] = None
+    description: Optional[str] = None
 
     class Settings:
         is_root = True
