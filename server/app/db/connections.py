@@ -1,12 +1,15 @@
 """
 Primary Database module for the application
 """
-from typing import List, Optional
-from bson import ObjectId
+from typing import Any, List, Optional
 from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorDatabase
-import json
+from beanie import init_beanie
+from app.model.city import City
+from app.model.ward import Ward
+from app.model.workflow import Workflow
 
-MONGODB_URL = "db"
+# MONGODB_URL = "db"
+MONGODB_URL = "mongodb://localhost:27017"
 MIN_CONNECTIONS = 1
 MAX_CONNECTIONS = 5
 
@@ -19,12 +22,28 @@ class Database:
     async def init_dbi(self) -> None:
         self.connection = AsyncIOMotorClient(MONGODB_URL, maxPoolsize=MAX_CONNECTIONS,
             minPoolSize=MIN_CONNECTIONS)
-        self.database = self.connection.qube
+        self.database = self.connection.db
+        # Initialize beanie with the Product document class
+        await init_beanie(database=self.database, document_models=[Workflow, Ward, City])
+    
+    async def start_transaction(self):
+        """Start a new transaction."""
+        session = self.connection.start_session()
+        return session.start_transaction()
 
+    async def commit_transaction(self, session):
+        """Commit the transaction."""
+        await session.commit_transaction()
+
+    async def abort_transaction(self, session):
+        """Abort the transaction."""
+        await session.abort_transaction()
+
+    
     async def insert(self, record, collection: str):
         """Insert single record object in the collection
         Args:
-            record : Generic object to e inserted
+            record : Generic object to be inserted
             collection (str): Name of the collection
         Returns:
             record: Return input record for confirming successful insertion.
@@ -32,7 +51,6 @@ class Database:
         db_record = await self.database[collection].insert_one(record) 
         return db_record
     
-    # .dict(exclude={'id'})
 
     async def bulk_insert(self, records, collection: str):
         return await self.database[collection].insert_many(records)
@@ -47,9 +65,7 @@ class Database:
 
         query = {key: value}
         db_records = self.database[collection].find(query)
-        # output_records = []
-        # async for record in db_records:
-        #     output_records.append(ModelInDB(**record, id=record["_id"]))
+        output_records = await db_records.to_list(length=None)
         return output_records
 
 
@@ -61,10 +77,8 @@ class Database:
             List of all objects in the collection
         """
         db_records = self.database[collection].find()
-        output_records = []
-        # async for record in db_records:
-        #     output_records.append(ModelInDB(**record, id=record["_id"]))
-        return db_records
+        output_records = await db_records.to_list(length=None)
+        return output_records
         
     async def close_dbi(self) -> None:
         self.connection.close()
