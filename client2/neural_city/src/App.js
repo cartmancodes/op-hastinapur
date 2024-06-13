@@ -22,6 +22,7 @@ import RequestData from "./Components/Forms/RequestData";
 import Loader from "./Components/Global/Loader";
 import ServiceMoniter from "./pages/services/ServiceMoniter";
 import { ToastContainer } from 'react-toastify';
+import DrillMore from "./pages/infrastucture/DrillMore";
 
 function App() {
   useEffect(() => {
@@ -59,6 +60,7 @@ function App() {
           <Route path="monitoring" element={<Monitering />} >
             <Route path="" element={<DashBoardHome />} />
             <Route path="featuredrill" element={<SustainabilityPage />} />
+            <Route path="drillmore" element={<DrillMore/>}/>
           </Route>
           <Route path="intiateaction" element={<IntiateAction></IntiateAction>} />
           <Route path="planning" element={<Planning />} />
