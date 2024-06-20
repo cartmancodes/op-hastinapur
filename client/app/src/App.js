@@ -3,9 +3,14 @@ import { Routes, Route } from "react-router-dom";
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/dashboard";
-import Team from "./scenes/team";
-import Invoices from "./scenes/invoices";
-import Contacts from "./scenes/contacts";
+import Garbage from "./scenes/garbage";
+import Graffiti from "./scenes/graffiti";
+import Potholes from "./scenes/potholes";
+import Sidewalk from "./scenes/sidewalk";
+import Construction from "./scenes/construction";
+import Sand from "./scenes/sand";
+import Billboard from "./scenes/billboard";
+import Facade from "./scenes/facade";
 import Bar from "./scenes/bar";
 import Form from "./scenes/form";
 import Line from "./scenes/line";
@@ -30,9 +35,14 @@ function App() {
             <Topbar setIsSidebar={setIsSidebar} />
             <Routes>
               <Route path="/" element={<Dashboard />} />
-              <Route path="/team" element={<Team />} />
-              <Route path="/contacts" element={<Contacts />} />
-              <Route path="/invoices" element={<Invoices />} />
+              <Route path="/garbage" element={<Garbage />} />
+              <Route path="/potholes" element={<Potholes />} />
+              <Route path="/graffiti" element={<Graffiti />} />
+              <Route path="/sidewalk" element={<Sidewalk />} />
+              <Route path="/construction" element={<Construction />} />
+              <Route path="/sand" element={<Sand />} />
+              <Route path="/billboard" element={<Billboard />} />
+              <Route path="/facade" element={<Facade />} />
               <Route path="/form" element={<Form />} />
               <Route path="/bar" element={<Bar />} />
               <Route path="/pie" element={<Pie />} />
