@@ -13,6 +13,17 @@ class WardInsertRequest(BaseModel):
     public_space_utilization: float = Field(default = 0)
     road_score: float = Field(default = 0)
     polygon_points: List[Point]
+    x_centroid: Optional[float]
+    y_centroid: Optional[float]
+    area: Optional[float]
+
+class WardUpdateRequest(BaseModel):
+    name: Optional[str] = None
+    ward_number: Optional[int] = None
+    polygon_points: Optional[List[Point]] = None
+    x_centroid: Optional[float] = None
+    y_centroid: Optional[float] = None
+    area: Optional[float] = None
 
 class SingleWardInsertRequest(WardInsertRequest):
     city_id: PydanticObjectId

@@ -9,11 +9,15 @@ from app.db.connections import db
 from app.routes.ward import wardRouter
 from app.routes.city import cityRouter
 from app.routes.workflows import workflowRouter
+from app.routes.user import auth_router
+from app.middlewares.role_based_access import user_access,admin_access
+
 """Setting up application context"""
 app = FastAPI()
 app.include_router(wardRouter)
 app.include_router(cityRouter)
 app.include_router(workflowRouter)
+app.include_router(auth_router)
 # global logger = logging.getLogger(__name__)
 
 @app.on_event("startup")
@@ -32,6 +36,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# app.middleware("http")(admin_access)
+# app.middleware("http")(user_access)
+
 """Root Page"""
 @app.get("/")
 def home():
@@ -46,4 +54,4 @@ def home():
 """Main method call"""
 if __name__ == "__main__":
     logging.config.fileConfig(fname='logger.ini')
-    uvicorn.run(app, host="0.0.0.0", port=5000)
+    uvicorn.run(app, host="0.0.0.0", port=8000)

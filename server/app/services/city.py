@@ -1,4 +1,4 @@
-from app.dtos.city import CityInsertRequest
+from app.dtos.city import CityInsertRequest,CityUpdateRequest
 from beanie import PydanticObjectId
 from app.model.city import City
 from app.dtos.reponse import InsertResponse
@@ -10,10 +10,20 @@ async def insert_city(request: CityInsertRequest):
         insert_object = request.dict()
         insert_object["wards"] = []
         city = await City.insert(City(**insert_object))
-        return InsertResponse(success=True,message="City has Been Inserted Successfully")
+        return InsertResponse(success=True,message="City has Been Inserted Successfully",id=city.id)
     except HTTPException as e:
         raise Exception(status_code=500,message="Internal Server Error Please Try Again Later")
 
+async def update_city(updateValues: CityUpdateRequest,city_id: PydanticObjectId):
+    try:
+        city = await City.find_one({"_id" : city_id})
+        if city is None:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail="City with this city is Not Found")
+        cityUpdatedValues = updateValues.dict(exclude_unset=True)
+        updated_city = await city.set(cityUpdatedValues)
+        return updated_city
+    except HTTPException as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,detail="There Might be Some Internal Problem")
 
 async def get_city(city_id: Optional[PydanticObjectId] = None):
     try:

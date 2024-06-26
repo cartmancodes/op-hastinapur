@@ -4,10 +4,10 @@ from pydantic import BaseModel
 from beanie import Document, Link
 
 class Workflow(Document):
-    longitude: int
-    latitude: int
+    longitude: float
+    latitude: float
     status: Optional[str]
-    date: Optional[datetime]
+    date: Optional[str]
     category: str
     issue: str
     media_url: Optional[str] = None

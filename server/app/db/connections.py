@@ -7,9 +7,11 @@ from beanie import init_beanie
 from app.model.city import City
 from app.model.ward import Ward
 from app.model.workflow import Workflow
+from app.model.user import User
+from pymongo import ASCENDING
 
-# MONGODB_URL = "db"
-MONGODB_URL = "mongodb://localhost:27017"
+MONGODB_URL = "db"
+# MONGODB_URL = "mongodb+srv://admin:KZoPQqB8uJORMpDP@cluster0.szrrnjb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 MIN_CONNECTIONS = 1
 MAX_CONNECTIONS = 5
 
@@ -24,7 +26,12 @@ class Database:
             minPoolSize=MIN_CONNECTIONS)
         self.database = self.connection.db
         # Initialize beanie with the Product document class
-        await init_beanie(database=self.database, document_models=[Workflow, Ward, City])
+        await init_beanie(database=self.database, document_models=[Workflow, Ward, City,User])
+        pymongo_collection = self.connection.db["City"]
+        await pymongo_collection.create_index(
+            [("city_id", ASCENDING), ("ward_number", ASCENDING)],
+            unique=True
+        )
     
     async def start_transaction(self):
         """Start a new transaction."""

@@ -1,18 +1,19 @@
-FROM python:3.7
+FROM python:3.11.9
 
 
 # set the working directory in the container to /app
-# WORKDIR /app
+WORKDIR /app
 
 # add the current directory to the container as /app
 # ADD . /app
 
 # Copy 
-COPY . /
+COPY ./requirements.txt /app/requirements.txt
 
 # execute pip command, pip install -r
 RUN pip install -r requirements.txt
 
+COPY . /app/
 
 # Expose Port
 EXPOSE 5000
