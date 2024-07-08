@@ -6,6 +6,9 @@ import useSignOut from 'react-auth-kit/hooks/useSignOut';
 import useIsAuthenticated from 'react-auth-kit/hooks/useIsAuthenticated'
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import useAuthUser from 'react-auth-kit/hooks/useAuthUser'
+import LogoutIcon from '@mui/icons-material/Logout';
+import { useState } from 'react';
 
 function Navbar() {
     const location = useLocation();
@@ -14,7 +17,13 @@ function Navbar() {
     const signOut = useSignOut();
     const isAuthenticated = useIsAuthenticated();
     const navigate = useNavigate();
-    console.log(isAuthenticated)
+    const authUser = useAuthUser();
+    const [profileMenuHidden,setProfileMenuHidden] = useState(true);
+    
+    const handleProfileMenuStateChange = () => {
+        setProfileMenuHidden((profileMenuHidden) => !profileMenuHidden);
+    }
+
     const activeStyle = 'hover:bg-gray-200 text-md hover:text-gray-700 text-gray-500 p-2 rounded-md';
     const unactiveStyle = "bg-gray-200 text-md text-gray-700 font-bold p-2 rounded-md"
     return (
@@ -24,7 +33,7 @@ function Navbar() {
                     <img src="/logo.png" className='w-[50px] h-[50px]' />
                 </div>
                 <div>
-                    <a className='p-2 text-gray-500 hover:bg-gray-200 rounded-sm' href="https://www.neuralcity.in/">About Us</a>
+                    <a className='p-2 text-black hover:text-blue-500 rounded-sm' href="https://www.neuralcity.in/">About Us</a>
                 </div>
             </div> :
                 <div className='p-2 w-full sm:p-2 border-b items-center justify-between flex bg-gray-100'>
@@ -45,10 +54,26 @@ function Navbar() {
                         </div>
                     </div>
                     <div>
-                        <Button onClick={() => {
-                            signOut();
-                            navigate("/login");
-                        }}>Logout</Button>
+                        <Avatar onClick = {handleProfileMenuStateChange} className='cursor-pointer'></Avatar>
+                        <div className={profileMenuHidden ? 'hidden' : 'bg-white p-4 w-[300px] shadow-md space-y-2 rounded-lg absolute top-[50px] right-[5px] z-[10002]'}>
+                            <div className='flex items-center space-x-4'>
+                                <Avatar sx={{ width: 50, height: 50,fontSize:30 }} src="/static/images/avatar/1.jpg" alt={authUser.email.toUpperCase()}></Avatar>
+                                <div>
+                                    <p className='text-lg font-semibold'>CityX Admin</p>
+                                    <p className='text-sm text-purple-900'>{authUser.email}</p>
+                                </div>
+                            </div>
+                            <div>
+                                <div onClick={() => {
+                                    signOut();
+                                    navigate("/login");
+                                }} className='w-full rounded-lg cursor-pointer text-gray-500 hover:bg-gray-200 flex p-2 items-center space-x-4'>
+                                    <span><LogoutIcon /></span>
+                                    <p>Sign Out</p>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             }
