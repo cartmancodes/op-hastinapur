@@ -11,7 +11,6 @@ class PartialModel(BaseModel):
     _id: PydanticObjectId
     polygon_points: List[pt]
 
-
 def point_in_polygon(point_coords,polygon_coords):
     polygon = Polygon(polygon_coords)
     point = Point(point_coords)

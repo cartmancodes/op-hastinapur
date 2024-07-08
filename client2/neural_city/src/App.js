@@ -22,8 +22,19 @@ import RequestData from "./Components/Forms/RequestData";
 import Loader from "./Components/Global/Loader";
 import ServiceMoniter from "./pages/services/ServiceMoniter";
 import { ToastContainer } from 'react-toastify';
+import LoginForm from "./pages/Login";
+import AuthProvider from 'react-auth-kit'
+import AuthOutlet from '@auth-kit/react-router/AuthOutlet'
+import createStore from 'react-auth-kit/createStore';
 
 function App() {
+  const store = createStore({
+    authName: '_auth',
+    authType: 'cookie',
+    cookieDomain: window.location.hostname,
+    cookieSecure: window.location.protocol === 'https:'
+  })
+
   useEffect(() => {
     const script = document.createElement('script');
     script.src = "https://cdn.rawgit.com/hayeswise/Leaflet.PointInPolygon/v1.0.0/wise-leaflet-pip.js";
@@ -50,32 +61,37 @@ function App() {
     setOpen(false);
   }
   return (
-    loading ? <Loader></Loader> : <React.Fragment>
+    <AuthProvider
+      store={store}
+    >
       <Navbar />
       <Routes>
-        <Route path="/" element={<Navigate to="/infra/monitoring"></Navigate>}></Route>
-        <Route path="/infra" element={<Dashboard />}>
-          <Route path="" element={<Navigate to='/infra/monitoring'></Navigate>} />
-          <Route path="monitoring" element={<Monitering />} >
-            <Route path="" element={<DashBoardHome />} />
-            <Route path="featuredrill" element={<SustainabilityPage />} />
+        <Route path="/login" element={<LoginForm />} />
+        <Route element={<AuthOutlet fallbackPath="/login"></AuthOutlet>}>
+          <Route path="/" element={<Navigate to="/infra/monitoring"></Navigate>}></Route>
+          <Route path="/infra" element={<Dashboard />}>
+            <Route path="" element={<Navigate to='/infra/monitoring'></Navigate>} />
+            <Route path="monitoring" element={<Monitering />} >
+              <Route path="" element={<DashBoardHome />} />
+              <Route path="featuredrill" element={<SustainabilityPage />} />
+            </Route>
+            <Route path="intiateaction" element={<IntiateAction></IntiateAction>} />
+            <Route path="planning" element={<Planning />} />
           </Route>
-          <Route path="intiateaction" element={<IntiateAction></IntiateAction>} />
-          <Route path="planning" element={<Planning />} />
-        </Route>
-        <Route path="/services" element={<Services />}>
-          <Route path="" element={<Navigate to='/services/monitoring'></Navigate>} />
-          <Route path="monitoring" element={<ServiceMoniter />}>
-            <Route path="" element={<ServicesHome />} />
-            <Route path="traffic" element={<Traffic />}></Route>
+          <Route path="/services" element={<Services />}>
+            <Route path="" element={<Navigate to='/services/monitoring'></Navigate>} />
+            <Route path="monitoring" element={<ServiceMoniter />}>
+              <Route path="" element={<ServicesHome />} />
+              <Route path="traffic" element={<Traffic />}></Route>
+            </Route>
           </Route>
-        </Route>
-        <Route path="/community" element={<Community />}>
-          <Route path="" element={<Navigate to='/community/group'></Navigate>} />
-          <Route path="group" element={<GroupsPage></GroupsPage>} />
-          <Route path="projects" element={<ProjectPage></ProjectPage>} />
-          <Route path="poll" element={<PollPage></PollPage>} />
-          <Route path="moniter_project" element={<MoniterProject></MoniterProject>} />
+          <Route path="/community" element={<Community />}>
+            <Route path="" element={<Navigate to='/community/group'></Navigate>} />
+            <Route path="group" element={<GroupsPage></GroupsPage>} />
+            <Route path="projects" element={<ProjectPage></ProjectPage>} />
+            <Route path="poll" element={<PollPage></PollPage>} />
+            <Route path="moniter_project" element={<MoniterProject></MoniterProject>} />
+          </Route>
         </Route>
       </Routes>
       <Footer />
@@ -88,7 +104,7 @@ function App() {
       <FormModal open={open} heading={`Request Data`} handleClose={handleClose}>
         <RequestData handleClose={handleClose}></RequestData>
       </FormModal>
-    </React.Fragment >
+    </AuthProvider>
   );
 }
 
