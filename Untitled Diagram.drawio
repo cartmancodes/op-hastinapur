@@ -267,7 +267,7 @@
             <mxPoint x="1290" y="220" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="4WXzgT_EGoFBkS3j9maR-117" value="Amazon EC2 services" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="4WXzgT_EGoFBkS3j9maR-117" value="Server cluster(Amazon EC2)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="1150" y="-400" width="60" height="30" as="geometry" />
         </mxCell>
       </root>
