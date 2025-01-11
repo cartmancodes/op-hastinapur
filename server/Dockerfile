@@ -2,13 +2,13 @@ FROM python:3.7
 
 
 # set the working directory in the container to /app
-# WORKDIR /app
+WORKDIR /app
 
 # add the current directory to the container as /app
 # ADD . /app
 
 # Copy 
-COPY . /
+COPY . .
 
 # execute pip command, pip install -r
 RUN pip install -r requirements.txt
