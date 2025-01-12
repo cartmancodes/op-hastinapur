@@ -32,4 +32,4 @@ jobs:
         # SSH into the EC2 instance and deploy
         ssh -o StrictHostKeyChecking=no -i ~/neural-city-backend.pem ubuntu@23.22.4.169 "
           cd /home/${{ secrets.EC2_USER }}/op-hastinapur-deploy &&
-          docker-compose up --build -d"
+          sudo docker-compose up --build -d"
