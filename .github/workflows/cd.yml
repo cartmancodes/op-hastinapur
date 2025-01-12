@@ -27,7 +27,7 @@ jobs:
 
         echo "Started copying"
 
-        scp -o StrictHostKeyChecking=no -i ~/neural-city-backend.pem -r ./server/* ubuntu@$23.22.4.169:/home/ubuntu/op-hastinapur-deploy/
+        scp -o StrictHostKeyChecking=no -i ~/neural-city-backend.pem -r ./server/* ubuntu@23.22.4.169:/home/ubuntu/op-hastinapur-deploy/
 
         # SSH into the EC2 instance and deploy
         # ssh -o StrictHostKeyChecking=no -i ~/neural-city-backend.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} "
