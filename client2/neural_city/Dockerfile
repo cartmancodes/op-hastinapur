@@ -15,7 +15,7 @@ COPY . .
 
 # Run the react app 
 RUN npm run build
-RUN echo "hello there"
+
 # stage 2 - build the final image and copy the react build files
 FROM --platform=linux/amd64 nginx
 COPY ./nginx/nginx.conf /etc/nginx/nginx.conf 
