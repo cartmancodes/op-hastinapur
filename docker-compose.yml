@@ -21,7 +21,7 @@ services:
       - DEBUG=True
     container_name: backend-app
 
-  # Frontend Serviceg
+  # Frontend Service
   frontend:
     build:
       context: ./client2/neural_city
