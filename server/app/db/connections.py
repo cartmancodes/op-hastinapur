@@ -8,8 +8,8 @@ from app.model.city import City
 from app.model.ward import Ward
 from app.model.workflow import Workflow
 
-# MONGODB_URL = "db"
-MONGODB_URL = "mongodb://localhost:27017"
+MONGODB_URL = "db"
+# MONGODB_URL = "mongodb://localhost:27017"
 MIN_CONNECTIONS = 1
 MAX_CONNECTIONS = 5
 

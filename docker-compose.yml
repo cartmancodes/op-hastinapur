@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  # MongoDB Database
+  db:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    container_name: mongo-db
+
+  # Backend Service
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    ports:
+      - "5000:5000"
+    environment:
+      - DEBUG=True
+    container_name: backend-app
+
+  # Frontend Service
+  frontend:
+    build:
+      context: ./client2/neural_city
+      dockerfile: Dockerfile
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+    container_name: frontend-app
