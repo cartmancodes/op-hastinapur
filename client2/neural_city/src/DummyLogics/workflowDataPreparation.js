@@ -72640,7 +72640,7 @@ for(let i=0;i<data.length;i++) {
                     "category": key,
                     "issue": subkey,
                     "score": score,
-                    "media_url": dat.image_name
+                    "media_url": dat.image_name,
                 }
 
                 data2.push(insertObj);

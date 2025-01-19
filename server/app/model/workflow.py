@@ -12,6 +12,7 @@ class Workflow(Document):
     issue: str
     media_url: Optional[str] = None
     description: Optional[str] = None
+    score: int
 
     class Settings:
         is_root = True

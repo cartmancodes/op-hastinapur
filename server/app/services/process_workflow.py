@@ -1,5 +1,4 @@
 from pydantic import BaseModel
-from shapely.geometry import Point, Polygon
 from beanie import PydanticObjectId
 from app.model.ward import Ward
 from fastapi import HTTPException,status

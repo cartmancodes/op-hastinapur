@@ -72,7 +72,7 @@ async def bulk_insert_wards(wards: BulkWardInsertRequest):
     except HTTPException as e:
         raise HTTPException(status_code=e.status_code,detail=e.detail)
 
-async def get_wards(ward_number: Optional[int],city_id: Optional[PydanticObjectId]):
+async def get_wards(ward_number: Optional[int],city_id: Optional[PydanticObjectId],depth:Optional[int]):
     try:
         if ward_number is not None:
             ward = await Ward.find_one({"_id": ward_number})
@@ -80,10 +80,10 @@ async def get_wards(ward_number: Optional[int],city_id: Optional[PydanticObjectI
                 raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail="Not Found")
             return ward
         elif city_id is not None:
-            city = await City.find_one({"_id" : city_id},fetch_links=True)
-            if city is None:
+            wards = await Ward.find({"city_id" : city_id},fetch_links=True).to_list()
+            if wards is None:
                 raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail="City with this Id is Not found")
-            return city.wards
+            return wards
         else:
             wards = await Ward.find().to_list()
             return wards

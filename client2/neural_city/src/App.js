@@ -26,6 +26,9 @@ import LoginForm from "./pages/Login";
 import AuthProvider from 'react-auth-kit'
 import AuthOutlet from '@auth-kit/react-router/AuthOutlet'
 import createStore from 'react-auth-kit/createStore';
+import CityLogin from "./pages/CityLogin";
+import { CityContext } from "./Context/CityContext";
+import Cookies from 'js-cookie';
 
 function App() {
   const store = createStore({
@@ -34,6 +37,7 @@ function App() {
     cookieDomain: window.location.hostname,
     cookieSecure: window.location.protocol === 'https:'
   })
+
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -45,8 +49,12 @@ function App() {
       document.body.removeChild(script);
     }
   }, []);
+
+
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [current_city, setCurrentCity] = useState(Cookies.get('curr_city'));
+
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
@@ -61,50 +69,64 @@ function App() {
     setOpen(false);
   }
   return (
-    <AuthProvider
-      store={store}
-    >
-      <Navbar />
-      <Routes>
-        <Route path="/login" element={<LoginForm />} />
-        <Route element={<AuthOutlet fallbackPath="/login"></AuthOutlet>}>
-          <Route path="/" element={<Navigate to="/infra/monitoring"></Navigate>}></Route>
-          <Route path="/infra" element={<Dashboard />}>
-            <Route path="" element={<Navigate to='/infra/monitoring'></Navigate>} />
-            <Route path="monitoring" element={<Monitering />} >
-              <Route path="" element={<DashBoardHome />} />
-              <Route path="featuredrill" element={<SustainabilityPage />} />
+    <CityContext.Provider value={{ current_city: current_city, setCurrentCity: setCurrentCity }}>
+      <AuthProvider
+        store={store}
+      >
+        <Navbar />
+        <Routes>
+          <Route path="/login" element={<LoginForm />} />
+          <Route element={<AuthOutlet fallbackPath="/login"></AuthOutlet>}>
+            <Route path="/" element={<CityLogin></CityLogin>}></Route>
+            <Route path="/infra" element={<Dashboard />}>
+              <Route path="" element={<Navigate to='/infra/monitoring'></Navigate>} />
+              <Route path="monitoring" element={<Monitering />} >
+                <Route path="" element={<DashBoardHome />} />
+                <Route path="featuredrill" element={<SustainabilityPage />} />
+              </Route>
+              <Route path="intiateaction" element={<IntiateAction></IntiateAction>} />
+              <Route path="planning" element={<Planning />} />
             </Route>
-            <Route path="intiateaction" element={<IntiateAction></IntiateAction>} />
-            <Route path="planning" element={<Planning />} />
-          </Route>
-          <Route path="/services" element={<Services />}>
-            <Route path="" element={<Navigate to='/services/monitoring'></Navigate>} />
-            <Route path="monitoring" element={<ServiceMoniter />}>
-              <Route path="" element={<ServicesHome />} />
-              <Route path="traffic" element={<Traffic />}></Route>
+            <Route path="/services" element={<Services />}>
+              <Route path="" element={<Navigate to='/services/monitoring'></Navigate>} />
+              <Route path="monitoring" element={<ServiceMoniter />}>
+                <Route path="" element={<ServicesHome />} />
+                <Route path="traffic" element={<Traffic />}></Route>
+              </Route>
+            </Route>
+            <Route path="/community" element={<Community />}>
+              <Route path="" element={<Navigate to='/community/group'></Navigate>} />
+              <Route path="group" element={<GroupsPage></GroupsPage>} />
+              <Route path="projects" element={<ProjectPage></ProjectPage>} />
+              <Route path="poll" element={<PollPage></PollPage>} />
+              <Route path="moniter_project" element={<MoniterProject></MoniterProject>} />
             </Route>
           </Route>
-          <Route path="/community" element={<Community />}>
-            <Route path="" element={<Navigate to='/community/group'></Navigate>} />
-            <Route path="group" element={<GroupsPage></GroupsPage>} />
-            <Route path="projects" element={<ProjectPage></ProjectPage>} />
-            <Route path="poll" element={<PollPage></PollPage>} />
-            <Route path="moniter_project" element={<MoniterProject></MoniterProject>} />
-          </Route>
-        </Route>
-      </Routes>
-      <Footer />
-      <div class="fixed z-[1001] bottom-1 right-1 md:bottom-10 md:right-4">
-        <button onClick={handleOpen} class="bg-blue-500 hover:bg-blue-600 text-white rounded-full py-3 px-4 md:shadow-lg">
-          Request Data
-        </button>
-      </div>
+        </Routes>
+        <Footer />
+        <div class="fixed z-[1001] bottom-1 right-1 md:bottom-10 md:right-4">
+          <button onClick={handleOpen} class="bg-blue-500 hover:bg-blue-600 text-white rounded-full py-3 px-4 md:shadow-lg">
+            Request Data
+          </button>
+        </div>
 
-      <FormModal open={open} heading={`Request Data`} handleClose={handleClose}>
-        <RequestData handleClose={handleClose}></RequestData>
-      </FormModal>
-    </AuthProvider>
+        <FormModal open={open} heading={`Request Data`} handleClose={handleClose}>
+          <RequestData handleClose={handleClose}></RequestData>
+        </FormModal>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
+      </AuthProvider>
+    </CityContext.Provider>
   );
 }
 

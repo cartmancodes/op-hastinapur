@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from typing import Optional
-
+from app.model.user import User
 
 class CityInsertRequest(BaseModel):
     name: str

@@ -35,7 +35,12 @@ const LoginForm = () => {
                 token: data.access_token,
                 type: 'Bearer',
               },
-              userState: { email: values.email },
+              userState: { 
+                email: values.email,
+                user_id: data.id,
+                fullName: data.fullName,
+                cities: data.cities
+              },
             })) {
               toast.success('Login successful!');
               navigate('/'); // Redirect to protected route
@@ -58,7 +63,7 @@ const LoginForm = () => {
 
   return (
     <div className='min-h-[90vh] w-full flex items-center justify-center'>
-      <form onSubmit={formik.handleSubmit} className="space-y-4 p-6 w-[40%] mx-auto bg-white rounded-md shadow-md">
+      <form onSubmit={formik.handleSubmit} className="space-y-4 p-6 md:w-[40%] sm:w-[80%] w-[98%] mx-auto bg-white rounded-md shadow-md">
         <div className='w-full flex flex-col space-y-2 items-center justify-center'>
           <div>
             <img src="/logo.png" className='w-[50px] h-[50px]' />

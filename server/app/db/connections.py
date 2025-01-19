@@ -11,6 +11,7 @@ from app.model.user import User
 from pymongo import ASCENDING
 
 MONGODB_URL = "db"
+MONGODB_URL = "mongodb://localhost:27017/"
 # MONGODB_URL = "mongodb+srv://admin:KZoPQqB8uJORMpDP@cluster0.szrrnjb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 MIN_CONNECTIONS = 1
 MAX_CONNECTIONS = 5

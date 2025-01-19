@@ -1,3 +1,4 @@
+from typing import List
 from fastapi import APIRouter,Query,Body,Depends
 from app.dtos.workflow import SingleWorkFlowInsertRequest,BulkWorkFlowInsertRequest,WorkFlowUpdateRequest
 from app.services.workflows import insert_workflow,get_workflows,bulk_insert_workflow,update_workflow
@@ -19,8 +20,12 @@ async def insert_bulk_workflow_router(request:BulkWorkFlowInsertRequest):
 @workflowRouter.get("/",dependencies=[Depends(user_access)])
 async def get_workflow_route(
         ward_id: PydanticObjectId = Query(None,description="Ward id is Optional Parameter"),      
-        city_id: PydanticObjectId = Query(None,description="City Id is Optional Parameter")):
-    res = await get_workflows(ward_id=ward_id,city_id=city_id)
+        city_id: PydanticObjectId = Query(None,description="City Id is Optional Parameter"),
+        parameter: str = Query(None,description="Parameter is Optional Parameter"),
+        sub_parameter: str = Query(None,description="Sub Parameter is an Optional Parameter"),
+        score: str = Query(None,description="Score is Optional Parameter")
+        ):
+    res = await get_workflows(ward_id=ward_id,city_id=city_id,parameter=parameter,sub_parameter=sub_parameter,score=score)
     return res
 
 @workflowRouter.patch("/",dependencies=[Depends(user_access)])

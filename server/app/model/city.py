@@ -13,4 +13,5 @@ class City(Document):
     public_space_utilization: Optional[float]
     road_score: Optional[float]
     wards: Optional[List[Link[Ward]]] = None
+
     

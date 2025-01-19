@@ -12,6 +12,7 @@ class WorkflowInsertRequest(BaseModel):
     issue: str
     media_url: Optional[str] = None
     description: Optional[str] = None
+    score: int
 
 class WorkFlowUpdateRequest(BaseModel):
     status: Optional[str] = None
@@ -20,6 +21,7 @@ class WorkFlowUpdateRequest(BaseModel):
     issue: Optional[str] = None
     media_url: Optional[str] = None
     description: Optional[str] = None
+    score: int
 
 class SingleWorkFlowInsertRequest(WorkflowInsertRequest):
     ward_id: PydanticObjectId

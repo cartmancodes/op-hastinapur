@@ -1,19 +1,19 @@
 version: '3.8'
 services:
   db:
-    image: mongo
+    image: mongo:latest
     ports:
       - "27017:27017"
     volumes:
     - mongodata:/data/db
-  web_app:
-    # image: app:latest
-    build:
-      dockerfile: Dockerfile
-      context: .
-    depends_on:
-      - db
-    ports:
-      - "5000:5000"
+  # web_app:
+  #   # image: app:latest
+  #   build:
+  #     dockerfile: Dockerfile
+  #     context: .
+  #   depends_on:
+  #     - db
+  #   ports:
+  #     - "5000:5000"
 volumes:
   mongodata:

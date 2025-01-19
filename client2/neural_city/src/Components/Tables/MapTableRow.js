@@ -136,7 +136,7 @@ function DataGridRow(props) {
 
             </FormModal>
 
-            <ImageModal open={openVideoModal} handleClose={handleVideoModalClose} imgsrc={`/images/${row.file_name}`} />
+            <ImageModal open={openVideoModal} handleClose={handleVideoModalClose} imgsrc={`/images/${row.media_url}`} />
         </>
 
     )

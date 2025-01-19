@@ -10,6 +10,34 @@ from app.db.connections import db
 from app.dtos.workflow import SingleWorkFlowInsertRequest,BulkWorkFlowInsertRequest,WorkFlowUpdateRequest
 from app.services.process_workflow import annotateBulkDataWithWardId
 
+
+def filterByParamAndSubParam(workflows,parameter,sub_parameter):
+    if parameter is not None and sub_parameter is not None:
+            new_workflows = list(filter(lambda workflow: workflow.category == parameter and workflow.issue == sub_parameter,workflows))
+            print(new_workflows)
+            return new_workflows
+    elif parameter is not None:
+        new_workflows = list(filter(lambda workflow: workflow.category == parameter,workflows))
+        print(new_workflows)
+        return new_workflows
+    else: 
+        return workflows
+    
+def filterByScore(workflows,score):
+    if(score is None):
+        return workflows
+    if(score == "good"):
+        new_workflows = list(filter(lambda workflow: workflow.score > 50,workflows))
+        return new_workflows
+    elif(score == "manageable"):
+        new_workflows = list(filter(lambda workflow: workflow.score >= 35 and workflow.score < 50,workflows))
+        return new_workflows
+    elif(score == "poor"):
+        new_workflows = list(filter(lambda workflow: workflow.score < 35,workflows))
+        return new_workflows
+    else:
+        return workflows
+
 async def update_workflow(workflow_id: PydanticObjectId,updateValues:WorkFlowUpdateRequest):
     try:
         workflow = await Workflow.get(workflow_id)
@@ -76,17 +104,25 @@ async def bulk_insert_in_a_ward(ward_id: PydanticObjectId,workflows: List[Insert
     except HTTPException as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,detail="Internal Server Error")
 
-async def get_workflows(city_id:Optional[PydanticObjectId],ward_id:Optional[PydanticObjectId]):
+async def get_workflows(
+        city_id:Optional[PydanticObjectId],ward_id:Optional[PydanticObjectId],
+        parameter: Optional[str],sub_parameter: Optional[str],score=Optional[str]
+    ):
     if ward_id is not None:
         ward = await Ward.find_one({"_id" : ward_id},fetch_links=True)
         if ward is None:
             raise Exception(status_code=status.HTTP_404_NOT_FOUND,message="Ward with this ward is not found")
-        return ward
+        workflow_filtered_by_param = filterByParamAndSubParam(workflows=ward.workflows,parameter=parameter,sub_parameter=sub_parameter)
+        print(score)
+        workflow_filter_by_score = filterByScore(workflows=workflow_filtered_by_param,score=score)
+        return workflow_filter_by_score
     elif city_id is not None:
         city = await City.find_one({"_id": city_id},fetch_links=True)
         if city is None:
             raise Exception(status_code=status.HTTP_404_NOT_FOUND,message="City with this city id is not found")
         workflows = [ward.workflows for ward in city.wards]
-        return workflows
+        workflow_filtered_by_param = filterByParamAndSubParam(workflows=workflows,parameter=parameter,sub_parameter=sub_parameter)
+        workflow_filter_by_score = filterByScore(workflows=workflow_filtered_by_param,score=score)
+        return workflow_filter_by_score
     else:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,detail="Invalid Arguments")

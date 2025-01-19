@@ -12,7 +12,7 @@ function CourouselComponentMap({ datapoints }) {
                         datapoints.map((dat) => {
                             return (
                                 <div>
-                                    <img src={`/images/${dat.file_name}`}/>
+                                    <img src={`/images/${dat.media_url}`}/>
                                     <p className="legend">Legend 1</p>
                                 </div>
                             )

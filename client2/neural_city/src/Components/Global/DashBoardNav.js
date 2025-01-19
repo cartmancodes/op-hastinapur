@@ -8,11 +8,13 @@ import { DateRangePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 import CloseIcon from '@mui/icons-material/Close';
 
+
 function DashBoardNav({ items, include_date }) {
     const location = useLocation();
     const { pathname } = location;
     const paths = pathname.split("/");
     console.log(paths);
+    
     const [navHidden, setNavHidden] = useState(true); // Changed state variable name for clarity
     const [dateRange, setDateRange] = useState({
         startDate: null,

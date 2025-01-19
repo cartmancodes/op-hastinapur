@@ -60,7 +60,7 @@ function WardTableRow({ row, columns }) {
                 handleCorouselOpen={handleCorouselOpen}
                 ward_name={row.ward_name}
                 corouselOpen={corouselOpen}
-                datapoints = {row.dataPoints}
+                ward_id={row._id}
             />
         </StyledTableRow>
     )

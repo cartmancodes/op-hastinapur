@@ -19,6 +19,8 @@ function WardPolygon({ name, boundary, fillColor, mapData, setMapData, number })
 
         return () => clearTimeout(timeoutId);
     }, [debouncedCurrWard]);
+
+    console.log(boundary)
     return (
         <Polygon
             pathOptions={{ cursor: 'default' }}

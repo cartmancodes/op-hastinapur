@@ -18,10 +18,11 @@ def get_password_hash(password):
     return pwd_context.hash(password)
 
 async def authenticate_user(email: str, password: str):
-    user = await User.find_one(User.email == email)
-    if not user or not verify_password(password, user.hashed_password):
+    print(email + " " + password)
+    user = await User.find(User.email == email,fetch_links=True,nesting_depth=1).to_list()
+    if not user[0] or not verify_password(password, user[0].hashed_password):
         return False
-    return user
+    return user[0]
 
 def create_access_token(data: dict, expires_delta: timedelta = None):
     to_encode = data.copy()

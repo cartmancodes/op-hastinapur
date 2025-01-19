@@ -29,9 +29,14 @@ async def shut_down():
     await db.close_dbi()
 
 """Enable CORS"""
+origins = [
+    "http://localhost:3000",
+    # You can add more origins here as needed
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5000","http://localhost:3000"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -54,4 +59,4 @@ def home():
 """Main method call"""
 if __name__ == "__main__":
     logging.config.fileConfig(fname='logger.ini')
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=5000)

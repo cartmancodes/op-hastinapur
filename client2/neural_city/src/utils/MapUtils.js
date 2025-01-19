@@ -131,6 +131,9 @@ export const isMarkerInsidePolygon = function (marker, poly) {
 
 // Calculating the Average of all The Data
 export const calculateAverage = function (geojson) {
+    if(geojson.length === 0 || geojson === null) {
+        return 0;
+    }
     let scoreSum = 0;
     let totalCount = 0;
     geojson.map((sc) => {
@@ -143,9 +146,11 @@ export const calculateAverage = function (geojson) {
 
 // Getting The Representation of the Colors on Map
 export const getColRep = function (avg) {
-    if(avg === null || avg === undefined || Number.isNaN(avg) === true) {
+    console.log(avg);
+    if(avg === null || avg === undefined || Number.isNaN(avg) === true || avg === 0 ) {
         return '#ebf2fa';
     }
+    
     let colRep = avg < 35 ? '#DC2626' : avg < 70 ? '#2563EB' : '#65A30D';
     return colRep;
 }
@@ -182,19 +187,19 @@ export const getSelectedWardBoundary = (wardValue, wardDivision) => {
     if (wardValue === "any") {
         wardDivision.map((ward) => {
             let boundary = [];
-            ward.geometry.map((point) => {
-                boundary.push([point[1], point[0]]);
+            ward.polygon_points.map((point) => {
+                boundary.push([point.latitude, point.longitude]);
             });
-            selectedWardBoundary.push({boundary:boundary,scores:{...ward.scores}});
+            selectedWardBoundary.push({boundary:boundary,scores:{...ward}});
         });
     } else {
         wardDivision.map((ward) => {
-            if (wardValue === ward["Ward Numbe"]) {
+            if (wardValue === ward._id) {
                 let boundary = [];
-                ward.geometry.map((point) => {
-                    boundary.push([point[1], point[0]]);
+                ward.polygon_points.map((point) => {
+                    boundary.push([point.latitude, point.longitude]);
                 });
-                selectedWardBoundary.push({boundary:boundary,scores:{...ward.scores}});
+                selectedWardBoundary.push({boundary:boundary,scores:{...ward}});
             }
         });
     }
@@ -223,8 +228,8 @@ export const getMaskedBoundary = (wardDivision) => {
     ]
     wardDivision.map((ward) => {
         let boundary1 = [];
-        ward.geometry.map((point) => {
-            boundary1.push([point[1], point[0]]);
+        ward.polygon_points.map((point) => {
+            boundary1.push([point.latitude, point.longitude]);
         });
         allBoundary.push(boundary1);
     });
@@ -261,8 +266,8 @@ export const getCityBoundary = function(wardDivision) {
     const allBoundary = [];
     wardDivision.map((ward) => {
         let boundary1 = [];
-        ward.geometry.map((point) => {
-            boundary1.push([point[1], point[0]]);
+        ward.polygon_points.map((point) => {
+            boundary1.push([point.latitude, point.longitude]);
         });
         allBoundary.push(boundary1);
     });
