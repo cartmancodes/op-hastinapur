@@ -1,4 +1,4 @@
-FROM python:3.7
+FROM python:3.7-alpine
 
 
 # set the working directory in the container to /app
