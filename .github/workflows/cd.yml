@@ -1,0 +1,31 @@
+name: CD Pipeline
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Set Up SSH Key
+      shell: bash
+      run: |
+        echo "${{ secrets.EC2_KEY }}" > ~/neural-city-backend.pem
+        chmod 400 ~/neural-city-backend.pem
+
+    - name: Deploy Code
+      shell: bash
+      run: |
+        # Copy all project files to the EC2 instance
+        scp -o StrictHostKeyChecking=no -i ~/neural-city-backend.pem -r ./* ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/home/ubuntu/op-hastinapur-deploy/
+
+        # SSH into the EC2 instance and deploy
+        ssh -o StrictHostKeyChecking=no -i ~/neural-city-backend.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} "
+          cd /home/${{ secrets.EC2_USER }}/op-hastinapur-deploy &&
+          sudo docker-compose up --build -d"

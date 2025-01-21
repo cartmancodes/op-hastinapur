@@ -1,19 +1,17 @@
-FROM python:3.11.9
+FROM python:3.7-alpine
 
 
-# set the working directory in the container to /app
+# Set the working directory in the container to /app
 WORKDIR /app
 
 # add the current directory to the container as /app
 # ADD . /app
 
 # Copy 
-COPY ./requirements.txt /app/requirements.txt
+COPY . .
 
-# execute pip command, pip install -r
+# execute pip command, pip install -r, create a virtual env
 RUN pip install -r requirements.txt
-
-COPY . /app/
 
 # Expose Port
 EXPOSE 5000

@@ -7,6 +7,9 @@ h11==0.14.0
 idna==3.4
 lazy-model==0.2.0
 motor==3.4.0
+motor==3.0.0
+numpy==1.24.4
+pandas==2.0.3
 pydantic==1.10.2
 pymongo==4.5.0
 python-dateutil==2.8.2
@@ -24,3 +27,6 @@ python-jose
 python-multipart
 shapely
 geopandas
+typing-extensions==4.11.0
+tzdata==2024.1
+uvicorn==0.18.3
