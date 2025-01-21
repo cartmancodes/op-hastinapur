@@ -48,5 +48,3 @@ class Test(IsolatedAsyncioTestCase):
 
     async def asyncTearDown(self):
         await self._async_connection.close_dbi()
-
-
