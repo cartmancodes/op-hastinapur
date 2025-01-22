@@ -37,7 +37,7 @@ function getColor(curr_ward, parameter) {
 }
 
 
-function MapComponent() {
+function MapComponent({wards}) {
 	// States
 	const [scoreValue, setScoreValue] = useState("any");
 	const [loading, setLoading] = useState(false);
@@ -52,16 +52,15 @@ function MapComponent() {
 
 
 	// Input Handler Functions
-	let wards = getWardsWithName(wardDivision);
 	const handleWardChange = (e) => {
 		let wardValue = e.target.value;
 		let currPosition = [];
 		let currZoom = 11.5;
 		if (wardValue !== "any") {
-			wardDivision.map((ward) => {
-				if (wardValue === ward["Ward Numbe"]) {
-					currPosition = [ward['Y Centroid'], ward['X centroid']];
-					let area = ward.Area;
+			wards.map((ward) => {
+				if (wardValue === ward._id) {
+					currPosition = [ward.y_centroid, ward.x_centroid];
+					let area = ward.area;
 					// let height = document.getElementById('map').offsetHeight;
 					// let width = document.getElementById('map').offsetWidth;
 					currZoom = calculateZoom(area, 650, 600) - 9.5;
@@ -90,12 +89,13 @@ function MapComponent() {
 	// 	setOpen(true);
 	// }
 	const handleClose = () => setOpen(false);
-	let selectedWardBoundary = getSelectedWardBoundary(mapData.currWard, wardDivision);
-	let allBoundary = getMaskedBoundary(wardDivision);
-	let cityBoundary = getCityBoundary(wardDivision);
+	let selectedWardBoundary = getSelectedWardBoundary(mapData.currWard, wards);
+	let allBoundary = getMaskedBoundary(wards);
+	let cityBoundary = getCityBoundary(wards);
+
 	// let markerjson = getFilteredGeoJSON(geojson,mapData.currWard,selectedWardBoundary);
 	const toolTipText = "Explore the map component to visualize urban parameters ward-wise, filterable by parameter and score. Color-coded wards display conditions: red for poor, blue for medium, and green for good";
-	let mapColoring = getColor(mapData.currWard, parameter);
+	
 	return (
 		loading ? <div>Loading...</div> :
 			<div className='bg-white mb-2 flex flex-col shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] rounded-sm md:w-[50%] w-[100%] '>
@@ -111,7 +111,7 @@ function MapComponent() {
 									>
 										<MenuItem value={"any"}>All Wards</MenuItem>
 										{wards.map((ward) => {
-											return (<MenuItem value={ward.ward_number}>{ward.ward_name}</MenuItem>)
+											return (<MenuItem value={ward._id}>{ward.name}</MenuItem>)
 										})}
 									</Select>
 								</FormControl>
@@ -125,9 +125,9 @@ function MapComponent() {
 									>
 										<MenuItem value={"any"}>All Parameter</MenuItem>
 										<MenuItem value={"cleaniness_score"}>Cleaniness</MenuItem>
-										<MenuItem value={"public_space_utilization_score"}>Public Space Utilization</MenuItem>
+										<MenuItem value={"public_space_utilization"}>Public Space Utilization</MenuItem>
 										<MenuItem value={"road_score"}>Road</MenuItem>
-										<MenuItem value={"sidewalk_score"}>Walkability</MenuItem>
+										<MenuItem value={"walkability_score"}>Walkability</MenuItem>
 									</Select>
 								</FormControl>
 							</Box>
@@ -176,7 +176,8 @@ function MapComponent() {
 							// dashArray:7
 						}} /> */}
 						{selectedWardBoundary.map((ward) => {
-							return <WardPolygon setMapData={setmapData} mapData={mapData} number={ward.scores.ward_number} name={ward.scores.ward_name} boundary={ward.boundary} fillColor={getColRep(parameter === "any" ? ward.scores.overall_score : ward.scores[`${parameter}`])}/>
+							return <WardPolygon setMapData={setmapData} mapData={mapData} number={ward.scores.ward_number} name={ward.scores.ward_name} boundary={ward.boundary} fillColor={getColRep(parameter === "any" ? ward.scores.overall_score
+							: ward.scores[`${parameter}`])}/>
 						})}
 					</MapContainer>
 					<ImageModal handleClose={handleClose} open={open} imgsrc={imgsrc} />

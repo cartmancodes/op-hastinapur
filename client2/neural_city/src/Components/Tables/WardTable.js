@@ -19,9 +19,13 @@ import { alpha } from '@mui/material/styles';
 import { useState, useEffect } from 'react';
 import { avgData } from '../../mockData/MapData';
 import InfoButton from '../ui/InfoButton';
+import api from '../../lib/axiosClient'
+import { useContext } from 'react';
+import {CityContext} from '../../Context/CityContext'
+
 const columns = [
   { id: 'ward_number', label: 'Ward Number', minWidth: 100, align: 'center', },
-  { id: 'ward_name', label: 'Ward Name', minWidth: 170, align: 'center', },
+  { id: 'name', label: 'Ward Name', minWidth: 170, align: 'center', },
   {
     id: 'overall_score',
     label: 'Overall Score',
@@ -37,14 +41,14 @@ const columns = [
     format: (value) => value.toFixed(2),
   },
   {
-    id: 'sidewalk_score',
+    id: 'walkability_score',
     label: 'Walkability Score',
     minWidth: 100,
     align: 'center',
     format: (value) => value.toFixed(2),
   },
   {
-    id: 'public_space_utilization_score',
+    id: 'public_space_utilization',
     label: 'Public Space Utilization',
     minWidth: 100,
     align: 'center',
@@ -106,11 +110,34 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
 }));
 
 
-export default function WardTable() {
+export default function WardTable({wards}) {
   const [searchText, setSearchText] = useState("");
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(6);
   const [filter, setFilter] = React.useState("all");
+  const [avgData,setavgData] = useState(wards);
+  const [error,setError] = useState("");
+  const [loading,setLoading] = useState(true);
+
+  // const cityContext = useContext(CityContext);
+  // const city = cityContext.current_city;
+
+  // useEffect(() => {
+  //   (async function fetch_data() {
+  //     setLoading(true);
+  //     try {
+  //       const res = await api.get(`/ward/?city_id=${city}&depth=1`);
+  //       if(res.status === 200) {
+  //         console.log(res.data);
+  //       }
+  //     } catch(err) {
+  //       setError(err.message);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   })();
+  // },[]);
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -147,9 +174,6 @@ export default function WardTable() {
     });
     console.log(rows);
   }
-
-
-
 
   let styleUnactive = 'text-sm border rounded-2xl p-1 px-2 cursor-pointer';
   let styleActive = 'text-sm border rounded-2xl p-1 px-2 cursor-pointer bg-sky-100 text-black'

@@ -9,11 +9,15 @@ from app.db.connections import db
 from app.routes.ward import wardRouter
 from app.routes.city import cityRouter
 from app.routes.workflows import workflowRouter
+from app.routes.user import auth_router
+from app.middlewares.role_based_access import user_access,admin_access
+
 """Setting up application context"""
 app = FastAPI()
 app.include_router(wardRouter)
 app.include_router(cityRouter)
 app.include_router(workflowRouter)
+app.include_router(auth_router)
 # global logger = logging.getLogger(__name__)
 
 @app.on_event("startup")
@@ -25,13 +29,22 @@ async def shut_down():
     await db.close_dbi()
 
 """Enable CORS"""
+origins = [
+    "http://localhost:3000",
+    # You can add more origins here as needed
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5000","http://localhost:3000"],
+    allow_origins=origins,  # Allow requests from these origins
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["*"],  # Allow all HTTP methods (GET, POST, etc.)
+    allow_headers=["*"],  # Allow all headers
 )
+
+# app.middleware("http")(admin_access)
+# app.middleware("http")(user_access)
+
 """Root Page"""
 @app.get("/")
 def home():

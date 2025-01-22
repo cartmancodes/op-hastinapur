@@ -11,6 +11,10 @@ import MapMarker from './ui/MapMarker';
 import { calculateAverage, getSelectedWardBoundary, getColRep } from '../../utils/MapUtils';
 import ImageModal from '../Modals/ImageModal';
 import { getCityBoundary } from '../../utils/MapUtils';
+import { useContext } from 'react';
+import { CityContext } from '../../Context/CityContext';
+import api from '../../lib/axiosClient';
+
 const LeafIcon = L.Icon.extend({
     options: {}
 });
@@ -24,6 +28,7 @@ function SpecificPageMapComponent(props) {
     const [imgsrc, setImgsrc] = useState("");
     const [open, setOpen] = React.useState(false);
     const [showLoading, setShowLoading] = useState(true);
+
     // Modal Popup Open Close Functions
     const handleOpen = (e) => {
         setImgsrc(() => e.target.getAttribute('src'));
@@ -58,21 +63,23 @@ function SpecificPageMapComponent(props) {
     const position = props.mapData.position;
     const wardValue = props.mapData.currWard;
 
+    
     // Getting Selected Ward Boundary,Average and Corresponding Color Representations
-    let selectedWardBoundary = getSelectedWardBoundary(wardValue, wardDivision);
-    let cityBoundary = getCityBoundary(wardDivision);
+    let selectedWardBoundary = getSelectedWardBoundary(wardValue, props.wards);
+    let cityBoundary = getCityBoundary(props.wards);
     const polygon = L.polygon(cityBoundary);
     const bounds = polygon.getBounds();
 
+    console.log(props.wards)
     // let wards = getWardsWithName(wardDivision);
     return (
-        showLoading ? <div>Loading...</div> : <div className='hidden sm:block rounded-md p-2 border'>
+        showLoading ? <div>Loading...</div> : <div className='hidden rounded-lg sm:block'>
             <MapContainer
                 zoomSnap={0.5}
                 key={props.pos}
                 // maxBoundsViscosity={1.0}
-                className='h-[400px]
-                w-full'
+                className='h-[550px]
+                w-[100%]'
                 zoom={zoom}
                 scrollWheelZoom={true}
                 maxZoom={18}
@@ -81,7 +88,7 @@ function SpecificPageMapComponent(props) {
             >
                 {
                     selectedWardBoundary.map((ward) => {
-                        return <Polygon positions={ward.boundary} fillOpacity={0.4} weight={1} fillColor={props.geojson.colorRep} color={`gray`}/>
+                        return <Polygon positions={ward.boundary} fillOpacity={0.4} weight={1} fillColor={props.geojson.colorRep} color={`gray`} />
                     })
                 }
                 {
@@ -93,8 +100,9 @@ function SpecificPageMapComponent(props) {
                 }
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    url="https://tile.jawg.io/jawg-streets/{z}/{x}/{y}{r}.png?access-token=TrH0JnH4kKkGM6Lz5N3CN1tCc1paDOUTe92mCoRP83bTanmO0DrdjyOvCcI5sNxZ"
                 />
+                
             </MapContainer>
             <ImageModal open={open} handleClose={handleClose} imgsrc={imgsrc} />
         </div>
