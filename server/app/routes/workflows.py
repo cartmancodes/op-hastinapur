@@ -5,7 +5,7 @@ from app.services.workflows import insert_workflow,get_workflows,bulk_insert_wor
 from beanie import PydanticObjectId
 from app.middlewares.role_based_access import user_access,admin_access
 
-workflowRouter = APIRouter(prefix="/workflows")
+workflowRouter = APIRouter(prefix="/api/v1/workflows")
 
 @workflowRouter.post("/",dependencies=[Depends(admin_access)])
 async def insert_workflow_route(request:SingleWorkFlowInsertRequest):

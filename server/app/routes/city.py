@@ -7,7 +7,7 @@ from typing import Optional
 from fastapi import Query,Body
 from app.middlewares.role_based_access import admin_access,user_access
 
-cityRouter = APIRouter(prefix="/city")
+cityRouter = APIRouter(prefix="/api/v1/city")
 
 @cityRouter.post("/",dependencies=[Depends(admin_access)])
 async def insert_city_route(request: CityInsertRequest):

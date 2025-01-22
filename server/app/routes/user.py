@@ -12,7 +12,7 @@ from beanie.operators import In
 
 auth_router = APIRouter()
 
-@auth_router.post("/register", response_model=Token)
+@auth_router.post("/api/v1/register", response_model=Token)
 async def register(user_create: UserCreate):
     user = await User.find_one({"email" : user_create.email})
     if user:
@@ -29,7 +29,7 @@ async def register(user_create: UserCreate):
     return response
 
 
-@auth_router.post("/login",response_model=LoginResponse)
+@auth_router.post("/api/v1/login",response_model=LoginResponse)
 async def login(user: UserLogin):
     authenticated_user = await authenticate_user(email=user.email, password=user.password)
     if not authenticated_user:

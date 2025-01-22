@@ -5,7 +5,7 @@ from app.services.ward import insert_ward,get_wards,bulk_insert_wards,update_war
 from beanie import PydanticObjectId
 from app.middlewares.role_based_access import user_access,admin_access
 
-wardRouter = APIRouter(prefix="/ward")
+wardRouter = APIRouter(prefix="/api/v1/ward")
 
 @wardRouter.post("/",dependencies=[Depends(admin_access)])
 async def insert_ward_route(ward: SingleWardInsertRequest):
