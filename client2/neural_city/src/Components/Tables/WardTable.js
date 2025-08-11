@@ -13,50 +13,81 @@ import {
 } from '@mui/material';
 import { tableCellClasses } from '@mui/material/TableCell';
 import { styled } from '@mui/material/styles';
-import { mockScore } from '../../mockData/MapData';
 import WardTableRow from './WardTableRow';
 import { alpha } from '@mui/material/styles';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { avgData } from '../../mockData/MapData';
-import InfoButton from '../ui/InfoButton';
+import { areaData } from '../../mockData/area_scores';
+import { Box } from '@mui/material';
+import { MenuItem } from '@mui/material';
+import { Select } from '@mui/material';
+
 const columns = [
-  { id: 'ward_number', label: 'Ward Number', minWidth: 100, align: 'center', },
-  { id: 'ward_name', label: 'Ward Name', minWidth: 170, align: 'center', },
+  { id: 'area_name', label: 'Area Name', minWidth: 170, align: 'center', },
+  { id: 'area_type', label: 'Area Type', minWidth: 170, align: 'center', },
   {
-    id: 'overall_score',
-    label: 'Overall Score',
+    id: 'overall',
+    label: 'Overall',
     minWidth: 100,
     align: 'center',
     format: (value) => value.toFixed(2),
   },
   {
-    id: 'cleaniness_score',
-    label: 'Cleaniness Score',
+    id: 'Cleanliness_and_Waste_Management',
+    label: 'Cleaniness',
     minWidth: 100,
     align: 'center',
     format: (value) => value.toFixed(2),
   },
   {
-    id: 'sidewalk_score',
-    label: 'Walkability Score',
+    id: 'Walkability_and_Inclusivity',
+    label: 'Walkability',
     minWidth: 100,
     align: 'center',
     format: (value) => value.toFixed(2),
   },
   {
-    id: 'public_space_utilization_score',
-    label: 'Public Space Utilization',
+    id: 'Encroachment',
+    label: 'Encroachment',
     minWidth: 100,
     align: 'center',
     format: (value) => value.toFixed(2),
   },
   {
-    id: 'road_score',
-    label: 'Road',
+    id: 'Health_and_Environment',
+    label: 'Health and Env.',
     minWidth: 100,
     align: 'center',
     format: (value) => value.toFixed(2),
-  }
+  },
+  {
+    id: 'Mobility_and_Congestion',
+    label: 'Mob. and Cong.',
+    minWidth: 100,
+    align: 'center',
+    format: (value) => value.toFixed(2),
+  },
+  {
+    id: 'Public_Safety',
+    label: 'Public Safety',
+    minWidth: 100,
+    align: 'center',
+    format: (value) => value.toFixed(2),
+  },
+  {
+    id: 'Aesthetics',
+    label: 'Aesthetics',
+    minWidth: 100,
+    align: 'center',
+    format: (value) => value.toFixed(2),
+  },
+  {
+    id: 'Road_Quality',
+    label: 'Road Quality',
+    minWidth: 100,
+    align: 'center',
+    format: (value) => value.toFixed(2),
+  },
 ];
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -111,6 +142,8 @@ export default function WardTable() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(6);
   const [filter, setFilter] = React.useState("all");
+  const [areaType, setAreaType] = useState("wards");
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -123,13 +156,13 @@ export default function WardTable() {
   data.sort((dat1, dat2) => dat1.ward_number - dat2.ward_number);
   let rows = data;
   if (filter == "bottom_five") {
-    if(page !== 0){
+    if (page !== 0) {
       setPage(0);
     }
     data.sort((dat1, dat2) => dat1.overall_score - dat2.overall_score);
     rows = data.slice(0, 5);
   } else if (filter === "top_five") {
-    if(page !== 0){
+    if (page !== 0) {
       setPage(0);
     }
     data.sort((dat1, dat2) => dat2.overall_score - dat1.overall_score);
@@ -141,34 +174,43 @@ export default function WardTable() {
     if (filter != "all") {
       setFilter("all");
     }
-    console.log("Here");
     rows = data.filter((dat) => {
-      return dat.ward_name.toUpperCase().includes(searchText.toUpperCase()) || dat.ward_number.toString().includes(searchText);
+      return dat.area_name.toUpperCase().includes(searchText.toUpperCase());
     });
     console.log(rows);
   }
 
-
-
-
   let styleUnactive = 'text-sm border rounded-2xl p-1 px-2 cursor-pointer';
   let styleActive = 'text-sm border rounded-2xl p-1 px-2 cursor-pointer bg-sky-100 text-black'
   return (
-    <div className='flex items-center justify-center md:h-[80vh] w-[100%] mb-[60px]'>
-      <Paper sx={{ width: '100%', overflow: 'scroll', scrollbarWidth: '0px'}}>
+    <div className='flex items-center justify-center w-[100%] rounded-xl'>
+      <Paper sx={{ width: '100%', overflow: 'scroll', scrollbarWidth: '0px' }}>
         <div className='py-4 space-y-2 sm:space-y-0 w-full shadow-lg rounded-t-lg px-2 sm:flex items-center justify-between'>
           <div className='text-2xl w-[50%] flex items-center font-bold space-x-2'>
             {/* <h1>Wards</h1> */}
-            <FormControl variant="standard">
-              <BootstrapInput className='w-[300px]' value={searchText} onChange={(e) => setSearchText(e.target.value)} placeholder="Search Wards" />
-            </FormControl>
-            <InfoButton></InfoButton>
+            <Box sx={{ minWidth: 120 }}>
+              <FormControl fullWidth>
+                <Select
+                  size='small'
+                  value={areaType}
+                  onChange={(e) => setAreaType(e.target.value)}
+                >
+                  <MenuItem value={"wards"}>Wards</MenuItem>
+                  <MenuItem value={"roads"}>Roads</MenuItem>
+                  <MenuItem value={"intersections"}>Intersections</MenuItem>
+                  <MenuItem value={"parks"}>Parks</MenuItem>
+                  <MenuItem value={"markets"}>Markets</MenuItem>
+                  <MenuItem value={"tourist_area"}>Tourist Area</MenuItem>
+                  <MenuItem value={"transport_hub"}>Transport Hub</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
           </div>
-          
+
           <div className='flex space-x-2'>
             <button onClick={() => setFilter("all")} className={filter == "all" ? styleActive : styleUnactive}>All</button>
-            <button onClick={() => setFilter("top_five")} className={filter == "top_five" ? styleActive : styleUnactive}>Top 5 Wards</button>
-            <button onClick={() => setFilter("bottom_five")} className={filter == "bottom_five" ? styleActive : styleUnactive}>Bottom 5 Wards</button>
+            <button onClick={() => setFilter("top_five")} className={filter == "top_five" ? styleActive : styleUnactive}>Top 5 Area</button>
+            <button onClick={() => setFilter("bottom_five")} className={filter == "bottom_five" ? styleActive : styleUnactive}>Bottom 5 Area</button>
           </div>
         </div>
         <TableContainer sx={{ maxHeight: 640 }}>
@@ -193,12 +235,13 @@ export default function WardTable() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              {areaData
+              .filter((column) => column.area_type === areaType)
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row) => {
                   return (
-                    <WardTableRow row={row} columns={columns} />
-                  );
+              <WardTableRow row={row} columns={columns} />
+              );
                 })}
             </TableBody>
           </Table>

@@ -26,7 +26,7 @@ function Sidebar({ items }) {
     const styleInactive = 'hover:bg-violet-100 hover:text-violet-600  rounded-lg text-violet-600';
 
     return (
-        <div className='md:w-fit bg-violet-50 border md:bg-opacity-50 p-2 w-[100%] space-x-6 justify-start md:space-x-0 md:justify-start flex md:flex-col text-gray-700 rounded mr-[2px] md:ml-2 md:h-[83vh] md:space-y-8 md:sticky md:top-16 md:left-0 fixed bottom-0 left-0 z-[1001]'>
+        <div className='md:w-fit bg-white border md:bg-opacity-50 p-2 w-[100%] space-x-6 justify-start md:space-x-0 md:justify-start flex md:flex-col text-gray-700 border-t-0 md:h-[100vh] md:space-y-8 md:sticky md:top-16 md:left-0 fixed bottom-0 left-0 z-[1001]'>
             <div className='md:space-y-2 space-x-8 md:space-x-0 flex md:flex-col'>
                 {
                     items.map((item, idx) => {
@@ -43,8 +43,7 @@ function Sidebar({ items }) {
                         )
                     })
                 }
-            </div>
-            
+            </div>  
         </div>
     )
 }

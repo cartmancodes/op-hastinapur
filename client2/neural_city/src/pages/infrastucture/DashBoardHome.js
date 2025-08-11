@@ -1,12 +1,14 @@
 import React from 'react'
 import MapComponent from '../../Components/MapComponents/Map';
-import OverAllScoreComponent from '../../Components/Cards/OverAllScore';
-import IndividualScores from '../../Components/Cards/IndividualScores';
-import LineBarCombination from '../../Components/Charts/LineBarCombination';
-import ActionCard from '../../Components/Cards/ActionCard';
 import WardTable from '../../Components/Tables/WardTable';
 import MapAnalysis from '../../Components/Charts/MapAnalysis';
-
+import CityNameCard from '../../Components/Cards/CityNameCard';
+import ParameterCard from '../../Components/Cards/ParameterCard';
+import MainScoreCard from '../../Components/Cards/MainScoreCard';
+import OtherScoreCard from '../../Components/Cards/OtherScoreCard';
+import LineChart from '../../Components/Charts/LineChart';
+import ActionCard from '../../Components/Cards/ActionCard'
+import RadarChart from '../../Components/Charts/RadarChart';
 // function caseChange(str) {
 //     let sepe = str.split("_");
 //     let ans = sepe.map((s) => {
@@ -15,125 +17,59 @@ import MapAnalysis from '../../Components/Charts/MapAnalysis';
 //     return ans;
 // }
 
-let scores = [
-    {
-        name: "Cleaniness Score",
-        description: " A metric evaluating the cleanliness and hygiene levels of a specific area, establishment, or object. It provides insights into the overall cleanliness standards, helping users make informed decisions about their surroundings",
-        value: 21.46,
-        poor: {
-            total: 4,
-            params: [
-                { name: "Garbage and Litter", score: 28.88888889 },
-                { name: "Tobbaco spit", score: 0 },
-                { name: "Dust Score", score: 18.06451613 },
-                { name: "Drain Score", score: 21.44927536 },
-            ]
-        },
-        acceptable: {
-            total: 2,
-            params: [
-                { name: "Dustbins/Dumpsters Score", score: 50 },
-                { name: "Toilet/Urination Score", score: 50 }
-            ]
-        },
-        good: {
-            total: 0,
-            params: [
-
-            ]
-        }
-    },
-    {
-        name: "Walkability Score",
-        description: "A measure indicating the ease and convenience of walking in a particular area or neighborhood. Factors such as pedestrian infrastructure, proximity to amenities, safety, and ease of navigation contribute to this score, helping individuals assess the walkability and pedestrian-friendliness of a location",
-        value: 24.92,
-        poor: {
-            total: 4,
-            params: [
-                { name: "Construction Material Score", score: 20 },
-                { name: "Sidewalk Usability Score", score: 30.47619048 },
-                { name: "Parking on Sidewalk Score", score: 4.578313253 },
-                { name: "Sidewalk Availability Score", score: 0 },
-            ]
-        },
-        acceptable: {
-            total: 2,
-            params: [
-                { name: "Street Furniture and Amenities Score", score: 50 },
-                { name: "Walking Space Score", score: 54.28571429 }
-            ]
-        },
-        good: {
-            total: 0,
-            params: [
-            ]
-        }
-    },
-    {
-        name: "Public Space compliance",
-        description: "Refers to the adherence of public spaces, such as parks, sidewalks, and recreational areas, to local regulations, guidelines, and standards. It encompasses factors such as safety measures, accessibility features, cleanliness, and overall maintenance to ensure that public spaces meet established requirements and provide a pleasant environment for residents and visitors",
-        value: 37.05,
-        poor: {
-            total: 1,
-            params: [
-                { name: "General Occupation", score: 18.7027027 },
-            ]
-        },
-        acceptable: {
-            total: 1,
-            params: [
-                { name: "Occupants", score: 49.68553459 },
-            ]
-        },
-        good: {
-            total: 0,
-            params: []
-        }
-    },
-    {
-        name: "Roads Score",
-        description: "A metric assessing the quality, safety, and efficiency of roads within a specific area or region. Factors such as road condition, traffic congestion, signage, infrastructure maintenance, and accident rates are considered in determining the road score. This score provides valuable insights for travelers, urban planners, and policymakers to improve transportation systems and enhance road safety.",
-        value: 34.41,
-        poor: {
-            total: 3,
-            params: [
-                { name: "Type of Road Score", score: 27.31958763 },
-                { name: "Lane Markings Score", score: 20 },
-                { name: "Parking on Road Score", score: 31.70984456 },
-            ]
-        },
-        acceptable: {
-            total: 5,
-            params: [
-                { name: "Road Motorable Space Score", score: 38.27586207 },
-                { name: "Surface Quality Score", score: 53.76623377 },
-                { name: "Repair Quality Score", score: 50 },
-                { name: "Blacktop Quality Score", score: 40 },
-                { name: "Cycling Infrastructure Score", score: 50 },
-            ]
-        },
-        good: {
-            total: 0,
-            params: []
-        }
-    },
-]
+const road_quality = "Road Quality";
+const parameters = ["Cleaniness", "Walkability", "Road", "Mobility", "Health and Env", "Encroachment", "Public Safety", "Aesthetics"];
 function DashBoardHome() {
+    const scoreVariation = [55.13,57.05,60.02,57.08];
+
+    const parameterScores = [60,68.57,60,66.66,40,53.33,20,80];
+    const parameterNames = ["Cleanliness","Walkability","Roads","Mobility","Health","Enchroachment","Public Safety","Aesthetics"];
     return (
         <div className='w-full p-2 sm:p-0 min-h-[100vh]'>
-            <div className='md:space-y-[100px] space-y-[20px] relative w-full sm:p-4'>
-                <div id='overall' className='w-full section md:flex items-center md:space-x-6 space-y-2 md:space-y-0'>
-                    <OverAllScoreComponent score={28.87} good={2} acceptable={10} poor={11} />
-                    <IndividualScores scores={scores} include_sdg={true} />
+            <div className='md:space-y-[60px] space-y-[20px] px-[80px] relative w-full sm:p-4'>
+                <div id='overall' className='w-full section items-center space-y-10'>
+                    {/* <OverAllScoreComponent score={28.87} good={2} acceptable={10} poor={11} />
+                    <IndividualScores scores={scores} include_sdg={true} /> */}
+                    <div className='flex justify-between w-full items-center space-x-10'>
+                        <CityNameCard parameter_value="Jhansi" parameter_name={"City Name"}></CityNameCard>
+                        <ParameterCard parameter_value={767} parameter_name={"Number of Data Points"}></ParameterCard>
+                        <ParameterCard parameter_value={60} parameter_name={"% of wards covered"}></ParameterCard>
+                        <ParameterCard parameter_value={2000} parameter_name={"Sq. Km of Area Covered"}></ParameterCard>
+                        <ParameterCard parameter_value={1000} parameter_name={"Km of Road Covered"}></ParameterCard>
+                    </div>
+                    <div id='overall' className='w-full md:flex items-center md:space-x-6 space-y-2 md:space-y-0'>
+                        <div className='flex w-full justify-between items-center space-x-6'>
+                            <MainScoreCard national_score={62} city_score={56.07}></MainScoreCard>
+                            <div className="gap-6 flex flex-wrap">
+                                <OtherScoreCard body_color={"#4C2F60"} image_link={"/icons/cleaning.png"} score_name={"Cleanliness and Waste Management"} national={65} city_score={60}></OtherScoreCard>
+                                <OtherScoreCard body_color={"#113852"} image_link={"/icons/walk.png"} score_name={"Walkability and Inclusivity"} national={73} city_score={68.57142857}></OtherScoreCard>
+                                <OtherScoreCard body_color={"#945D12"} image_link={"/icons/destination.png"} score_name={"Road Quality"} national={65} city_score={60}></OtherScoreCard>
+                                <OtherScoreCard body_color={"#1A5921"} image_link={"/icons/mobility.png"} score_name={"Mobility and Congestion"} national={70} city_score={66.66}></OtherScoreCard>
+                                <OtherScoreCard body_color={"#860020"} image_link={"/icons/healthcare.png"} score_name={"Health and Environment"} national={46} city_score={40}></OtherScoreCard>
+                                <OtherScoreCard body_color={"#012049"} image_link={"/icons/mobility.png"} score_name={"Encroachment"} national={58} city_score={53.33}></OtherScoreCard>
+                                <OtherScoreCard body_color={"#4E946E"} image_link={"/icons/security.png"} score_name={"Public Safety"} national={25} city_score={20}></OtherScoreCard>
+                                <OtherScoreCard body_color={"#7D233D"} image_link={"/icons/asterisk.png"} score_name={"Aesthetics"} national={83} city_score={80}></OtherScoreCard>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div id='deepDive' className='w-full section md:flex items-center space-y-2 md:space-y-0 justify-between'>
-                    <MapAnalysis />
+
+                <div className="grid grid-cols-2 gap-[20px]">
+                    <LineChart chart_name={"City Score Trend"} cityData={scoreVariation}/>
+                    <ActionCard />
+                    <RadarChart parameterScore = {parameterScores} parameterNames={parameterNames} title={"Parameter Breakdown"} />
                     <MapComponent />
                 </div>
-                <div id='actionItems' className='w-full section md:flex items-center space-y-2 md:space-y-0 justify-between'>
-                    <LineBarCombination />
-                    <ActionCard />
+
+                {/* <div id='actionItems' className='w-full section md:flex items-center space-y-2 md:space-y-0 justify-between'>
+
                 </div>
+
+
+                <div id='deepDive' className='w-full section md:flex items-center space-y-2 md:space-y-0 justify-between'>
+
+                </div> */}
+
                 <div
                     id='wardTable'
                     className='

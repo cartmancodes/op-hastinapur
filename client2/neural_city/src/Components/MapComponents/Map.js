@@ -39,7 +39,7 @@ function getColor(curr_ward, parameter) {
 
 function MapComponent() {
 	// States
-	const [scoreValue, setScoreValue] = useState("any");
+	const [areaType, setAreaType] = useState("ward");
 	const [loading, setLoading] = useState(false);
 	const [parameter, setparameter] = useState("any");
 	const [imgsrc, setImgsrc] = useState("");
@@ -98,10 +98,27 @@ function MapComponent() {
 	let mapColoring = getColor(mapData.currWard, parameter);
 	return (
 		loading ? <div>Loading...</div> :
-			<div className='bg-white mb-2 flex flex-col shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] rounded-sm md:w-[50%] w-[100%] '>
+			<div className='bg-white mb-2 max-h-[667px] flex flex-col shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] rounded-xl w-[100%]'>
 				<div className='flex items-center justify-between'>
 					<div className='w-[100%] border-b item-center justify-between sm:flex sm:space-x-4 space-y-2 sm:space-y-0'>
 						<div className='sm:flex p-3 item-center space-y-2 sm:space-y-0 sm:space-x-4'>
+							<Box sx={{ minWidth: 120 }}>
+								<FormControl fullWidth>
+									<Select
+										size='small'
+										value={areaType}
+										onChange={(e) => setAreaType(e.target.value)}
+									>
+										<MenuItem value={"ward"}>Wards</MenuItem>
+										<MenuItem value={"roads"}>Roads</MenuItem>
+										<MenuItem value={"intersection"}>Intersections</MenuItem>
+										<MenuItem value={"parks"}>Parks</MenuItem>
+										<MenuItem value={"markets"}>Markets</MenuItem>
+										<MenuItem value={"tourist_area"}>Tourist Area</MenuItem>
+										<MenuItem value={"transport_hub"}>Transport Hub</MenuItem>
+									</Select>
+								</FormControl>
+							</Box>
 							<Box sx={{ minWidth: 120 }}>
 								<FormControl fullWidth>
 									<Select
@@ -128,21 +145,6 @@ function MapComponent() {
 										<MenuItem value={"public_space_utilization_score"}>Public Space Utilization</MenuItem>
 										<MenuItem value={"road_score"}>Road</MenuItem>
 										<MenuItem value={"sidewalk_score"}>Walkability</MenuItem>
-									</Select>
-								</FormControl>
-							</Box>
-
-							<Box sx={{ minWidth: 120 }}>
-								<FormControl fullWidth>
-									<Select
-										size='small'
-										value={scoreValue}
-										onChange={(e) => setScoreValue(e.target.value)}
-									>
-										<MenuItem value={"any"}>Score</MenuItem>
-										<MenuItem value={"poor"}>Poor</MenuItem>
-										<MenuItem value={"managable"}>Manageable</MenuItem>
-										<MenuItem value={"good"}>Good</MenuItem>
 									</Select>
 								</FormControl>
 							</Box>

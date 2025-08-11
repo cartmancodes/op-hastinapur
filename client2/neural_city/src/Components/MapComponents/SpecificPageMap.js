@@ -11,6 +11,34 @@ import MapMarker from './ui/MapMarker';
 import { calculateAverage, getSelectedWardBoundary, getColRep } from '../../utils/MapUtils';
 import ImageModal from '../Modals/ImageModal';
 import { getCityBoundary } from '../../utils/MapUtils';
+import MarkerClusterGroup from '@changey/react-leaflet-markercluster';
+import { useMap } from 'react-leaflet';
+
+const createClusterCustomIcon = (cluster) => {
+    const count = cluster.getChildCount();
+
+    return L.divIcon({
+        html: `
+      <div style="
+        background: black;
+        border-radius: 100%;
+        color: white;
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        font-weight: bold;
+      ">
+        ${count}
+      </div>
+    `,
+        className: 'custom-marker-cluster',
+        iconSize: [40, 40],
+    });
+}
+
 const LeafIcon = L.Icon.extend({
     options: {}
 });
@@ -20,10 +48,42 @@ const redIcon = new LeafIcon({
 })
 
 
+
+function ZoomDisplay({ zoom, setZoom }) {
+    const map = useMap(); // ✅ This works ONLY inside MapContainer
+
+    useEffect(() => {
+        const onZoom = () => setZoom(map.getZoom());
+        map.on('zoomend', onZoom);
+
+        return () => {
+            map.off('zoomend', onZoom);
+        };
+    }, [map]);
+
+    return (
+        <div
+            style={{
+                position: 'absolute',
+                top: 10,
+                right: 10,
+                backgroundColor: 'white',
+                padding: '8px 16px',
+                zIndex: 1000,
+            }}
+        >
+            Zoom: {zoom}
+        </div>
+    );
+}
+
+
+
 function SpecificPageMapComponent(props) {
     const [imgsrc, setImgsrc] = useState("");
     const [open, setOpen] = React.useState(false);
     const [showLoading, setShowLoading] = useState(true);
+    const [zoom, setZoom] = useState(props.mapData.zoom);
     // Modal Popup Open Close Functions
     const handleOpen = (e) => {
         setImgsrc(() => e.target.getAttribute('src'));
@@ -54,7 +114,6 @@ function SpecificPageMapComponent(props) {
     }, [props.mapData]);
 
     // Values Recieved Through Props
-    const zoom = props.mapData.zoom;
     const position = props.mapData.position;
     const wardValue = props.mapData.currWard;
 
@@ -68,28 +127,48 @@ function SpecificPageMapComponent(props) {
     return (
         showLoading ? <div>Loading...</div> : <div className='hidden sm:block rounded-md p-2 border'>
             <MapContainer
+                maxBounds={cityBoundary}
                 zoomSnap={0.5}
                 key={props.pos}
                 // maxBoundsViscosity={1.0}
-                className='h-[400px]
+                zoomAnimation={true}
+                zoomAnimationThreshold={4}
+                zoomSnap={0.25}   // smoother zoom levels
+                zoomDelta={0.25}
+                className='h-[75vh]
                 w-full'
                 zoom={zoom}
                 scrollWheelZoom={true}
-                maxZoom={18}
+                maxZoom={28}
                 center={position}
                 markerZoomAnimation={true}
             >
+                <ZoomDisplay zoom={zoom} setZoom={setZoom} />
                 {
                     selectedWardBoundary.map((ward) => {
-                        return <Polygon positions={ward.boundary} fillOpacity={0.4} weight={1} fillColor={props.geojson.colorRep} color={`gray`}/>
+                        return <Polygon positions={ward.boundary} fillOpacity={0.4} weight={1} fillColor={props.geojson.colorRep} color={`gray`} />
                     })
                 }
                 {
-                    props.geojson.data.map((pos) => {
-                        return (
-                            <MapMarker pos={pos} handleOpen={handleOpen} />
-                        )
-                    })
+                    zoom <= 16 ? <MarkerClusterGroup iconCreateFunction={createClusterCustomIcon}>
+
+                        {
+                            props.geojson.data.map((pos, idx) => {
+                                return (
+                                    <MapMarker key={idx} pos={pos} handleOpen={handleOpen} />
+                                )
+                            })
+                        }
+                    </MarkerClusterGroup> :
+                        <div>
+                            {
+                                props.geojson.data.map((pos, idx) => {
+                                    return (
+                                        <MapMarker key={idx} pos={pos} handleOpen={handleOpen} />
+                                    )
+                                })
+                            }
+                        </div>
                 }
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -97,8 +176,8 @@ function SpecificPageMapComponent(props) {
                 />
             </MapContainer>
             <ImageModal open={open} handleClose={handleClose} imgsrc={imgsrc} />
-        </div>
+        </div >
     )
 }
 
-export default SpecificPageMapComponent
+export default SpecificPageMapComponent;
