@@ -11,7 +11,7 @@ function IndividualScoreCard({ score,parameter }) {
     const handleClose = () => setOpen(false);
     const [scores,setScores] = useState([]);
     return (
-        <div className='bg-white rounded-lg 
+        <div className='bg-white rounded-xl 
                         shadow-[rgba(50,_50,_105,_0.15)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.05)_0px_1px_1px_0px]
                         sm:p-4
                         p-2

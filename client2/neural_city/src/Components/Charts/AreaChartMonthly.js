@@ -45,7 +45,7 @@ const AreaChartMonthly = ({ data, color }) => {
     };
 
     return (
-        <div style={{ color: data.colors[2] }} className='shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] rounded-md border-gray-200'>
+        <div style={{ color: data.colors[2] }} className='rounded-xl shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] border-gray-200'>
             <div style={{ background: data.colors[1] }} className='bg-blue-200 border-b border-black flex items-center justify-between rounded-t-md py-1 px-2'>
                 <div className='font-bold'>{data.name}</div>
                 <div style={{ color: data.score < 35 ? 'red' : data.score < 70 ? 'blue' : 'green' }} className='font-bold'>{data.score}</div>

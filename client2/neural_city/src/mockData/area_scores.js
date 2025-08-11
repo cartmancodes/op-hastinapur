@@ -1,0 +1,1640 @@
+export const areaData = [
+  {
+    "area_name": "Agrasen Chawk",
+    "area_type": "intersections",
+    "parameters": {
+      "Aesthetics": {
+        "frequency": 1,
+        "score": 80.0
+      },
+      "Cleanliness_and_Waste_Management": {
+        "frequency": 4,
+        "score": 40.0
+      },
+      "Encroachment": {
+        "frequency": 1,
+        "score": 46.67
+      },
+      "Health_and_Environment": {
+        "frequency": 4,
+        "score": 40.0
+      },
+      "Mobility_and_Congestion": {
+        "frequency": 4,
+        "score": 70.0
+      },
+      "Public_Safety": {
+        "frequency": 0,
+        "score": 0
+      },
+      "Road_Quality": {
+        "frequency": 4,
+        "score": 66.67
+      },
+      "Walkability_and_Inclusivity": {
+        "frequency": 4,
+        "score": 72.25
+      },
+      "overall": {
+        "frequency": 7,
+        "score": 59.37
+      }
+    }
+  },
+  {
+    "area_name": "BKD Chauraha",
+    "area_type": "intersections",
+    "parameters": {
+      "Aesthetics": {
+        "frequency": 5,
+        "score": 80.0
+      },
+      "Cleanliness_and_Waste_Management": {
+        "frequency": 8,
+        "score": 60.0
+      },
+      "Encroachment": {
+        "frequency": 3,
+        "score": 60.0
+      },
+      "Health_and_Environment": {
+        "frequency": 3,
+        "score": 60.0
+      },
+      "Mobility_and_Congestion": {
+        "frequency": 7,
+        "score": 60.0
+      },
+      "Public_Safety": {
+        "frequency": 0,
+        "score": 0
+      },
+      "Road_Quality": {
+        "frequency": 7,
+        "score": 66.67
+      },
+      "Walkability_and_Inclusivity": {
+        "frequency": 4,
+        "score": 65.71
+      },
+      "overall": {
+        "frequency": 7,
+        "score": 64.63
+      }
+    }
+  },
+  {
+    "area_name": "BKD To Jeevan Shah",
+    "area_type": "roads",
+    "parameters": {
+      "Aesthetics": {
+        "frequency": 66,
+        "score": 80.0
+      },
+      "Cleanliness_and_Waste_Management": {
+        "frequency": 114,
+        "score": 50.0
+      },
+      "Encroachment": {
+        "frequency": 39,
+        "score": 53.33
+      },
+      "Health_and_Environment": {
+        "frequency": 78,
+        "score": 55.0
+      },
+      "Mobility_and_Congestion": {
+        "frequency": 97,
+        "score": 66.67
+      },
+      "Public_Safety": {
+        "frequency": 10,
+        "score": 20.0
+      },
+      "Road_Quality": {
+        "frequency": 85,
+        "score": 53.33
+      },
+      "Walkability_and_Inclusivity": {
+        "frequency": 70,
+        "score": 68.04
+      },
+      "overall": {
+        "frequency": 8,
+        "score": 55.8
+      }
+    }
+  },
+  {
+    "area_name": "BKD to Chitra Chauraha",
+    "area_type": "roads",
+    "parameters": {
+      "Aesthetics": {
+        "frequency": 55,
+        "score": 80.0
+      },
+      "Cleanliness_and_Waste_Management": {
+        "frequency": 55,
+        "score": 40.0
+      },
+      "Encroachment": {
+        "frequency": 5,
+        "score": 53.33
+      },
+      "Health_and_Environment": {
+        "frequency": 48,
+        "score": 40.0
+      },
+      "Mobility_and_Congestion": {
+        "frequency": 51,
+        "score": 66.67
+      },
+      "Public_Safety": {
+        "frequency": 1,
+        "score": 0.0
+      },
+      "Road_Quality": {
+        "frequency": 51,
+        "score": 66.67
+      },
+      "Walkability_and_Inclusivity": {
+        "frequency": 39,
+        "score": 67.27
+      },
+      "overall": {
+        "frequency": 8,
+        "score": 51.74
+      }
+    }
+  },
+  {
+    "area_name": "Bagicha Puliya Mo 9",
+    "area_type": "wards",
+    "parameters": {
+      "Aesthetics": {
+        "frequency": 114,
+        "score": 80.0
+      },
+      "Cleanliness_and_Waste_Management": {
+        "frequency": 129,
+        "score": 40.0
+      },
+      "Encroachment": {
+        "frequency": 9,
+        "score": 53.33
+      },
+      "Health_and_Environment": {
+        "frequency": 69,
+        "score": 40.0
+      },
+      "Mobility_and_Congestion": {
+        "frequency": 124,
+        "score": 80.0
+      },
+      "Public_Safety": {
+        "frequency": 2,
+        "score": 20.0
+      },
+      "Road_Quality": {
+        "frequency": 123,
+        "score": 66.67
+      },
+      "Walkability_and_Inclusivity": {
+        "frequency": 100,
+        "score": 65.83
+      },
+      "overall": {
+        "frequency": 8,
+        "score": 55.73
+      }
+    }
+  },
+  {
+    "area_name": "Bahar Khanderao Gate",
+    "area_type": "wards",
+    "parameters": {
+      "Aesthetics": {
+        "frequency": 54,
+        "score": 80.0
+      },
+      "Cleanliness_and_Waste_Management": {
+        "frequency": 93,
+        "score": 50.0
+      },
+      "Encroachment": {
+        "frequency": 36,
+        "score": 60.0
+      },
+      "Health_and_Environment": {
+        "frequency": 68,
+        "score": 50.0
+      },
+      "Mobility_and_Congestion": {
+        "frequency": 78,
+        "score": 66.67
+      },
+      "Public_Safety": {
+        "frequency": 9,
+        "score": 20.0
+      },
+      "Road_Quality": {
+        "frequency": 68,
+        "score": 55.0
+      },
+      "Walkability_and_Inclusivity": {
+        "frequency": 63,
+        "score": 67.5
+      },
+      "overall": {
+        "frequency": 8,
+        "score": 56.15
+      }
+    }
+  },
+  {
+    "area_name": "Betwa Club to Parshuram",
+    "area_type": "roads",
+    "parameters": {
+      "Aesthetics": {
+        "frequency": 13,
+        "score": 80.0
+      },
+      "Cleanliness_and_Waste_Management": {
+        "frequency": 18,
+        "score": 60.0
+      },
+      "Encroachment": {
+        "frequency": 1,
+        "score": 53.33
+      },
+      "Health_and_Environment": {
+        "frequency": 14,
+        "score": 60.0
+      },
+      "Mobility_and_Congestion": {
+        "frequency": 18,
+        "score": 66.67
+      },
+      "Public_Safety": {
+        "frequency": 0,
+        "score": 0
+      },
+      "Road_Quality": {
+        "frequency": 18,
+        "score": 60.0
+      },
+      "Walkability_and_Inclusivity": {
+        "frequency": 1,
+        "score": 37.14
+      },
+      "overall": {
+        "frequency": 7,
+        "score": 59.59
+      }
+    }
+  },
+  {
+    "area_name": "Bijauli",
+    "area_type": "wards",
+    "parameters": {
+      "Aesthetics": {
+        "frequency": 33,
+        "score": 80.0
+      },
+      "Cleanliness_and_Waste_Management": {
+        "frequency": 43,
+        "score": 60.0
+      },
+      "Encroachment": {
+        "frequency": 3,
+        "score": 60.0
+      },
+      "Health_and_Environment": {
+        "frequency": 11,
+        "score": 60.0
+      },
+      "Mobility_and_Congestion": {
+        "frequency": 43,
+        "score": 80.0
+      },
+      "Public_Safety": {
+        "frequency": 1,
+        "score": 20.0
+      },
+      "Road_Quality": {
+        "frequency": 43,
+        "score": 60.0
+      },
+      "Walkability_and_Inclusivity": {
+        "frequency": 42,
+        "score": 72.5
+      },
+      "overall": {
+        "frequency": 8,
+        "score": 61.56
+      }
+    }
+  },
+  {
+    "area_name": "Bus Stand",
+    "area_type": "transport_hub",
+    "parameters": {
+      "Aesthetics": {
+        "frequency": 33,
+        "score": 80.0
+      },
+      "Cleanliness_and_Waste_Management": {
+        "frequency": 67,
+        "score": 40.0
+      },
+      "Encroachment": {
+        "frequency": 15,
+        "score": 46.67
+      },
+      "Health_and_Environment": {
+        "frequency": 23,
+        "score": 60.0
+      },
+      "Mobility_and_Congestion": {
+        "frequency": 60,
+        "score": 66.67
+      },
+      "Public_Safety": {
+        "frequency": 2,
+        "score": 20.0
+      },
+      "Road_Quality": {
+        "frequency": 47,
+        "score": 60.0
+      },
+      "Walkability_and_Inclusivity": {
+        "frequency": 24,
+        "score": 64.58
+      },
+      "overall": {
+        "frequency": 8,
+        "score": 54.74
+      }
+    }
+  },
+  {
+    "area_name": "Bus Stand Intersection",
+    "area_type": "intersections",
+    "parameters": {
+      "Aesthetics": {
+        "frequency": 18,
+        "score": 80.0
+      },
+      "Cleanliness_and_Waste_Management": {
+        "frequency": 35,
+        "score": 40.0
+      },
+      "Encroachment": {
+        "frequency": 7,
+        "score": 60.0
+      },
+      "Health_and_Environment": {
+        "frequency": 23,
+        "score": 40.0
+      },
+      "Mobility_and_Congestion": {
+        "frequency": 31,
+        "score": 66.67
+      },
+      "Public_Safety": {
+        "frequency": 2,
+        "score": 20.0
+      },
+      "Road_Quality": {
+        "frequency": 23,
+        "score": 53.33
+      },
+      "Walkability_and_Inclusivity": {
+        "frequency": 21,
+        "score": 65.0
+      },
+      "overall": {
+        "frequency": 8,
+        "score": 53.12
+      }
+    }
+  },
+  {
+    "area_name": "Bus Stand To Kacheri Chauraha",
+    "area_type": "roads",
+    "parameters": {
+      "Aesthetics": {
+        "frequency": 32,
+        "score": 80.0
+      },
+      "Cleanliness_and_Waste_Management": {
+        "frequency": 39,
+        "score": 60.0
+      },
+      "Encroachment": {
+        "frequency": 3,
+        "score": 60.0
+      },
+      "Health_and_Environment": {
+        "frequency": 6,
+        "score": 55.0
+      },
+      "Mobility_and_Congestion": {
+        "frequency": 39,
+        "score": 80.0
+      },
+      "Public_Safety": {
+        "frequency": 0,
+        "score": 0
+      },
+      "Road_Quality": {
+        "frequency": 39,
+        "score": 60.0
+      },
+      "Walkability_and_Inclusivity": {
+        "frequency": 35,
+        "score": 72.5
+      },
+      "overall": {
+        "frequency": 7,
+        "score": 66.79
+      }
+    }
+  },
+  {
+    "area_name": "Chaniyapura",
+    "area_type": "wards",
+    "parameters": {
+      "Aesthetics": {
+        "frequency": 1,
+        "score": 60.0
+      },
+      "Cleanliness_and_Waste_Management": {
+        "frequency": 4,
+        "score": 23.33
+      },
+      "Encroachment": {
+        "frequency": 0,
+        "score": 0
+      },
+      "Health_and_Environment": {
+        "frequency": 1,
+        "score": 40.0
+      },
+      "Mobility_and_Congestion": {
+        "frequency": 1,
+        "score": 80.0
+      },
+      "Public_Safety": {
+        "frequency": 0,
+        "score": 0
+      },
+      "Road_Quality": {
+        "frequency": 1,
+        "score": 60.0
+      },
+      "Walkability_and_Inclusivity": {
+        "frequency": 0,
+        "score": 0
+      },
+      "overall": {
+        "frequency": 5,
+        "score": 52.67
+      }
+    }
+  },
+  {
+    "area_name": "Civil Line (West part)",
+    "area_type": "wards",
+    "parameters": {
+      "Aesthetics": {
+        "frequency": 64,
+        "score": 80.0
+      },
+      "Cleanliness_and_Waste_Management": {
+        "frequency": 67,
+        "score": 40.0
+      },
+      "Encroachment": {
+        "frequency": 8,
+        "score": 56.67
+      },
+      "Health_and_Environment": {
+        "frequency": 55,
+        "score": 40.0
+      },
+      "Mobility_and_Congestion": {
+        "frequency": 62,
+        "score": 66.67
+      },
+      "Public_Safety": {
+        "frequency": 1,
+        "score": 0.0
+      },
+      "Road_Quality": {
+        "frequency": 62,
+        "score": 66.67
+      },
+      "Walkability_and_Inclusivity": {
+        "frequency": 47,
+        "score": 67.5
+      },
+      "overall": {
+        "frequency": 8,
+        "score": 52.19
+      }
+    }
+  },
+  {
+    "area_name": "Civil Lines (North part)",
+    "area_type": "wards",
+    "parameters": {
+      "Aesthetics": {
+        "frequency": 47,
+        "score": 80.0
+      },
+      "Cleanliness_and_Waste_Management": {
+        "frequency": 74,
+        "score": 40.0
+      },
+      "Encroachment": {
+        "frequency": 16,
+        "score": 40.0
+      },
+      "Health_and_Environment": {
+        "frequency": 40,
+        "score": 60.0
+      },
+      "Mobility_and_Congestion": {
+        "frequency": 70,
+        "score": 66.67
+      },
+      "Public_Safety": {
+        "frequency": 6,
+        "score": 20.0
+      },
+      "Road_Quality": {
+        "frequency": 66,
+        "score": 53.33
+      },
+      "Walkability_and_Inclusivity": {
+        "frequency": 13,
+        "score": 50.0
+      },
+      "overall": {
+        "frequency": 8,
+        "score": 51.25
+      }
+    }
+  },
+  {
+    "area_name": "Civil Lines South Part 1",
+    "area_type": "wards",
+    "parameters": {
+      "Aesthetics": {
+        "frequency": 105,
+        "score": 80.0
+      },
+      "Cleanliness_and_Waste_Management": {
+        "frequency": 137,
+        "score": 60.0
+      },
+      "Encroachment": {
+        "frequency": 15,
+        "score": 40.0
+      },
+      "Health_and_Environment": {
+        "frequency": 67,
+        "score": 60.0
+      },
+      "Mobility_and_Congestion": {
+        "frequency": 128,
+        "score": 80.0
+      },
+      "Public_Safety": {
+        "frequency": 25,
+        "score": 20.0
+      },
+      "Road_Quality": {
+        "frequency": 130,
+        "score": 60.0
+      },
+      "Walkability_and_Inclusivity": {
+        "frequency": 61,
+        "score": 72.5
+      },
+      "overall": {
+        "frequency": 8,
+        "score": 59.06
+      }
+    }
+  },
+  {
+    "area_name": "Civil Lines South part 2",
+    "area_type": "wards",
+    "parameters": {
+      "Aesthetics": {
+        "frequency": 9,
+        "score": 80.0
+      },
+      "Cleanliness_and_Waste_Management": {
+        "frequency": 24,
+        "score": 40.0
+      },
+      "Encroachment": {
+        "frequency": 4,
+        "score": 20.0
+      },
+      "Health_and_Environment": {
+        "frequency": 19,
+        "score": 40.0
+      },
+      "Mobility_and_Congestion": {
+        "frequency": 22,
+        "score": 66.67
+      },
+      "Public_Safety": {
+        "frequency": 4,
+        "score": 20.0
+      },
+      "Road_Quality": {
+        "frequency": 19,
+        "score": 40.0
+      },
+      "Walkability_and_Inclusivity": {
+        "frequency": 6,
+        "score": 41.25
+      },
+      "overall": {
+        "frequency": 8,
+        "score": 43.49
+      }
+    }
+  },
+  {
+    "area_name": "Dadiyapura Second",
+    "area_type": "wards",
+    "parameters": {
+      "Aesthetics": {
+        "frequency": 58,
+        "score": 80.0
+      },
+      "Cleanliness_and_Waste_Management": {
+        "frequency": 63,
+        "score": 60.0
+      },
+      "Encroachment": {
+        "frequency": 9,
+        "score": 60.0
+      },
+      "Health_and_Environment": {
+        "frequency": 60,
+        "score": 40.0
+      },
+      "Mobility_and_Congestion": {
+        "frequency": 63,
+        "score": 80.0
+      },
+      "Public_Safety": {
+        "frequency": 2,
+        "score": 20.0
+      },
+      "Road_Quality": {
+        "frequency": 62,
+        "score": 46.67
+      },
+      "Walkability_and_Inclusivity": {
+        "frequency": 56,
+        "score": 62.5
+      },
+      "overall": {
+        "frequency": 8,
+        "score": 56.15
+      }
+    }
+  },
+  {
+    "area_name": "Elite",
+    "area_type": "intersections",
+    "parameters": {
+      "Aesthetics": {
+        "frequency": 30,
+        "score": 80.0
+      },
+      "Cleanliness_and_Waste_Management": {
+        "frequency": 74,
+        "score": 40.0
+      },
+      "Encroachment": {
+        "frequency": 12,
+        "score": 36.67
+      },
+      "Health_and_Environment": {
+        "frequency": 38,
+        "score": 40.0
+      },
+      "Mobility_and_Congestion": {
+        "frequency": 68,
+        "score": 80.0
+      },
+      "Public_Safety": {
+        "frequency": 16,
+        "score": 20.0
+      },
+      "Road_Quality": {
+        "frequency": 66,
+        "score": 53.33
+      },
+      "Walkability_and_Inclusivity": {
+        "frequency": 17,
+        "score": 50.0
+      },
+      "overall": {
+        "frequency": 8,
+        "score": 50.0
+      }
+    }
+  },
+  {
+    "area_name": "Elite to Chitra",
+    "area_type": "roads",
+    "parameters": {
+      "Aesthetics": {
+        "frequency": 13,
+        "score": 80.0
+      },
+      "Cleanliness_and_Waste_Management": {
+        "frequency": 13,
+        "score": 40.0
+      },
+      "Encroachment": {
+        "frequency": 6,
+        "score": 40.0
+      },
+      "Health_and_Environment": {
+        "frequency": 6,
+        "score": 40.0
+      },
+      "Mobility_and_Congestion": {
+        "frequency": 13,
+        "score": 66.67
+      },
+      "Public_Safety": {
+        "frequency": 1,
+        "score": 20.0
+      },
+      "Road_Quality": {
+        "frequency": 13,
+        "score": 66.67
+      },
+      "Walkability_and_Inclusivity": {
+        "frequency": 0,
+        "score": 0
+      },
+      "overall": {
+        "frequency": 7,
+        "score": 50.48
+      }
+    }
+  },
+  {
+    "area_name": "Fort Boulevard",
+    "area_type": "tourist_area",
+    "parameters": {
+      "Aesthetics": {
+        "frequency": 9,
+        "score": 90.0
+      },
+      "Cleanliness_and_Waste_Management": {
+        "frequency": 23,
+        "score": 60.0
+      },
+      "Encroachment": {
+        "frequency": 5,
+        "score": 53.33
+      },
+      "Health_and_Environment": {
+        "frequency": 9,
+        "score": 60.0
+      },
+      "Mobility_and_Congestion": {
+        "frequency": 11,
+        "score": 66.67
+      },
+      "Public_Safety": {
+        "frequency": 0,
+        "score": 0
+      },
+      "Road_Quality": {
+        "frequency": 11,
+        "score": 73.33
+      },
+      "Walkability_and_Inclusivity": {
+        "frequency": 11,
+        "score": 47.5
+      },
+      "overall": {
+        "frequency": 7,
+        "score": 64.4
+      }
+    }
+  },
+  {
+    "area_name": "Jai Chauraha",
+    "area_type": "intersections",
+    "parameters": {
+      "Aesthetics": {
+        "frequency": 27,
+        "score": 70.0
+      },
+      "Cleanliness_and_Waste_Management": {
+        "frequency": 33,
+        "score": 60.0
+      },
+      "Encroachment": {
+        "frequency": 5,
+        "score": 20.0
+      },
+      "Health_and_Environment": {
+        "frequency": 18,
+        "score": 60.0
+      },
+      "Mobility_and_Congestion": {
+        "frequency": 29,
+        "score": 66.67
+      },
+      "Public_Safety": {
+        "frequency": 8,
+        "score": 20.0
+      },
+      "Road_Quality": {
+        "frequency": 25,
+        "score": 46.67
+      },
+      "Walkability_and_Inclusivity": {
+        "frequency": 16,
+        "score": 61.11
+      },
+      "overall": {
+        "frequency": 8,
+        "score": 50.56
+      }
+    }
+  },
+  {
+    "area_name": "Jail Chauraha to Elite",
+    "area_type": "roads",
+    "parameters": {
+      "Aesthetics": {
+        "frequency": 28,
+        "score": 90.0
+      },
+      "Cleanliness_and_Waste_Management": {
+        "frequency": 28,
+        "score": 60.0
+      },
+      "Encroachment": {
+        "frequency": 0,
+        "score": 0
+      },
+      "Health_and_Environment": {
+        "frequency": 18,
+        "score": 60.0
+      },
+      "Mobility_and_Congestion": {
+        "frequency": 27,
+        "score": 80.0
+      },
+      "Public_Safety": {
+        "frequency": 4,
+        "score": 20.0
+      },
+      "Road_Quality": {
+        "frequency": 28,
+        "score": 70.0
+      },
+      "Walkability_and_Inclusivity": {
+        "frequency": 28,
+        "score": 77.5
+      },
+      "overall": {
+        "frequency": 7,
+        "score": 65.36
+      }
+    }
+  },
+  {
+    "area_name": "Jeevan Shah to Elite",
+    "area_type": "roads",
+    "parameters": {
+      "Aesthetics": {
+        "frequency": 6,
+        "score": 80.0
+      },
+      "Cleanliness_and_Waste_Management": {
+        "frequency": 8,
+        "score": 60.0
+      },
+      "Encroachment": {
+        "frequency": 0,
+        "score": 0
+      },
+      "Health_and_Environment": {
+        "frequency": 1,
+        "score": 60.0
+      },
+      "Mobility_and_Congestion": {
+        "frequency": 8,
+        "score": 66.67
+      },
+      "Public_Safety": {
+        "frequency": 0,
+        "score": 0
+      },
+      "Road_Quality": {
+        "frequency": 8,
+        "score": 66.67
+      },
+      "Walkability_and_Inclusivity": {
+        "frequency": 0,
+        "score": 0
+      },
+      "overall": {
+        "frequency": 5,
+        "score": 66.67
+      }
+    }
+  },
+  {
+    "area_name": "Jhs Fort",
+    "area_type": "tourist_area",
+    "parameters": {
+      "Aesthetics": {
+        "frequency": 9,
+        "score": 50.0
+      },
+      "Cleanliness_and_Waste_Management": {
+        "frequency": 9,
+        "score": 40.0
+      },
+      "Encroachment": {
+        "frequency": 0,
+        "score": 0
+      },
+      "Health_and_Environment": {
+        "frequency": 9,
+        "score": 30.0
+      },
+      "Mobility_and_Congestion": {
+        "frequency": 9,
+        "score": 80.0
+      },
+      "Public_Safety": {
+        "frequency": 0,
+        "score": 0
+      },
+      "Road_Quality": {
+        "frequency": 9,
+        "score": 73.33
+      },
+      "Walkability_and_Inclusivity": {
+        "frequency": 9,
+        "score": 51.43
+      },
+      "overall": {
+        "frequency": 6,
+        "score": 54.13
+      }
+    }
+  },
+  {
+    "area_name": "Kacheri Chauraha",
+    "area_type": "intersections",
+    "parameters": {
+      "Aesthetics": {
+        "frequency": 23,
+        "score": 80.0
+      },
+      "Cleanliness_and_Waste_Management": {
+        "frequency": 35,
+        "score": 60.0
+      },
+      "Encroachment": {
+        "frequency": 5,
+        "score": 40.0
+      },
+      "Health_and_Environment": {
+        "frequency": 17,
+        "score": 60.0
+      },
+      "Mobility_and_Congestion": {
+        "frequency": 33,
+        "score": 66.67
+      },
+      "Public_Safety": {
+        "frequency": 4,
+        "score": 20.0
+      },
+      "Road_Quality": {
+        "frequency": 34,
+        "score": 53.33
+      },
+      "Walkability_and_Inclusivity": {
+        "frequency": 10,
+        "score": 72.5
+      },
+      "overall": {
+        "frequency": 8,
+        "score": 56.56
+      }
+    }
+  },
+  {
+    "area_name": "Kacheri to Jail Chauraha",
+    "area_type": "roads",
+    "parameters": {
+      "Aesthetics": {
+        "frequency": 17,
+        "score": 80.0
+      },
+      "Cleanliness_and_Waste_Management": {
+        "frequency": 17,
+        "score": 60.0
+      },
+      "Encroachment": {
+        "frequency": 5,
+        "score": 40.0
+      },
+      "Health_and_Environment": {
+        "frequency": 7,
+        "score": 40.0
+      },
+      "Mobility_and_Congestion": {
+        "frequency": 17,
+        "score": 66.67
+      },
+      "Public_Safety": {
+        "frequency": 3,
+        "score": 20.0
+      },
+      "Road_Quality": {
+        "frequency": 16,
+        "score": 66.67
+      },
+      "Walkability_and_Inclusivity": {
+        "frequency": 3,
+        "score": 100.0
+      },
+      "overall": {
+        "frequency": 8,
+        "score": 59.17
+      }
+    }
+  },
+  {
+    "area_name": "Manik Chawk",
+    "area_type": "markets",
+    "parameters": {
+      "Aesthetics": {
+        "frequency": 1,
+        "score": 20.0
+      },
+      "Cleanliness_and_Waste_Management": {
+        "frequency": 13,
+        "score": 40.0
+      },
+      "Encroachment": {
+        "frequency": 2,
+        "score": 60.0
+      },
+      "Health_and_Environment": {
+        "frequency": 3,
+        "score": 60.0
+      },
+      "Mobility_and_Congestion": {
+        "frequency": 7,
+        "score": 66.67
+      },
+      "Public_Safety": {
+        "frequency": 0,
+        "score": 0
+      },
+      "Road_Quality": {
+        "frequency": 6,
+        "score": 40.0
+      },
+      "Walkability_and_Inclusivity": {
+        "frequency": 5,
+        "score": 36.67
+      },
+      "overall": {
+        "frequency": 7,
+        "score": 46.19
+      }
+    }
+  },
+  {
+    "area_name": "Minerva",
+    "area_type": "intersections",
+    "parameters": {
+      "Aesthetics": {
+        "frequency": 2,
+        "score": 70.0
+      },
+      "Cleanliness_and_Waste_Management": {
+        "frequency": 5,
+        "score": 40.0
+      },
+      "Encroachment": {
+        "frequency": 1,
+        "score": 46.67
+      },
+      "Health_and_Environment": {
+        "frequency": 5,
+        "score": 26.67
+      },
+      "Mobility_and_Congestion": {
+        "frequency": 4,
+        "score": 80.0
+      },
+      "Public_Safety": {
+        "frequency": 0,
+        "score": 0
+      },
+      "Road_Quality": {
+        "frequency": 5,
+        "score": 73.33
+      },
+      "Walkability_and_Inclusivity": {
+        "frequency": 5,
+        "score": 40.0
+      },
+      "overall": {
+        "frequency": 7,
+        "score": 53.81
+      }
+    }
+  },
+  {
+    "area_name": "Pichaur",
+    "area_type": "wards",
+    "parameters": {
+      "Aesthetics": {
+        "frequency": 123,
+        "score": 80.0
+      },
+      "Cleanliness_and_Waste_Management": {
+        "frequency": 214,
+        "score": 60.0
+      },
+      "Encroachment": {
+        "frequency": 22,
+        "score": 50.0
+      },
+      "Health_and_Environment": {
+        "frequency": 153,
+        "score": 60.0
+      },
+      "Mobility_and_Congestion": {
+        "frequency": 164,
+        "score": 66.67
+      },
+      "Public_Safety": {
+        "frequency": 4,
+        "score": 20.0
+      },
+      "Road_Quality": {
+        "frequency": 158,
+        "score": 53.33
+      },
+      "Walkability_and_Inclusivity": {
+        "frequency": 177,
+        "score": 72.5
+      },
+      "overall": {
+        "frequency": 8,
+        "score": 57.81
+      }
+    }
+  },
+  {
+    "area_name": "RLB Park",
+    "area_type": "parks",
+    "parameters": {
+      "Aesthetics": {
+        "frequency": 9,
+        "score": 90.0
+      },
+      "Cleanliness_and_Waste_Management": {
+        "frequency": 9,
+        "score": 60.0
+      },
+      "Encroachment": {
+        "frequency": 3,
+        "score": 53.33
+      },
+      "Health_and_Environment": {
+        "frequency": 9,
+        "score": 30.0
+      },
+      "Mobility_and_Congestion": {
+        "frequency": 9,
+        "score": 80.0
+      },
+      "Public_Safety": {
+        "frequency": 0,
+        "score": 0
+      },
+      "Road_Quality": {
+        "frequency": 9,
+        "score": 73.33
+      },
+      "Walkability_and_Inclusivity": {
+        "frequency": 9,
+        "score": 47.5
+      },
+      "overall": {
+        "frequency": 7,
+        "score": 62.02
+      }
+    }
+  },
+  {
+    "area_name": "Rail Overbridge Sipri",
+    "area_type": "roads",
+    "parameters": {
+      "Aesthetics": {
+        "frequency": 4,
+        "score": 80.0
+      },
+      "Cleanliness_and_Waste_Management": {
+        "frequency": 4,
+        "score": 30.0
+      },
+      "Encroachment": {
+        "frequency": 0,
+        "score": 0
+      },
+      "Health_and_Environment": {
+        "frequency": 4,
+        "score": 30.0
+      },
+      "Mobility_and_Congestion": {
+        "frequency": 4,
+        "score": 80.0
+      },
+      "Public_Safety": {
+        "frequency": 0,
+        "score": 0
+      },
+      "Road_Quality": {
+        "frequency": 4,
+        "score": 66.67
+      },
+      "Walkability_and_Inclusivity": {
+        "frequency": 4,
+        "score": 68.75
+      },
+      "overall": {
+        "frequency": 6,
+        "score": 59.24
+      }
+    }
+  },
+  {
+    "area_name": "Railway Station",
+    "area_type": "transport_hub",
+    "parameters": {
+      "Aesthetics": {
+        "frequency": 63,
+        "score": 80.0
+      },
+      "Cleanliness_and_Waste_Management": {
+        "frequency": 73,
+        "score": 40.0
+      },
+      "Encroachment": {
+        "frequency": 2,
+        "score": 50.0
+      },
+      "Health_and_Environment": {
+        "frequency": 15,
+        "score": 40.0
+      },
+      "Mobility_and_Congestion": {
+        "frequency": 71,
+        "score": 66.67
+      },
+      "Public_Safety": {
+        "frequency": 1,
+        "score": 20.0
+      },
+      "Road_Quality": {
+        "frequency": 70,
+        "score": 53.33
+      },
+      "Walkability_and_Inclusivity": {
+        "frequency": 48,
+        "score": 67.5
+      },
+      "overall": {
+        "frequency": 8,
+        "score": 52.19
+      }
+    }
+  },
+  {
+    "area_name": "Railway Station to Betwa Club",
+    "area_type": "roads",
+    "parameters": {
+      "Aesthetics": {
+        "frequency": 16,
+        "score": 60.0
+      },
+      "Cleanliness_and_Waste_Management": {
+        "frequency": 20,
+        "score": 40.0
+      },
+      "Encroachment": {
+        "frequency": 0,
+        "score": 0
+      },
+      "Health_and_Environment": {
+        "frequency": 19,
+        "score": 40.0
+      },
+      "Mobility_and_Congestion": {
+        "frequency": 17,
+        "score": 80.0
+      },
+      "Public_Safety": {
+        "frequency": 1,
+        "score": 20.0
+      },
+      "Road_Quality": {
+        "frequency": 17,
+        "score": 66.67
+      },
+      "Walkability_and_Inclusivity": {
+        "frequency": 17,
+        "score": 68.33
+      },
+      "overall": {
+        "frequency": 7,
+        "score": 53.57
+      }
+    }
+  },
+  {
+    "area_name": "Rishala Chungi to Bus Stand",
+    "area_type": "roads",
+    "parameters": {
+      "Aesthetics": {
+        "frequency": 32,
+        "score": 80.0
+      },
+      "Cleanliness_and_Waste_Management": {
+        "frequency": 34,
+        "score": 60.0
+      },
+      "Encroachment": {
+        "frequency": 2,
+        "score": 60.0
+      },
+      "Health_and_Environment": {
+        "frequency": 23,
+        "score": 30.0
+      },
+      "Mobility_and_Congestion": {
+        "frequency": 34,
+        "score": 66.67
+      },
+      "Public_Safety": {
+        "frequency": 2,
+        "score": 20.0
+      },
+      "Road_Quality": {
+        "frequency": 34,
+        "score": 66.67
+      },
+      "Walkability_and_Inclusivity": {
+        "frequency": 24,
+        "score": 72.5
+      },
+      "overall": {
+        "frequency": 8,
+        "score": 56.98
+      }
+    }
+  },
+  {
+    "area_name": "Talaiya",
+    "area_type": "wards",
+    "parameters": {
+      "Aesthetics": {
+        "frequency": 29,
+        "score": 80.0
+      },
+      "Cleanliness_and_Waste_Management": {
+        "frequency": 45,
+        "score": 60.0
+      },
+      "Encroachment": {
+        "frequency": 10,
+        "score": 53.33
+      },
+      "Health_and_Environment": {
+        "frequency": 32,
+        "score": 26.67
+      },
+      "Mobility_and_Congestion": {
+        "frequency": 33,
+        "score": 80.0
+      },
+      "Public_Safety": {
+        "frequency": 2,
+        "score": 10.0
+      },
+      "Road_Quality": {
+        "frequency": 34,
+        "score": 73.33
+      },
+      "Walkability_and_Inclusivity": {
+        "frequency": 34,
+        "score": 47.5
+      },
+      "overall": {
+        "frequency": 8,
+        "score": 53.85
+      }
+    }
+  },
+  {
+    "area_name": "Talpura Second",
+    "area_type": "wards",
+    "parameters": {
+      "Aesthetics": {
+        "frequency": 105,
+        "score": 80.0
+      },
+      "Cleanliness_and_Waste_Management": {
+        "frequency": 163,
+        "score": 50.0
+      },
+      "Encroachment": {
+        "frequency": 33,
+        "score": 53.33
+      },
+      "Health_and_Environment": {
+        "frequency": 87,
+        "score": 40.0
+      },
+      "Mobility_and_Congestion": {
+        "frequency": 152,
+        "score": 66.67
+      },
+      "Public_Safety": {
+        "frequency": 6,
+        "score": 20.0
+      },
+      "Road_Quality": {
+        "frequency": 131,
+        "score": 60.0
+      },
+      "Walkability_and_Inclusivity": {
+        "frequency": 96,
+        "score": 71.43
+      },
+      "overall": {
+        "frequency": 8,
+        "score": 55.18
+      }
+    }
+  },
+  {
+    "area_name": "University Road",
+    "area_type": "roads",
+    "parameters": {
+      "Aesthetics": {
+        "frequency": 171,
+        "score": 80.0
+      },
+      "Cleanliness_and_Waste_Management": {
+        "frequency": 257,
+        "score": 60.0
+      },
+      "Encroachment": {
+        "frequency": 33,
+        "score": 53.33
+      },
+      "Health_and_Environment": {
+        "frequency": 190,
+        "score": 40.0
+      },
+      "Mobility_and_Congestion": {
+        "frequency": 209,
+        "score": 66.67
+      },
+      "Public_Safety": {
+        "frequency": 4,
+        "score": 20.0
+      },
+      "Road_Quality": {
+        "frequency": 204,
+        "score": 53.33
+      },
+      "Walkability_and_Inclusivity": {
+        "frequency": 220,
+        "score": 72.5
+      },
+      "overall": {
+        "frequency": 8,
+        "score": 55.73
+      }
+    }
+  },
+  {
+    "area_name": "gusainpura",
+    "area_type": "wards",
+    "parameters": {
+      "Aesthetics": {
+        "frequency": 17,
+        "score": 50.0
+      },
+      "Cleanliness_and_Waste_Management": {
+        "frequency": 48,
+        "score": 40.0
+      },
+      "Encroachment": {
+        "frequency": 4,
+        "score": 60.0
+      },
+      "Health_and_Environment": {
+        "frequency": 23,
+        "score": 50.0
+      },
+      "Mobility_and_Congestion": {
+        "frequency": 31,
+        "score": 80.0
+      },
+      "Public_Safety": {
+        "frequency": 1,
+        "score": 0.0
+      },
+      "Road_Quality": {
+        "frequency": 30,
+        "score": 66.67
+      },
+      "Walkability_and_Inclusivity": {
+        "frequency": 29,
+        "score": 50.0
+      },
+      "overall": {
+        "frequency": 8,
+        "score": 49.58
+      }
+    }
+  },
+  {
+    "area_name": "khushipura",
+    "area_type": "wards",
+    "parameters": {
+      "Aesthetics": {
+        "frequency": 32,
+        "score": 80.0
+      },
+      "Cleanliness_and_Waste_Management": {
+        "frequency": 46,
+        "score": 60.0
+      },
+      "Encroachment": {
+        "frequency": 6,
+        "score": 40.0
+      },
+      "Health_and_Environment": {
+        "frequency": 23,
+        "score": 60.0
+      },
+      "Mobility_and_Congestion": {
+        "frequency": 44,
+        "score": 66.67
+      },
+      "Public_Safety": {
+        "frequency": 4,
+        "score": 20.0
+      },
+      "Road_Quality": {
+        "frequency": 43,
+        "score": 53.33
+      },
+      "Walkability_and_Inclusivity": {
+        "frequency": 17,
+        "score": 72.5
+      },
+      "overall": {
+        "frequency": 8,
+        "score": 56.56
+      }
+    }
+  }
+]

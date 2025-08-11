@@ -9,6 +9,9 @@ import { useState } from 'react';
 
 function WardTableRow({ row, columns }) {
     const [corouselOpen, setCorouselOpen] = useState(false);
+
+    let overall_score = 0;
+    let total_params = 0;
     const handleCorouselOpen = () => {
         setCorouselOpen(true);
     }
@@ -40,27 +43,37 @@ function WardTableRow({ row, columns }) {
     return (
         <StyledTableRow hover role="checkbox" tabIndex={-1} key={row.code}>
             {columns.map((column) => {
-                const value = row[column.id];
+                let value = {
+                    score: 100,
+                    count: 7
+                };
+
+                if (column.id !== "area_name" && column.id !== "area_type") {
+                    value = row?.parameters?.[column.id]?.score ?? 0;
+                }
+                else {
+                    value = row[column.id];
+                }
+
                 return (
                     <StyledTableCell key={column.id} align={column.align}>
-                        {column.format && typeof value === 'number'
-                            ? column.format(value)
-                            : value}
+                        {column.format && typeof (value) === 'number'
+                            ? column.format((value))
+                            : (value)}
                     </StyledTableCell>
                 );
-
             })}
             <StyledTableCell align={'center'}>
                 <IconButton color='primary' onClick={handleCorouselOpen}>
                     <OutboundSharpIcon />
                 </IconButton>
             </StyledTableCell>
-            <MapCorouselModal 
+            <MapCorouselModal
                 handleCorouselClose={handleCorouselClose}
                 handleCorouselOpen={handleCorouselOpen}
                 ward_name={row.ward_name}
                 corouselOpen={corouselOpen}
-                datapoints = {row.dataPoints}
+                datapoints={row.dataPoints}
             />
         </StyledTableRow>
     )

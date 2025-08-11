@@ -7,7 +7,7 @@ import { Traffic } from '@mui/icons-material';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import InsightsIcon from '@mui/icons-material/Insights';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
-import {ToastContainer} from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 
 let navitems = [
     {
@@ -16,37 +16,37 @@ let navitems = [
         curr_path: "monitoring"
     },
     {
+        name: "Cleaniness Dashboard",
+        path_link: "/infra/parameter",
+        curr_path: "parameter"
+    },
+    {
+        name: "Map View",
+        path_link: "/infra/featuredrill",
+        curr_path: "featuredrill"
+    },
+    {
+        name: "Areawise Breakdown",
+        path_link: "/infra/area",
+        curr_path: "area"
+    },
+
+    {
         name: "Intiate Action",
         path_link: "/infra/intiateaction",
         curr_path: "intiateaction"
     },
     {
         name: "Planning",
-        path_link: `/infra/planning?id=${0}`,
+        path_link: `/infra/planning`,
         curr_path: "planning"
-    }
-]
-
-let sidebaritems = [
-    {
-        icon: <InsightsIcon></InsightsIcon>,
-        title: "Home",
-        path_link: "/infra/monitoring",
-        curr_path: null
     },
-    {
-        icon: <ManageSearchIcon />,
-        title: "Feature Drill",
-        path_link: "/infra/monitoring/featuredrill",
-        curr_path: "featuredrill"
-    }
 ]
 function Dashboard() {
     return (
-        <div className='bg-purple-50 font-sans bg-opacity-25 w-full space-y-2'>
+        <div className='bg-purple-50 font-sans bg-opacity-25 w-full'>
             <DashBoardNav items={navitems} include_date={true} />
-            <div className='min-h-[100vh] rounded-lg w-full flex relative'>
-                <Sidebar items={sidebaritems}></Sidebar>
+            <div className='min-h-[100vh] px-[20px] py-[20px] rounded-lg w-full flex relative'>
                 <Outlet />
             </div>
             <ToastContainer

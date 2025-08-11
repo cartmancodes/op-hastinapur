@@ -55,7 +55,7 @@ const mockData = [
 export default function MapAnalysis() {
     const toolTipText = "This graph depicts key metrics related to urban quality, including cleanliness index, public space compliance rate, and walkability score. It tracks parameters such as waste management efficiency, incidents of vandalism, road condition assessments, and pedestrian-friendly infrastructure initiatives. These metrics offer insights into the overall livability and functionality of urban environments, aiding decision-makers in formulating effective strategies for improvement";
     return (
-        <div className="md:w-[49%] w-[100%] hidden sm:block rounded-sm bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
+        <div className="md:w-[49%] w-[100%] rounded-xl hidden sm:block bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
             <div className='flex items-center space-x-2 text-xl sm:p-3 sm:py-3 p-2 border-b font-bold'>Parameter Overview<InfoButton text={toolTipText}></InfoButton></div>
             <div className='sm:grid bg-gray sm:p-2 sm:py-4 gap-y-8 p-2 sm:grid-cols-2 gap-2'>
                 {

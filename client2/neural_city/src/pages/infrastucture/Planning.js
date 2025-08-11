@@ -66,8 +66,7 @@ export default function Planning() {
 
   const [loading, setLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
-  const idx = searchParams.get('id');
-  const [currIdx, setcurrIdx] = useState(idx);
+  const [currIdx, setcurrIdx] = useState(0);
 
 
   useEffect(() => {

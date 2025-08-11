@@ -22,6 +22,9 @@ import RequestData from "./Components/Forms/RequestData";
 import Loader from "./Components/Global/Loader";
 import ServiceMoniter from "./pages/services/ServiceMoniter";
 import { ToastContainer } from 'react-toastify';
+import AreaWise from "./pages/infrastucture/AreaWise";
+import ParameterWise from "./pages/infrastucture/ParameterWise";
+import { BsDatabaseUp } from "react-icons/bs";
 
 function App() {
   useEffect(() => {
@@ -34,6 +37,7 @@ function App() {
       document.body.removeChild(script);
     }
   }, []);
+  
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -50,16 +54,16 @@ function App() {
     setOpen(false);
   }
   return (
-    loading ? <Loader></Loader> : <React.Fragment>
+    <React.Fragment>
       <Navbar />
       <Routes>
         <Route path="/" element={<Navigate to="/infra/monitoring"></Navigate>}></Route>
         <Route path="/infra" element={<Dashboard />}>
           <Route path="" element={<Navigate to='/infra/monitoring'></Navigate>} />
-          <Route path="monitoring" element={<Monitering />} >
-            <Route path="" element={<DashBoardHome />} />
-            <Route path="featuredrill" element={<SustainabilityPage />} />
-          </Route>
+          <Route path="monitoring" element={<DashBoardHome />} />
+          <Route path="featuredrill" element={<SustainabilityPage />} />
+          <Route path="area" element={<AreaWise></AreaWise>}></Route>
+          <Route path="parameter" element={<ParameterWise></ParameterWise>}></Route>
           <Route path="intiateaction" element={<IntiateAction></IntiateAction>} />
           <Route path="planning" element={<Planning />} />
         </Route>
@@ -80,8 +84,12 @@ function App() {
       </Routes>
       <Footer />
       <div class="fixed z-[1001] bottom-1 right-1 md:bottom-10 md:right-4">
-        <button onClick={handleOpen} class="bg-blue-500 hover:bg-blue-600 text-white rounded-full py-3 px-4 md:shadow-lg">
-          Request Data
+        <button onClick={handleOpen} class="bg-violet-600 hover:bg-violet-700 text-white rounded-xl py-3 px-4 md:shadow-lg">
+          <div className="flex space-x-2 items-center">
+            <BsDatabaseUp />
+            <p>Request Data</p>
+          </div>
+
         </button>
       </div>
 
