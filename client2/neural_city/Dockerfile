@@ -19,13 +19,15 @@ RUN npm run build
 # stage 2 - build the final image and copy the react build files
 # FROM --platform=linux/amd64 nginx
 FROM nginx:alpine
+
+# Copies the built React files from a previous stage into the default Nginx web root.
+COPY --from=build /app/build /usr/share/nginx/html 
+
+# Replace the default Nginx config with our custom config file
 COPY ./nginx/nginx.conf /etc/nginx/nginx.conf 
 
-COPY --from=build /app/build /usr/share/nginx/html 
-# Expose port 3000 or by default port 80 to the outside world
+# Listen on port 3000 
 EXPOSE 3000
-
-EXPOSE 80
 
 # Start Nginx when the container is run
 CMD ["nginx", "-g", "daemon off;"]

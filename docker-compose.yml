@@ -19,7 +19,7 @@ services:
       - "5000:5000"
     environment:
       - DEBUG=True
-    container_name: backend-app
+    container_name: backend
 
   # Frontend Service
   frontend:
@@ -29,5 +29,14 @@ services:
     depends_on:
       - backend
     ports:
+      - "3000:3000"
+    container_name: frontend
+
+  proxy:
+    build:
+      context: ./nginx/
+      dockerfile: Dockerfile
+    container_name: reverse-proxy
+    restart: always
+    ports:
       - "80:80"
-    container_name: frontend-app
